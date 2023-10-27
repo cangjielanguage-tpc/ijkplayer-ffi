@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.4.1)
+project(ijkplayer4cj C)
+add_compile_options(-fPIC)
+set(IJK_PLAYER_CPP cpp)
+add_subdirectory(${IJK_PLAYER_CPP})
