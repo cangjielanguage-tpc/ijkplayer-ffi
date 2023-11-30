@@ -15,25 +15,25 @@
 #include "../api/ijkplayer_api.h"
 #include "ijkplayer_cjapi.h"
 
-void cj_nativeOpenlog(char *xcomponentId) 
+void ijk_nativeOpenlog(char *xcomponentId) 
 {
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_native_openlog(); 
 }
 
-void cj_setDataSource(char *xcomponentId, char *url) 
+void ijk_setDataSource(char *xcomponentId, char *url) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_setDataSource(url);
 }
 
-void cj_setOption(char *xcomponentId, char *category, char *name, char *value) 
+void ijk_setOption(char *xcomponentId, char *category, char *name, char *value) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_setOption(NapiUtil::StringToInt(category), name, value);
 }
 
-void cj_setOptionLong(char *xcomponentId, char *category, char *name, char *value) 
+void ijk_setOptionLong(char *xcomponentId, char *category, char *name, char *value) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)
@@ -41,73 +41,73 @@ void cj_setOptionLong(char *xcomponentId, char *category, char *name, char *valu
                                                             NapiUtil::StringToInt(value));
 }
 
-void cj_prepareAsync(char *xcomponentId) 
+void ijk_prepareAsync(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_prepareAsync();
 }
 
-void cj_start(char *xcomponentId) 
+void ijk_start(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_start();
 }
 
-void cj_stop(char *xcomponentId) 
+void ijk_stop(char *xcomponentId) 
 {  
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_stop();
 }
 
-void cj_pause(char *xcomponentId) 
+void ijk_pause(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_pause();
 }
 
-void cj_reset(char *xcomponentId) 
+void ijk_reset(char *xcomponentId) 
 {  
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_reset();
 }
 
-void cj_release(char *xcomponentId) 
+void ijk_release(char *xcomponentId) 
 {  
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_release();
 }
 
-void cj_seekTo(char *xcomponentId, char *msec) 
+void ijk_seekTo(char *xcomponentId, char *msec) 
 {  
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_seekTo(NapiUtil::StringToInt(msec));
 }
 
-bool cj_isPlaying(char *xcomponentId) 
+bool ijk_isPlaying(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     return IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_isPlaying();
 }
 
-int cj_getDuration(char *xcomponentId) 
+int ijk_getDuration(char *xcomponentId) 
 {  
     std::string str = xcomponentId;
     return IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getDuration();
 }
 
-int cj_getCurrentPosition(char *xcomponentId) 
+int ijk_getCurrentPosition(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     return IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getCurrentPosition();
 }
 
-int cj_getAudioSessionId(char *xcomponentId) 
+int ijk_getAudioSessionId(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     return IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getAudioSessionId();
 }
 
-void cj_setPropertyFloat(char *xcomponentId, char * ids, char * value) 
+void ijk_setPropertyFloat(char *xcomponentId, char * ids, char * value) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)
@@ -115,7 +115,7 @@ void cj_setPropertyFloat(char *xcomponentId, char * ids, char * value)
                                                                NapiUtil::StringToFloat(value));
 }
 
-float cj_getPropertyFloat(char *xcomponentId, char * ids, char * default_value) 
+float ijk_getPropertyFloat(char *xcomponentId, char * ids, char * default_value) 
 { 
     std::string str = xcomponentId;
     float result = IJKPlayerApi::getInstance(str)
@@ -124,14 +124,14 @@ float cj_getPropertyFloat(char *xcomponentId, char * ids, char * default_value)
     return result;
 }
 
-void cj_setPropertyLong(char *xcomponentId, char *property, char *value) 
+void ijk_setPropertyLong(char *xcomponentId, char *property, char *value) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)
         ->ijkPlayerNapiProxy_->ijkMediaPlayer_setPropertyLong(NapiUtil::StringToInt(property), NapiUtil::StringToLong(value));
 }
 
-long long cj_getPropertyLong(char *xcomponentId, char *property, char *value) 
+long long ijk_getPropertyLong(char *xcomponentId, char *property, char *value) 
 {
     std::string str = xcomponentId;
     long long result = (long long)IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->ijkMediaPlayer_getPropertyLong(
@@ -139,7 +139,7 @@ long long cj_getPropertyLong(char *xcomponentId, char *property, char *value)
     return result;
 }
 
-void cj_setVolume(char *xcomponentId, char *leftVolume, char *rightVolume) 
+void ijk_setVolume(char *xcomponentId, char *leftVolume, char *rightVolume) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)
@@ -147,20 +147,20 @@ void cj_setVolume(char *xcomponentId, char *leftVolume, char *rightVolume)
                                                         NapiUtil::StringToFloat(rightVolume));
 }
 
-void cj_setLoopCount(char *xcomponentId, char *loopCount) 
+void ijk_setLoopCount(char *xcomponentId, char *loopCount) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)
         ->ijkPlayerNapiProxy_->IjkMediaPlayer_setLoopCount(NapiUtil::StringToInt(loopCount));
 }
 
-int cj_getLoopCount(char *xcomponentId) 
+int ijk_getLoopCount(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     return IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getLoopCount();
 }
 
-void cj_setStreamSelected(char *xcomponentId, char *stream, char *select) 
+void ijk_setStreamSelected(char *xcomponentId, char *stream, char *select) 
 { 
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)
@@ -168,21 +168,21 @@ void cj_setStreamSelected(char *xcomponentId, char *stream, char *select)
                                                                 NapiUtil::StringToBool(select));
 }
 
-char * cj_getVideoCodecInfo(char *xcomponentId) 
+char * ijk_getVideoCodecInfo(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     char *result = IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getVideoCodecInfo();
     return result;
 }
 
-char *cj_getAudioCodecInfo(char *xcomponentId) 
+char *ijk_getAudioCodecInfo(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     char *result = IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getAudioCodecInfo();
     return result;
 }
 
-char *cj_getMediaMeta(char *xcomponentId) 
+char *ijk_getMediaMeta(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     HashMap map = IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getMediaMeta();
@@ -203,7 +203,7 @@ char *cj_getMediaMeta(char *xcomponentId)
     return (char *)(result.c_str());
 }
 
-void cj_native_setup(char *xcomponentId) 
+void ijk_native_setup(char *xcomponentId) 
 { 
     std::string str = xcomponentId;
     OH_NativeXComponent *xcomponent = IJKPlayerApi::getInstance(str)->getXComponent(str);
