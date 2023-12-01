@@ -1,3 +1,12 @@
+/node_modules
+/local.properties
+/.idea
+**/build
+package-lock.json
+/.hvigor
+.clang-format
+.clang-tidy
+.clangd
 .git/
 .gitee/
 .vscode/
