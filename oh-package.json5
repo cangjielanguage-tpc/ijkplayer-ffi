@@ -5,10 +5,10 @@
   },
   "keywords": [
     "OpenHarmony",
-    "ijkplayer",
+    "ijkplayer4cj",
     "HarmonyOS"
   ],
-  "name": "ijkplayer",
+  "name": "ijkplayer4cj",
   "description": "一款基于FFmpeg的视频播放器。",
   "repository": {},
   "version": "2.0.2",
