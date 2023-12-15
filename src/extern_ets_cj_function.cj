@@ -14,7 +14,7 @@ func setDataSource(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg1: JSValue = callInfo[1]
     let id: String = arg0.toString(context)
     let url: String = arg1.toString(context)
-    cjSetDataSource(id, LibC.mallocCString(url))
+    cjSetDataSource(id, url)
     return context.undefined()
 }
 
