@@ -30,7 +30,6 @@
 #include "pipeline/ffpipeline_android.h"
 #include "../ijksdl/video/ijksdl_vout_android_surface.h"
 
-// 用于创建播放器，返回IjkMediaPlayer
 IjkMediaPlayer *ijkmp_android_create(int(*msg_loop)(void*))
 {
     IjkMediaPlayer *mp = ijkmp_create(msg_loop);

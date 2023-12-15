@@ -1302,28 +1302,21 @@ static double compute_target_delay(FFPlayer *ffp, double delay, VideoState *is)
     double sync_threshold, diff = 0;
 
     /* update delay to follow master synchronisation source */
-    /* 以音频为主的同步模式 */
     if (get_master_sync_type(is) != AV_SYNC_VIDEO_MASTER) {
         /* if video is slave, we try to correct big delays by
            duplicating or deleting a frame */
-        /* 音视频时间差(单位：秒) = 当前视频时钟 - 当前音频时钟 */
         diff = get_clock(&is->vidclk) - get_master_clock(is);
 
         /* skip or repeat frame. We take into account the
            delay to compute the threshold. I still don't know
            if it is the best guess */
-        /* 确定一个ijkplayer认为的同步区间:40ms~100ms *
         sync_threshold = FFMAX(AV_SYNC_THRESHOLD_MIN, FFMIN(AV_SYNC_THRESHOLD_MAX, delay));
         /* -- by bbcallen: replace is->max_frame_duration with AV_NOSYNC_THRESHOLD */
-        /* 音视频的时间差在100s内都去做同步操作 */
         if (!isnan(diff) && fabs(diff) < AV_NOSYNC_THRESHOLD) {
-            /* 1.视频落后音频40ms~100ms区间内:缩短这两帧的显示间隔 */
             if (diff <= -sync_threshold)
                 delay = FFMAX(0, delay + diff);
-            /* 2.视频超前音频至少40ms~100ms且视频前后两帧的时间间隔大于150ms:增加两帧间的播放间隔以等待音频 */
             else if (diff >= sync_threshold && delay > AV_SYNC_FRAMEDUP_THRESHOLD)
                 delay = delay + diff;
-            /* 3.视频超前音频40ms~100ms且两帧间的间隔较小:延长一个delay */
             else if (diff >= sync_threshold)
                 delay = 2 * delay;
         }
@@ -1343,7 +1336,6 @@ static double compute_target_delay(FFPlayer *ffp, double delay, VideoState *is)
 
 static double vp_duration(VideoState *is, Frame *vp, Frame *nextvp) {
     if (vp->serial == nextvp->serial) {
-        /* 直接由两帧的pts相减获得 */
         double duration = nextvp->pts - vp->pts;
         if (isnan(duration) || duration <= 0 || duration > is->max_frame_duration)
             return vp->duration;
@@ -1369,11 +1361,10 @@ static void video_refresh(FFPlayer *opaque, double *remaining_time)
 
     Frame *sp, *sp2;
     LOGI("video_refresh--start");
-    /* 启用外部时钟 */
+
     if (!is->paused && get_master_sync_type(is) == AV_SYNC_EXTERNAL_CLOCK && is->realtime)
         check_external_clock_speed(is);
 
-    /* 特定模式 */
     if (!ffp->display_disable && is->show_mode != SHOW_MODE_VIDEO && is->audio_st) {
         time = av_gettime_relative() / 1000000.0;
         if (is->force_refresh || is->last_vis_time + ffp->rdftspeed < time) {
@@ -1385,8 +1376,6 @@ static void video_refresh(FFPlayer *opaque, double *remaining_time)
 
     if (is->video_st) {
 retry:
-
-        /* 缓存队列中无视频帧，则什么都不做 */
         if (frame_queue_nb_remaining(&is->pictq) == 0) {
             // nothing to do, no picture to display in the queue
         } else {
@@ -1394,11 +1383,9 @@ retry:
             Frame *vp, *lastvp;
 
             /* dequeue the picture */
-            /* 将上一帧和即将显示的下一帧出列 */
             lastvp = frame_queue_peek_last(&is->pictq);
             vp = frame_queue_peek(&is->pictq);
 
-            /* 视频缓冲队列若更新，将丢弃本帧 */
             if (vp->serial != is->videoq.serial) {
                 frame_queue_next(&is->pictq);
                 goto retry;
@@ -1411,24 +1398,18 @@ retry:
                 goto display;
 
             /* compute nominal last_duration */
-            /* 1.计算理论上的两帧时间间隔：通过pts直接相减获得 */
             last_duration = vp_duration(is, lastvp, vp);
-            /* 2.两帧时间间隔校准：获得校准后的的两帧播放间隔 */
             delay = compute_target_delay(ffp, last_duration, is);
 
-            /* 更新当前系统时间 */
             time= av_gettime_relative()/1000000.0;
             if (isnan(is->frame_timer) || time < is->frame_timer)
                 is->frame_timer = time;
-            /* 当前系统时间如果小于计算出来的下一帧显示时间，将持续等待 */
             if (time < is->frame_timer + delay) {
                 *remaining_time = FFMIN(is->frame_timer + delay - time, *remaining_time);
                 goto display;
             }
 
-            /* 若已经到达该下一帧的显示时间，则更新显示时间 */
             is->frame_timer += delay;
-            /* 如果当前系统时间大于下一帧渲染时间超过100ms，则直接更新播放时间为当前系统时间 */
             if (delay > 0 && time - is->frame_timer > AV_SYNC_THRESHOLD_MAX)
                 is->frame_timer = time;
 
@@ -1437,18 +1418,15 @@ retry:
                 update_video_pts(is, vp->pts, vp->pos, vp->serial);
             SDL_UnlockMutex(is->pictq.mutex);
 
-            /* 如果还有至少两帧待渲染：计算出下一帧的播放时间 */
             if (frame_queue_nb_remaining(&is->pictq) > 1) {
                 Frame *nextvp = frame_queue_peek_next(&is->pictq);
                 duration = vp_duration(is, vp, nextvp);
-                /* 直接看if的最后面：如果当前系统时间大于预估的下一帧渲染时间的话，同时上层option设置了丢帧，则直接丢帧进入下一个retry */
                 if(!is->step && (ffp->framedrop > 0 || (ffp->framedrop && get_master_sync_type(is) != AV_SYNC_VIDEO_MASTER)) && time > is->frame_timer + duration) {
                     frame_queue_next(&is->pictq);
                     goto retry;
                 }
             }
 
-            /* 字幕处理 */
             if (is->subtitle_st) {
                 while (frame_queue_nb_remaining(&is->subpq) > 0) {
                     sp = frame_queue_peek(&is->subpq);
@@ -1472,7 +1450,6 @@ retry:
                 }
             }
 
-            /* release该帧并开启渲染 */
             frame_queue_next(&is->pictq);
             is->force_refresh = 1;
 

@@ -27,7 +27,6 @@
 
 #define IJK_META_INIT_CAPACITY 13
 
-// IJKMeta是个结构体，主要是用AVDictionary来存储多媒体元数据信息。结构体如下：
 struct IjkMediaMeta {
     SDL_mutex *mutex;
 

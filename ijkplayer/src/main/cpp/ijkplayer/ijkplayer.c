@@ -68,7 +68,6 @@ inline static void ijkmp_destroy_p(IjkMediaPlayer **pmp)
     *pmp = NULL;
 }
 
-//  用于全局初始化，主要是注册codec、format与protocol(包括ijk自定义部分)，初始化网络组件，设置log消息与事件回调。
 void ijkmp_global_init()
 {
     ffp_global_init();
@@ -79,13 +78,11 @@ void ijkmp_global_uninit()
     ffp_global_uninit();
 }
 
-// 用于设置log报告。
 void ijkmp_global_set_log_report(int use_report)
 {
     ffp_global_set_log_report(use_report);
 }
 
-// 用于设置log等级。
 void ijkmp_global_set_log_level(int log_level)
 {
     ffp_global_set_log_level(log_level);
@@ -96,7 +93,6 @@ void ijkmp_global_set_inject_callback(ijk_inject_callback cb)
     ffp_global_set_inject_callback(cb);
 }
 
-// 用于获取播放器版本号。
 const char *ijkmp_version()
 {
     return IJKPLAYER_VERSION;
@@ -176,30 +172,28 @@ void *ijkmp_set_ijkio_inject_opaque(IjkMediaPlayer *mp, void *opaque)
     return prev_weak_thiz;
 }
 
-// 用于设置option选项。下面会详细介绍option。
 void ijkmp_set_option(IjkMediaPlayer *mp, int opt_category, const char *name, const char *value)
 {
     assert(mp);
 
-    MPTRACE("%s(%s, %s)\n", __func__, name, value);
+    // MPTRACE("%s(%s, %s)\n", __func__, name, value);
     pthread_mutex_lock(&mp->mutex);
     ffp_set_option(mp->ffplayer, opt_category, name, value);
     pthread_mutex_unlock(&mp->mutex);
-    MPTRACE("%s()=void\n", __func__);
+    // MPTRACE("%s()=void\n", __func__);
 }
 
 void ijkmp_set_option_int(IjkMediaPlayer *mp, int opt_category, const char *name, int64_t value)
 {
     assert(mp);
 
-    MPTRACE("%s(%s, %"PRId64")\n", __func__, name, value);
+    // MPTRACE("%s(%s, %"PRId64")\n", __func__, name, value);
     pthread_mutex_lock(&mp->mutex);
     ffp_set_option_int(mp->ffplayer, opt_category, name, value);
     pthread_mutex_unlock(&mp->mutex);
-    MPTRACE("%s()=void\n", __func__);
+    // MPTRACE("%s()=void\n", __func__);
 }
 
-// 用于获取视频解码器信息，即视频解码器类型，比如h264。
 int ijkmp_get_video_codec_info(IjkMediaPlayer *mp, char **codec_info)
 {
     assert(mp);
@@ -212,7 +206,6 @@ int ijkmp_get_video_codec_info(IjkMediaPlayer *mp, char **codec_info)
     return ret;
 }
 
-// 用于获取音频解码器信息，即音频解码器类型，比如aac。
 int ijkmp_get_audio_codec_info(IjkMediaPlayer *mp, char **codec_info)
 {
     assert(mp);
@@ -225,7 +218,6 @@ int ijkmp_get_audio_codec_info(IjkMediaPlayer *mp, char **codec_info)
     return ret;
 }
 
-// 用于设置播放速率。
 void ijkmp_set_playback_rate(IjkMediaPlayer *mp, float rate)
 {
     assert(mp);
@@ -237,7 +229,6 @@ void ijkmp_set_playback_rate(IjkMediaPlayer *mp, float rate)
     MPTRACE("%s()=void\n", __func__);
 }
 
-// 用于设置播放音量。
 void ijkmp_set_playback_volume(IjkMediaPlayer *mp, float volume)
 {
     assert(mp);
@@ -248,7 +239,7 @@ void ijkmp_set_playback_volume(IjkMediaPlayer *mp, float volume)
     pthread_mutex_unlock(&mp->mutex);
     MPTRACE("%s()=void\n", __func__);
 }
-// 用于选择媒体流，包括video、audio、subtitle，也就是用来切换音轨、字幕。
+
 int ijkmp_set_stream_selected(IjkMediaPlayer *mp, int stream, int selected)
 {
     assert(mp);
@@ -271,7 +262,6 @@ float ijkmp_get_property_float(IjkMediaPlayer *mp, int id, float default_value)
     return ret;
 }
 
-// 用于设置float类型的property属性，与之对应的是ijkmp_get_property_float获取属性。
 void ijkmp_set_property_float(IjkMediaPlayer *mp, int id, float value)
 {
     assert(mp);
@@ -290,7 +280,7 @@ int64_t ijkmp_get_property_int64(IjkMediaPlayer *mp, int id, int64_t default_val
     pthread_mutex_unlock(&mp->mutex);
     return ret;
 }
-// 用于设置int64类型的property属性。与之对应的是ijkmp_get_property_int64获取属性。
+
 void ijkmp_set_property_int64(IjkMediaPlayer *mp, int id, int64_t value)
 {
     assert(mp);
@@ -299,7 +289,7 @@ void ijkmp_set_property_int64(IjkMediaPlayer *mp, int id, int64_t value)
     ffp_set_property_int64(mp->ffplayer, id, value);
     pthread_mutex_unlock(&mp->mutex);
 }
-// 用于获取IJKMeta，主要是媒体元数据。下面会详细介绍。
+
 IjkMediaMeta *ijkmp_get_meta_l(IjkMediaPlayer *mp)
 {
     assert(mp);
@@ -326,7 +316,7 @@ void ijkmp_shutdown_l(IjkMediaPlayer *mp)
     pthread_mutex_unlock(&mp->mutex);
     LOGI("ijkmp_shutdown_l()=void\n");
 }
-//用于销毁播放器，回收资源。
+
 void ijkmp_shutdown(IjkMediaPlayer *mp)
 {
     return ijkmp_shutdown_l(mp);
@@ -384,7 +374,6 @@ static int ijkmp_set_data_source_l(IjkMediaPlayer *mp, const char *url)
     return 0;
 }
 
-// 用于设置数据源，包括本地与网络url。
 int ijkmp_set_data_source(IjkMediaPlayer *mp, const char *url)
 {
     assert(mp);
@@ -442,7 +431,6 @@ static int ijkmp_prepare_async_l(IjkMediaPlayer *mp)
     return 0;
 }
 
-// 用于异步初始化播放器，初始化完成回调on_prepared.
 int ijkmp_prepare_async(IjkMediaPlayer *mp)
 {
     assert(mp);
@@ -479,7 +467,6 @@ static int ijkmp_start_l(IjkMediaPlayer *mp)
     return 0;
 }
 
-// 开始播放，回调on_prepared并且设置自动播放时触发，或者上层调用start。
 int ijkmp_start(IjkMediaPlayer *mp)
 {
     assert(mp);
@@ -515,7 +502,7 @@ static int ijkmp_pause_l(IjkMediaPlayer *mp)
 
     return 0;
 }
-// 用于暂停播放，调用ijkmp_start恢复播放。
+
 int ijkmp_pause(IjkMediaPlayer *mp)
 {
     assert(mp);
@@ -546,7 +533,7 @@ static int ijkmp_stop_l(IjkMediaPlayer *mp)
     ijkmp_change_state_l(mp, MP_STATE_STOPPED);
     return 0;
 }
-// 用于停止播放，调用ijkmp_prepare_async重新播放。
+
 int ijkmp_stop(IjkMediaPlayer *mp)
 {
     assert(mp);
@@ -558,7 +545,6 @@ int ijkmp_stop(IjkMediaPlayer *mp)
     return retval;
 }
 
-// 用于判断播放器是否处于播放状态。
 bool ijkmp_is_playing(IjkMediaPlayer *mp)
 {
     assert(mp);
@@ -597,7 +583,6 @@ int ijkmp_seek_to_l(IjkMediaPlayer *mp, long msec)
     return 0;
 }
 
-// 用于拖动进度条实现快进快退，时间单位是ms。
 int ijkmp_seek_to(IjkMediaPlayer *mp, long msec)
 {
     assert(mp);
@@ -610,7 +595,6 @@ int ijkmp_seek_to(IjkMediaPlayer *mp, long msec)
     return retval;
 }
 
-// 用于获取播放器状态，包括idle、initialized、async_preparing、prepared、started、paused、stopped、error、completed、end等状态。
 int ijkmp_get_state(IjkMediaPlayer *mp)
 {
     return mp->mp_state;
@@ -625,7 +609,7 @@ static long ijkmp_get_current_position_l(IjkMediaPlayer *mp)
       }
     return ffp_get_current_position_l(mp->ffplayer);
 }
-// 用于获取当前播放位置，时间单位ms。
+
 long ijkmp_get_current_position(IjkMediaPlayer *mp)
 {
     LOGI("ijkmp_get_current_position");
@@ -647,7 +631,6 @@ static long ijkmp_get_duration_l(IjkMediaPlayer *mp)
     return ffp_get_duration_l(mp->ffplayer);
 }
 
-// 用于获取播放总时长，时间单位ms。
 long ijkmp_get_duration(IjkMediaPlayer *mp)
 {
     LOGI("ijkmp_get_duration start");
@@ -663,7 +646,7 @@ static long ijkmp_get_playable_duration_l(IjkMediaPlayer *mp)
 {
     return ffp_get_playable_duration_l(mp->ffplayer);
 }
-//用于获取可播放的时长，即已经缓冲的时长。
+
 long ijkmp_get_playable_duration(IjkMediaPlayer *mp)
 {
     assert(mp);
@@ -672,7 +655,7 @@ long ijkmp_get_playable_duration(IjkMediaPlayer *mp)
     pthread_mutex_unlock(&mp->mutex);
     return retval;
 }
-// 用于设置循环播放。
+
 void ijkmp_set_loop(IjkMediaPlayer *mp, int loop)
 {
     assert(mp);
@@ -705,7 +688,6 @@ void *ijkmp_set_weak_thiz(IjkMediaPlayer *mp, void *weak_thiz)
 }
 
 /* need to call msg_free_res for freeing the resouce obtained in msg */
-// 用于获取消息事件，包括MSG_PREPARED、MSG_COMPLETED、MSG_SEEK_COMPLETED、MSG_REQ_START、MSG_REQ_PAUSE、MSG_REQ_SEEK等。
 int ijkmp_get_msg(IjkMediaPlayer *mp, AVMessage *msg, int block)
 {
     assert(mp);
