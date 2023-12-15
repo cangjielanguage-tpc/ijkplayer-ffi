@@ -91,7 +91,7 @@ func seekTo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg1: JSValue = callInfo[1]
     let id: String = arg0.toString(context)
     let msec: String = arg1.toString(context)
-    cjSeekTo(id, LibC.mallocCString(msec))
+    cjSeekTo(id, msec)
     return context.undefined()
 }
 
@@ -119,7 +119,7 @@ func getCurrentPosition(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 func getAudioSessionId(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
     let id: String = arg0.toString(context)
-    var res: Int32 = res = cjGetAudioSessionId(id)
+    var res: Int32 = cjGetAudioSessionId(id)
     return context.number(Float64(res))
 }
 

@@ -26,7 +26,7 @@
         }
     },
     "output_type": "dynamic",
-    "command_option": "-g",
+    "command_option": "-O2",
     "condition_option": {
       "release": "--fast-math -O2 -Woff all",
       "debug": "-g -Woff all"

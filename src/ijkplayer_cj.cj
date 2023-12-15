@@ -213,25 +213,25 @@ public func cjSetStreamSelected(xcomponentId: String, stream: String, select: St
 public func cjGetVideoCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: String = ijk_getVideoCodecInfo(id)
+        let ret: CString = ijk_getVideoCodecInfo(id)
         LibC.free(id)
-        return ret
+        return ret.toString()
     }
 }
 public func cjGetAudioCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: String = ijk_getAudioCodecInfo(id)
+        let ret: CString = ijk_getAudioCodecInfo(id)
         LibC.free(id)
-        return ret
+        return ret.toString()
     }
 }
 public func cjGetMediaMeta(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: String = ijk_getMediaMeta(id)
+        let ret: CString = ijk_getMediaMeta(id)
         LibC.free(id)
-        return ret
+        return ret.toString()
     }
 }
 public func cjNativeSetup(xcomponentId: String): Unit {
