@@ -1,5 +1,8 @@
 package ijkplayer4cj
 
+/*
+ * Cangjie calls the c interface of ijkplayer
+*/
 foreign {
     func ijk_nativeOpenlog(xcomponentId: CString): Unit
     func ijk_setDataSource(xcomponentId: CString,  url: CString): Unit

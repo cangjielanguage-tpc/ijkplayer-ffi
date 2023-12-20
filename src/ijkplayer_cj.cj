@@ -1,5 +1,11 @@
 package ijkplayer4cj
 
+/** 
+ * Open log
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjNativeOpenlog(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -7,6 +13,14 @@ public func cjNativeOpenlog(xcomponentId: String): Unit {
         LibC.free(id)
     }  
 }
+
+/** 
+ * Set video source
+ *
+ * params xcomponentId - Component ID value
+ * params url - Video address
+ * return Unit
+ */
 public func cjSetDataSource(xcomponentId: String,  url: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -16,6 +30,16 @@ public func cjSetDataSource(xcomponentId: String,  url: String): Unit {
         LibC.free(path)
     }
 }
+
+/** 
+ * Set video playback parameters
+ *
+ * params xcomponentId - Component ID value
+ * params category - OPT_CATEGORY_FORMAT、OPT_CATEGORY_CODEC、OPT_CATEGORY_SWS、OPT_CATEGORY_PLAYER
+ * params name - parameter,See example
+ * params value - See example
+ * return Unit
+ */
 public func cjSetOption(xcomponentId: String, category: String, name: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -29,6 +53,16 @@ public func cjSetOption(xcomponentId: String, category: String, name: String, va
         LibC.free(cvalue)
     }
 }
+
+/** 
+ * Set video playback parameters
+ *
+ * params xcomponentId - Component ID value
+ * params category - OPT_CATEGORY_FORMAT、OPT_CATEGORY_CODEC、OPT_CATEGORY_SWS、OPT_CATEGORY_PLAYER
+ * params name - parameter,See example
+ * params value - See example
+ * return Unit
+ */
 public func cjSetOptionLong(xcomponentId: String, category: String, name: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -42,6 +76,13 @@ public func cjSetOptionLong(xcomponentId: String, category: String, name: String
         LibC.free(cvalue)
     }
 }
+
+/** 
+ * Prepare to play
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjPrepareAsync(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -49,6 +90,13 @@ public func cjPrepareAsync(xcomponentId: String): Unit {
         LibC.free(id)
     }  
 }
+
+/** 
+ * Start playing
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjStart(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -56,6 +104,13 @@ public func cjStart(xcomponentId: String): Unit {
         LibC.free(id)
     }
 }
+
+/** 
+ * Stop playing
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjStop(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -63,6 +118,13 @@ public func cjStop(xcomponentId: String): Unit {
         LibC.free(id)
     }
 }
+
+/** 
+ * Pause playing
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjPause(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -70,6 +132,13 @@ public func cjPause(xcomponentId: String): Unit {
         LibC.free(id)
     }
 }
+
+/** 
+ * Reset playing
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjReset(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -77,6 +146,13 @@ public func cjReset(xcomponentId: String): Unit {
         LibC.free(id)
     }
 }
+
+/** 
+ * Release
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjRelease(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -84,6 +160,14 @@ public func cjRelease(xcomponentId: String): Unit {
         LibC.free(id)
     }
 }
+
+/** 
+ * Fast forward and backward
+ *
+ * params xcomponentId - Component ID value
+ * params msec - "(0 - getDuration)"
+ * return Unit
+ */
 public func cjSeekTo(xcomponentId: String, msec: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -93,6 +177,13 @@ public func cjSeekTo(xcomponentId: String, msec: String): Unit {
         LibC.free(cmsec)
     }
 }
+
+/** 
+ * Determine if it is in playback status
+ *
+ * params xcomponentId - Component ID value
+ * return Bool - true/false
+ */
 public func cjIsPlaying(xcomponentId: String): Bool {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -101,6 +192,13 @@ public func cjIsPlaying(xcomponentId: String): Bool {
         return ret
     }
 }
+
+/** 
+ * Obtain the total duration of the video
+ *
+ * params xcomponentId - Component ID value
+ * return Int32
+ */
 public func cjGetDuration(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -109,6 +207,13 @@ public func cjGetDuration(xcomponentId: String): Int32 {
         return ret
     }
 }
+
+/** 
+ * Get the current location for video playback
+ *
+ * params xcomponentId - Component ID value
+ * return Int32
+ */
 public func cjGetCurrentPosition(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -117,6 +222,13 @@ public func cjGetCurrentPosition(xcomponentId: String): Int32 {
         return ret
     }
 }
+
+/** 
+ * Get audio session ID
+ *
+ * params xcomponentId - Component ID value
+ * return Int32
+ */
 public func cjGetAudioSessionId(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -125,6 +237,15 @@ public func cjGetAudioSessionId(xcomponentId: String): Int32 {
         return ret
     }
 }
+
+/** 
+ * Set video properties
+ *
+ * params xcomponentId - Component ID value
+ * params ids - attribute
+ * params value - Attribute value
+ * return Unit
+ */
 public func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -136,6 +257,15 @@ public func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String)
         LibC.free(cvalue)
     }
 }
+
+/** 
+ * Get video properties
+ *
+ * params xcomponentId - Component ID value
+ * params ids - attribute
+ * params defaultValue - Default attribute values
+ * return Float32
+ */
 public func cjGetPropertyFloat(xcomponentId: String, ids: String, defaultValue: String): Float32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -148,6 +278,15 @@ public func cjGetPropertyFloat(xcomponentId: String, ids: String, defaultValue: 
         return ret
     }
 }
+
+/** 
+ * Set video properties
+ *
+ * params xcomponentId - Component ID value
+ * params property - attribute
+ * params value - Attribute value
+ * return Unit
+ */
 public func cjSetPropertyLong(xcomponentId: String, property: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -159,6 +298,15 @@ public func cjSetPropertyLong(xcomponentId: String, property: String, value: Str
         LibC.free(cvalue)
     }
 }
+
+/** 
+ * Get video properties
+ *
+ * params xcomponentId - Component ID value
+ * params property - attribute
+ * params value - Default attribute values
+ * return Int64
+ */
 public func cjGetPropertyLong(xcomponentId: String, property: String, value: String): Int64 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -171,6 +319,15 @@ public func cjGetPropertyLong(xcomponentId: String, property: String, value: Str
         return ret
     }
 }
+
+/** 
+ * Set up sound channels
+ *
+ * params xcomponentId - Component ID value
+ * params leftVolume - Left vocal tract
+ * params rightVolume - Right vocal tract
+ * return Unit
+ */
 public func cjSetVolume(xcomponentId: String, leftVolume: String, rightVolume: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -182,6 +339,14 @@ public func cjSetVolume(xcomponentId: String, leftVolume: String, rightVolume: S
         LibC.free(right)
     }
 }
+
+/** 
+ * Set video loop
+ *
+ * params xcomponentId - Component ID value
+ * params loopCount - Number of cycles
+ * return Unit
+ */
 public func cjSetLoopCount(xcomponentId: String, loopCount: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -191,6 +356,13 @@ public func cjSetLoopCount(xcomponentId: String, loopCount: String): Unit {
         LibC.free(count)
     }
 }
+
+/** 
+ * Get video loop count
+ *
+ * params xcomponentId - Component ID value
+ * return Int32
+ */
 public func cjGetLoopCount(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -199,6 +371,17 @@ public func cjGetLoopCount(xcomponentId: String): Int32 {
         return ret
     }
 }
+
+/** 
+ * Select media stream
+ *
+ * params xcomponentId - Component ID value
+ * params stream - 0 - video
+ *                 1 - audio
+ *                 3 - subtitle
+ * params select - "true" or "false"
+ * return Int32
+ */
 public func cjSetStreamSelected(xcomponentId: String, stream: String, select: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -210,6 +393,13 @@ public func cjSetStreamSelected(xcomponentId: String, stream: String, select: St
         LibC.free(cselect)
     }
 }
+
+/** 
+ * Obtain video decoding
+ *
+ * params xcomponentId - Component ID value
+ * return String
+ */
 public func cjGetVideoCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -218,6 +408,13 @@ public func cjGetVideoCodecInfo(xcomponentId: String): String {
         return ret.toString()
     }
 }
+
+/** 
+ * Obtain audio decoding
+ *
+ * params xcomponentId - Component ID value
+ * return String
+ */
 public func cjGetAudioCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -226,6 +423,13 @@ public func cjGetAudioCodecInfo(xcomponentId: String): String {
         return ret.toString()
     }
 }
+
+/** 
+ * Obtaining media information
+ *
+ * params xcomponentId - Component ID value
+ * return String
+ */
 public func cjGetMediaMeta(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
@@ -234,6 +438,13 @@ public func cjGetMediaMeta(xcomponentId: String): String {
         return ret.toString()
     }
 }
+
+/** 
+ * initial configuration
+ *
+ * params xcomponentId - Component ID value
+ * return Unit
+ */
 public func cjNativeSetup(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
