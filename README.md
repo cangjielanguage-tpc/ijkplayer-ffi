@@ -242,13 +242,13 @@ mIjkMediaPlayer.release();
 快进、后退
 
 ```ets
-mIjkMediaPlayer.seekTo(msec);
+mIjkMediaPlayer.seekTo(10);
 ```
 倍数播放
 
 ```ets
 mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "soundtouch", "1");
-mIjkMediaPlayer.setSpeed("2f");
+mIjkMediaPlayer.setSpeed("2");
 ```
 
 屏幕常亮
@@ -266,7 +266,7 @@ mIjkMediaPlayer.setLoopCount(true);
 设置音量
 
 ```ets
-mIjkMediaPlayer.setVolume(leftVolume, rightVolume);
+mIjkMediaPlayer.setVolume(0, 1);
 ```
 
 
@@ -274,9 +274,9 @@ mIjkMediaPlayer.setVolume(leftVolume, rightVolume);
 
 在下述版本验证通过：
 
-DevEco Studio版本: 4.1Canary(4.1.3.213),SDK: API11(4.1.2.3)
-DevEco Studio版本: 4.0(4.0.3.512),SDK: API10(4.0.10.9)
-DevEco Studio版本: 4.0Canary1(4.0.3.212),SDK: API10(4.0.8.3)
+- DevEco Studio版本: 4.1Canary(4.1.3.213),SDK: API11(4.1.2.3)
+- DevEco Studio版本: 4.0(4.0.3.512),SDK: API10(4.0.10.9)
+- DevEco Studio版本: 4.0Canary1(4.0.3.212),SDK: API10(4.0.8.3)
 
 ## 开源协议
 Apache License 2.0
