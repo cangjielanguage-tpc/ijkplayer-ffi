@@ -128,7 +128,7 @@ public func cjStop(xcomponentId: String): Unit {
 public func cjPause(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_stop(id)
+        ijk_pause(id)
         LibC.free(id)
     }
 }
