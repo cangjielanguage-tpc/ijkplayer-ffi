@@ -180,14 +180,14 @@ export class IjkMediaPlayer {
     /** 
      * 快进、后退
      *
-     * 参数 msec - 快进后退（ms）
+     * 参数 msec - 快进、后退时间，范围（"0" ~ "getDuration()"）
      */
     seekTo(msec: string)
 
     /** 
      * 倍数播放
      *
-     * 参数 speed - 倍数（2f）
+     * 参数 speed - 倍数（"0.25"、"0.5"、"0.75"、"1"、"1.5"、"2"）
      */
     setSpeed(speed: string)
 
@@ -257,8 +257,8 @@ export class IjkMediaPlayer {
     /** 
      * 设置音量
      *
-     * 参数 leftVolume - 左音量
-     * 参数 rightVolume - 左音量
+     * 参数 leftVolume - 左声道音量（"0" ~ "1"）
+     * 参数 rightVolume - 右声道音量（"0" ~ "1"）
      */
     setVolume(leftVolume: string, rightVolume: string)
 
@@ -277,16 +277,20 @@ export class IjkMediaPlayer {
     isLooping(): boolean
 
     /** 
-     * 选择轨道
+     * 选择轨道（需要在视频播放之前选择有效）
      *
-     * 参数 track - 轨道
+     * 参数 track - "0" - 视频轨道
+     *              "1" - 音频轨道
+     *              "3" - 字幕
      */
     selectTrack(track: string)
 
     /** 
-     * 删除选择轨道
+     * 删除选择的轨道（需要在视频播放之前选择有效）
      *
-     * 参数 track - 轨道
+     * 参数 track - "0" - 视频轨道
+     *              "1" - 音频轨道
+     *              "3" - 字幕
      */
     deselectTrack(track: string)
 
@@ -440,14 +444,15 @@ export class IjkMediaPlayer {
     /** 
      * 设置缓存共享
      *
-     * 参数 share 
+     * 参数 share - "0" - 不设置缓存共享
+     *              "1" - 设置缓存共享
      */
     setCacheShare(share: string)
 
     /** 
      * 获取媒体信息
      *
-     * 返回值 number 
+     * 返回值 object 
      */
     getMediaInfo(): object
 
@@ -578,34 +583,6 @@ mIjkMediaPlayer.setMessageListener();
 mIjkMediaPlayer.prepareAsync();
 
 mIjkMediaPlayer.start();
-
-//暂停
-mIjkMediaPlayer.pause();
-
-//停止
-mIjkMediaPlayer.stop();
-
-//重置
-mIjkMediaPlayer.reset();
-
-//释放
-mIjkMediaPlayer.release();
-
-//快进、后退
-mIjkMediaPlayer.seekTo(msec);
-
-//倍数播放
-mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "soundtouch", "1");
-mIjkMediaPlayer.setSpeed("2f");
-
-//屏幕常亮
-mIjkMediaPlayer.setScreenOnWhilePlaying(true);
-
-//循环播放
-mIjkMediaPlayer.setLoopCount(true);
-
-//设置音量
-mIjkMediaPlayer.setVolume(leftVolume, rightVolume);
 
 ```
 
@@ -782,7 +759,7 @@ public func cjGetAudioSessionId(xcomponentId: String): Int32
 public func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String): Unit
 
 /** 
- * 设置视频属性
+ * 获取视频属性
  *
  * 参数 xcomponentId - 组件 id
  * 参数 ids - 属性

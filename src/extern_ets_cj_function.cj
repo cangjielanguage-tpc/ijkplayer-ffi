@@ -4,9 +4,9 @@ from ohos import napi.*
 /** 
  * Open log
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func nativeOpenlog(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -18,9 +18,9 @@ func nativeOpenlog(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Set video source
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setDataSource(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -34,9 +34,9 @@ func setDataSource(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Set video playback parameters
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setOption(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -54,9 +54,9 @@ func setOption(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Set video playback parameters
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setOptionLong(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -74,9 +74,9 @@ func setOptionLong(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Prepare to play
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func prepareAsync(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -88,9 +88,9 @@ func prepareAsync(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Start playing
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func start(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -102,9 +102,9 @@ func start(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Stop playing
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func stop(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -116,9 +116,9 @@ func stop(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Pause playing
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func pause(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -130,9 +130,9 @@ func pause(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Reset playing
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func reset(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -144,9 +144,9 @@ func reset(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Release
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func release(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -158,9 +158,9 @@ func release(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Fast forward and backward
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func seekTo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -174,9 +174,9 @@ func seekTo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Determine if it is in playback status
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func isPlaying(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -188,9 +188,9 @@ func isPlaying(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Obtain the total duration of the vide
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getDuration(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -202,9 +202,9 @@ func getDuration(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Get the current location for video playback
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getCurrentPosition(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -216,9 +216,9 @@ func getCurrentPosition(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Get audio session ID
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getAudioSessionId(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -230,9 +230,9 @@ func getAudioSessionId(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Set video properties
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setPropertyFloat(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -248,9 +248,9 @@ func setPropertyFloat(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Get video properties
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getPropertyFloat(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -266,9 +266,9 @@ func getPropertyFloat(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Set video properties
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setPropertyLong(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -284,9 +284,9 @@ func setPropertyLong(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Get video properties
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getPropertyLong(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -302,9 +302,9 @@ func getPropertyLong(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Set up sound channels
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setVolume(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -320,9 +320,9 @@ func setVolume(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Set video loop
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setLoopCount(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -336,9 +336,9 @@ func setLoopCount(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Get video loop count
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getLoopCount(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -350,9 +350,9 @@ func getLoopCount(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Select media stream
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func setStreamSelected(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -368,9 +368,9 @@ func setStreamSelected(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Obtain video decoding
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getVideoCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -382,9 +382,9 @@ func getVideoCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Obtain audio decoding
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getAudioCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -396,9 +396,9 @@ func getAudioCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 /** 
  * Obtaining media information
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func getMediaMeta(context: JSRuntime,callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
@@ -410,9 +410,9 @@ func getMediaMeta(context: JSRuntime,callInfo: JSCallInfo): JSValue {
 /** 
  * initial configuration
  *
- * params context - JS/changjie Interoperability Runtime Object
- * params callInfo - JS/changjie Interop Call Parameter Information Object
- * return JSValue - JS/changjie interoperability return value
+ * params context - JS/cangjie Interoperability Runtime Object
+ * params callInfo - JS/cangjie Interop Call Parameter Information Object
+ * return JSValue - JS/cangjie interoperability return value
  */
 func native_setup(context: JSRuntime,callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
