@@ -403,9 +403,11 @@ public func cjSetStreamSelected(xcomponentId: String, stream: String, select: St
 public func cjGetVideoCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: CString = ijk_getVideoCodecInfo(id)
+        let retC: CString = ijk_getVideoCodecInfo(id)
+        let ret = retC.toString()
         LibC.free(id)
-        return ret.toString()
+        LibC.free(retC)
+        return ret
     }
 }
 
@@ -418,9 +420,11 @@ public func cjGetVideoCodecInfo(xcomponentId: String): String {
 public func cjGetAudioCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: CString = ijk_getAudioCodecInfo(id)
+        let retC: CString = ijk_getAudioCodecInfo(id)
+        let ret = retC.toString()
         LibC.free(id)
-        return ret.toString()
+        LibC.free(retC)
+        return ret
     }
 }
 
@@ -433,9 +437,11 @@ public func cjGetAudioCodecInfo(xcomponentId: String): String {
 public func cjGetMediaMeta(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: CString = ijk_getMediaMeta(id)
+        let retC: CString = ijk_getMediaMeta(id)
+        let ret = retC.toString()
         LibC.free(id)
-        return ret.toString()
+        LibC.free(retC)
+        return ret
     }
 }
 
