@@ -209,7 +209,7 @@ func getDuration(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 func getCurrentPosition(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
     let id: String = arg0.toString(context)
-    var res:Int32 = cjGetCurrentPosition(id)
+    let res:Int32 = cjGetCurrentPosition(id)
     return context.number(Float64(res))
 }
 
@@ -223,7 +223,7 @@ func getCurrentPosition(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 func getAudioSessionId(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
     let id: String = arg0.toString(context)
-    var res: Int32 = cjGetAudioSessionId(id)
+    let res: Int32 = cjGetAudioSessionId(id)
     return context.number(Float64(res))
 }
 
@@ -259,7 +259,7 @@ func getPropertyFloat(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let id: String = arg0.toString(context)
     let ids: String = arg1.toString(context)
     let defaultValue: String = arg2.toString(context)
-    var res: Float32 = cjGetPropertyFloat(id, ids, defaultValue)
+    let res: Float32 = cjGetPropertyFloat(id, ids, defaultValue)
     return context.number(Float64(res))
 }
 
@@ -295,7 +295,7 @@ func getPropertyLong(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let id: String = arg0.toString(context)
     let ids: String = arg1.toString(context)
     let defaultValue: String = arg2.toString(context)
-    var res: Int64 = cjGetPropertyLong(id, ids, defaultValue)
+    let res: Int64 = cjGetPropertyLong(id, ids, defaultValue)
     return context.number(Float64(res))
 }
 
@@ -343,7 +343,7 @@ func setLoopCount(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 func getLoopCount(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
     let id: String = arg0.toString(context)
-    var loopcount:Int32 = cjGetLoopCount(id)
+    let loopcount:Int32 = cjGetLoopCount(id)
     return context.number(Float64(loopcount))
 }
 
@@ -375,7 +375,7 @@ func setStreamSelected(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 func getVideoCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
     let id: String = arg0.toString(context)
-    var info: String = cjGetVideoCodecInfo(id)
+    let info: String = cjGetVideoCodecInfo(id)
     return context.string(info).value
 }
 
@@ -389,7 +389,7 @@ func getVideoCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 func getAudioCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
     let id: String = arg0.toString(context)
-    var info: String = cjGetAudioCodecInfo(id)
+    let info: String = cjGetAudioCodecInfo(id)
     return context.string(info).value
 }
 
@@ -403,7 +403,7 @@ func getAudioCodecInfo(context: JSRuntime, callInfo: JSCallInfo): JSValue {
 func getMediaMeta(context: JSRuntime,callInfo: JSCallInfo): JSValue {
     let arg0: JSValue = callInfo[0]
     let id: String = arg0.toString(context)
-    var info: String = cjGetMediaMeta(id)
+    let info: String = cjGetMediaMeta(id)
     return context.string(info).value
 }
 
