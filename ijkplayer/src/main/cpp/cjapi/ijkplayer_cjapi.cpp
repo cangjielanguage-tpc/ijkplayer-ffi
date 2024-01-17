@@ -116,7 +116,7 @@ float ijk_getPropertyFloat(char *xcomponentId, char * ids, char * default_value)
     float result = IJKPlayerApi::getInstance(str)
                         ->ijkPlayerNapiProxy_
                         ->ijkMediaPlayer_getPropertyFloat(NapiUtil::StringToInt(ids),
-                                                        NapiUtil::StringToFloat(default_value));
+                                                          NapiUtil::StringToFloat(default_value));
     return result;
 }
 
@@ -126,7 +126,7 @@ void ijk_setPropertyLong(char *xcomponentId, char *property, char *value)
     IJKPlayerApi::getInstance(str)
         ->ijkPlayerNapiProxy_
         ->ijkMediaPlayer_setPropertyLong(NapiUtil::StringToInt(property),
-                                        NapiUtil::StringToLong(value));
+                                         NapiUtil::StringToLong(value));
 }
 
 long long ijk_getPropertyLong(char *xcomponentId, char *property, char *value)
@@ -135,7 +135,7 @@ long long ijk_getPropertyLong(char *xcomponentId, char *property, char *value)
     long long result = (long long)IJKPlayerApi::getInstance(str)
                             ->ijkPlayerNapiProxy_
                             ->ijkMediaPlayer_getPropertyLong(NapiUtil::StringToInt(property),
-                                                            NapiUtil::StringToLong(value));
+                                                             NapiUtil::StringToLong(value));
     return result;
 }
 
@@ -188,7 +188,7 @@ char *ijk_getMediaMeta(char *xcomponentId)
     HashMap map = IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->IjkMediaPlayer_getMediaMeta();
     HashMapIterator iterator = hashmap_iterator(map);
     std::string result = "";
-    while ( hashmap_hasNext(iterator) ) {
+    while (hashmap_hasNext(iterator)) {
         iterator = hashmap_next(iterator);
         LOGI("napi-->getMediaMeta { key: %s, value: %s, hashcode: %d }\n", (STRING)iterator->entry->key,
             (STRING)iterator->entry->value, iterator->hashCode);
