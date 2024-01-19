@@ -47,7 +47,7 @@ export class IjkMediaPlayer {
     /** 
      * 设置 debug 模式
      *
-     * 参数 open - 是否打开 debug 模式
+     * 参数 open - 是否打开 debug 模式,默认为false,不是debug模式
      */
     setDebug(open: boolean)
 
@@ -74,15 +74,15 @@ export class IjkMediaPlayer {
      * 设置视频播放参数
      *
      * 参数 category - OPT_CATEGORY_FORMAT、OPT_CATEGORY_CODEC、OPT_CATEGORY_SWS、OPT_CATEGORY_PLAYER
-     * 参数 key - 见示例
-     * 参数 value - 见示例
+     * 参数 key - 比如 "max-buffer-size"(预读数据的缓冲区大小的key) , 比如 "min-frames"(停止预读的最小帧数的key)
+     * 参数 value - 比如 "102400"(预读数据的缓冲区大小的value) , 比如 "100"(停止预读的最小帧数的value)
      */
     setOption(category: string, key: string, value: string)
 
     /** 
      * 设置屏幕常亮
      *
-     * 参数 on - 是否保持常亮
+     * 参数 on - 是否保持常亮,默认为true,保持常亮
      */
     setScreenOnWhilePlaying(on: boolean)
 
@@ -178,16 +178,16 @@ export class IjkMediaPlayer {
     release()
 
     /** 
-     * 快进、后退
+     * 跳到指定时间节点的视频处
      *
-     * 参数 msec - 快进、后退时间，范围（"0" ~ "getDuration()"）
+     * 参数 msec - 视频时间节点，范围（"0" ~ "getDuration()"）
      */
     seekTo(msec: string)
 
     /** 
      * 倍数播放
      *
-     * 参数 speed - 倍数（"0.25"、"0.5"、"0.75"、"1"、"1.5"、"2"）
+     * 参数 speed - 倍数 常规参数（"0.25"、"0.5"、"0.75"、"1"、"1.5"、"2"、"4"）数字后面加f也可，比如0.5f
      */
     setSpeed(speed: string)
 
@@ -257,22 +257,22 @@ export class IjkMediaPlayer {
     /** 
      * 设置音量
      *
-     * 参数 leftVolume - 左声道音量（"0" ~ "1"）
-     * 参数 rightVolume - 右声道音量（"0" ~ "1"）
+     * 参数 leftVolume - 左声道音量（"0" ~ "1"）正常可按0.1幅度增长
+     * 参数 rightVolume - 右声道音量（"0" ~ "1"）正常可按0.1幅度增长
      */
     setVolume(leftVolume: string, rightVolume: string)
 
     /** 
      * 设置循环播放
      *
-     * 参数 looping - 是否循环播放
+     * 参数 looping - 是否循环播放,true循环播放，false不循环播放
      */
     setLoopCount(looping: boolean)
 
     /** 
      * 是否循环播放
      *
-     * 返回值 boolean - 是否循环播放
+     * 返回值 boolean - 是否循环播放,默认为false
      */
     isLooping(): boolean
 
@@ -603,7 +603,7 @@ export class LogUtils {
     /** 
      * 设置日志开关
      *
-     * 参数 logOpen - 日志是否打开 
+     * 参数 logOpen - 日志是否打开,默认为false不打开 
      */
     setLogSwitch(logOpen: boolean)
 

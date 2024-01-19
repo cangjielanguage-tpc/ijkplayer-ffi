@@ -239,7 +239,7 @@ mIjkMediaPlayer.reset();
 ```ets
 mIjkMediaPlayer.release();
 ```
-快进、后退
+跳到指定时间节点的视频处
 
 ```ets
 mIjkMediaPlayer.seekTo(10);
