@@ -20,3 +20,4 @@ ci_lib/
 ci_test/
 build/
 .idea/
+test_temp/
