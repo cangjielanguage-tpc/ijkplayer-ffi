@@ -41,6 +41,9 @@ char *ijk_getAudioCodecInfo(char *xcomponentId);
 char *ijk_getMediaMeta(char *xcomponentId);
 void ijk_native_setup(char *xcomponentId);
 
+void ijk_setIjkplayerPtr(char *xcomponentId, char *ids);
+void ijk_setMessagePostEventPtr(char *xcomponentId, char *ids);
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif /* __cplusplus */

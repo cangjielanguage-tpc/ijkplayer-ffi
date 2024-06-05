@@ -1,8 +1,16 @@
 {
   "string": [
     {
-      "name": "page_show",
-      "value": "page from npm package"
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "IjkplayerAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "IjkplayerAbility_label",
+      "value": "label"
     }
   ]
 }

@@ -5,34 +5,27 @@
     "description": "$string:module_desc",
     "mainElement": "EntryAbility",
     "deviceTypes": [
-      "default",
-      "tablet"
+      "phone"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
-    "metadata": [
-      {
-        "name": "ArkTSPartialUpdate",
-        "value": "true"
-      }
-    ],
     "requestPermissions": [
       {
         "name": "ohos.permission.INTERNET",
-        "reason": "$string:NET_REQUEST_PERMISSION"
+        "reason": "$string:EntryAbility_desc"
       }
     ],
     "abilities": [
       {
         "name": "EntryAbility",
-        "srcEntrance": "./ets/entryability/EntryAbility.ts",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
         "description": "$string:EntryAbility_desc",
-        "icon": "$media:icon",
+        "icon": "$media:layered_image",
         "label": "$string:EntryAbility_label",
-        "startWindowIcon": "$media:icon",
+        "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
-        "visible": true,
+        "exported": true,
         "skills": [
           {
             "entities": [

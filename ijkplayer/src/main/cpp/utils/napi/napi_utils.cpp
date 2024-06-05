@@ -47,6 +47,13 @@ napi_value NapiUtil::SetNapiCallInt32(const napi_env & env,  const int32_t intVa
     return result;
 }
 
+napi_value NapiUtil::SetNapiCallInt64(const napi_env &env, const int64_t intValue) {
+    napi_value result;
+    napi_create_int64(env, intValue, &result);
+    return result;
+}
+
+
 napi_value NapiUtil::SetNapiCallBool(napi_env env, bool value)
 {
     napi_value temp;
@@ -62,6 +69,10 @@ int NapiUtil::StringToInt(std::string value){
 
 int NapiUtil::StringToLong(std::string value){
     return atol((char*)value.c_str());
+}
+
+int64_t NapiUtil::StringToLongLong(std::string value){
+    return strtoll(value.c_str(), NULL, 10);
 }
 
 float NapiUtil::StringToFloat(std::string value){

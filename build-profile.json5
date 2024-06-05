@@ -1,17 +1,17 @@
 {
   "app": {
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": 10,
-        "compatibleSdkVersion": 9,
-        "runtimeOS": "OpenHarmony"
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
       }
     ],
     "buildModeSet": [
       {
-        "name": "debug"
+        "name": "debug",
       },
       {
         "name": "release"
@@ -33,7 +33,27 @@
     },
     {
       "name": "ijkplayer",
-      "srcPath": "./ijkplayer"
+      "srcPath": "./ijkplayer",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ijkforcj",
+      "srcPath": "./ijkforcj",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

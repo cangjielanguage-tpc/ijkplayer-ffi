@@ -5,7 +5,7 @@
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.49.2-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.51.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-50%25-red" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
@@ -34,6 +34,10 @@ ijkplayer4cj 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 |---- ijkplayer4cj  
 |     |---- doc  # API 文档
 |     |---- entry  # 示例代码文件夹
+|     |---- ijkforcj  # 仓颉代码文件夹
+|           |---- libs   
+|           |---- src  
+|                 |---- cangjie  # 仓颉模块
 |     |---- ijkplayer  # ijkplayer 库文件夹
 |           |---- libs  # libijkffmpeg.z.so 
 |           |---- src  
@@ -51,12 +55,6 @@ ijkplayer4cj 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 |                       |----- common    #常量
 |                       |----- utils     #工具  
 |                       |----- IjkMediaPlayer.ets #ijkplayer暴露的napi调用接口
-|     |---- src  # 安装使用方法
-|           |----- cjapi_ffi.cj                # cangjie 与 c 互操作接口 ffi
-|           |----- extern_ets_cj_function.cj   # ets 与cangjie 互操作接口
-|           |----- extern_ets_cj_register.cj   # 注册 ets 接口
-|           |----- ijkplayer_cj.cj             # cangjie 与 c 互操作接口
-|     |---- test  # 测试用例     
 |     |---- README.MD  # 安装使用方法     
 ```
 
@@ -79,14 +77,13 @@ ijkplayer4cj 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 
 1、通过IDE工具下载依赖SDK，Tools->SDK Manager->OpenHarmony SDK 把native选项勾上下载，API版本>=9
 
-2、开发板选择RK3568，ROM下载地址. 选择开发板类型是rk3568，请使用最新的版本
+2、端测请使用镜像 CangjieUIB052版本的mate60手机
 
 cangjie 编译方式
 
-```shell
-cpm update
-cpm build
-```
+    1. 请先编译 ijkforcj 文件夹生成 ijkforcj/build/default/intermediates/cj/cj_build/default/aarch64-linux-ohos/release/ijkplayer4cj/ijkplayer4cj.cjo 和 ijkforcj/build/default/intermediates/cj/cj_build/default/aarch64-linux-ohos/release/ijkplayer4cj/libijkplayer4cj_ijkplayer4cj.so
+    2. 将ijkforcj文件生成的两个文件复制到 ijkplayer/libs/arm64-v8a文件夹下. 
+    3. 使用 DevEco Studio NEXT Developer Beta1 构建工程项目, 生成 hap 包.
 
 ### 功能示例
 
@@ -274,12 +271,10 @@ mIjkMediaPlayer.setVolume(0, 1);
 
 在下述版本验证通过：
 
-- DevEco Studio版本: 4.1Canary(4.1.3.213),SDK: API11(4.1.2.3)
-- DevEco Studio版本: 4.0(4.0.3.512),SDK: API10(4.0.10.9)
-- DevEco Studio版本: 4.0Canary1(4.0.3.212),SDK: API10(4.0.8.3)
+- DevEco Studio版本: DevEco Studio NEXT Developer Beta1 API12(5.0.3.3)
 
 ## 开源协议
-Apache License 2.0
+GPL-2.0
 
 ## 参与贡献
 

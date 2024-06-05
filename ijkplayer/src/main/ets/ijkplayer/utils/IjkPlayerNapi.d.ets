@@ -26,7 +26,7 @@ export declare class IjkPlayerNapi {
     // _seekTo(msec:string);
     // _isPlaying();
     // _getDuration();
-    _setMessageListener(messageCallBack:Function);
+    _setMessageListener(messageCallBack:Function): number;
     // _getCurrentPosition();
     // _getAudioSessionId();
     // _setPropertyFloat(property: string, value: string);
@@ -41,4 +41,5 @@ export declare class IjkPlayerNapi {
     // _getAudioCodecInfo();
     // _getMediaMeta();
     // _native_setup();
+    _get_ijkplayer_ptr():number;
 }

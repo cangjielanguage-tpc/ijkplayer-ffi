@@ -1,7 +1,25 @@
 {
-  "apiType": 'stageMode',
+  "apiType": "stageMode",
   "buildOption": {
+    "cangjieOptions": {
+      "path": "./src/main/cangjie/cjpm.toml"
+    }
   },
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": true,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          }
+        }
+      }
+    },
+  ],
   "targets": [
     {
       "name": "default"
