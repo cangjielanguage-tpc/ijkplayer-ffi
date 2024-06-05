@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { requireCJLib } from 'libark_interop_loader.so';
 import { OnPreparedListener } from "../ijkplayer/callback/OnPreparedListener";
 import { OnCompletionListener } from "../ijkplayer/callback/OnCompletionListener";
 import { OnVideoSizeChangedListener } from "../ijkplayer/callback/OnVideoSizeChangedListener";
@@ -26,38 +27,40 @@ import { LogUtils } from "../ijkplayer/utils/LogUtils";
 import window from '@ohos.window';
 import { IjkPlayerNapi } from "./utils/IjkPlayerNapi";
 
-declare function requireCJ(libName: string, isCJ?: boolean, withChannel?: boolean, fastMode?: boolean): any
+interface CJLib {
+  setDataSource(id: string, url: string): void;
+  nativeOpenlog(id: string): void;
+  setOption(id: string, category:string,key:string,value:string): void;
+  setOptionLong(id: string, category:string,key:string,value:string): void;
+  prepareAsync(id: string): void;
+  start(id: string): void;
+  stop(id: string): void;
+  pause(id: string): void;
+  reset(id: string): void;
+  release(id: string): void;
+  seekTo(id: string, msec:string): void;
+  isPlaying(id: string): boolean;
+  getDuration(id: string): number;
+  // setMessageListener(messageCallBack:Function);
+  getCurrentPosition(id: string): number;
+  getAudioSessionId(id: string): number;
+  setPropertyFloat(id: string, property: string, value: string): void;
+  getPropertyFloat(id: string, property: string, value: string): number;
+  setPropertyLong(id: string, property: string, value: string): void;
+  getPropertyLong(id: string, property: string, value: string): number;
+  setVolume(id: string, leftVolume: string, rightVolume: string): void;
+  setLoopCount(id: string, loopCount: string): void;
+  getLoopCount(id: string): number;
+  setStreamSelected(id: string, stream: string, select: string): void;
+  getVideoCodecInfo(id: string): string;
+  getAudioCodecInfo(id: string): string;
+  getMediaMeta(id: string): string;
+  native_setup(id: string): void;
+  setIjkplayerPtr(a1: string,a2: string): void;
+  setMessagePostEvent(a1: string,a2: string): void;
+}
 
-const cjLib: {
-    setDataSource(id: string, url: string): void;
-    nativeOpenlog(id: string): void;
-    setOption(id: string, category:string,key:string,value:string): void;
-    setOptionLong(id: string, category:string,key:string,value:string): void;
-    prepareAsync(id: string): void;
-    start(id: string): void;
-    stop(id: string): void;
-    pause(id: string): void;
-    reset(id: string): void;
-    release(id: string): void;
-    seekTo(id: string, msec:string): void;
-    isPlaying(id: string): boolean;
-    getDuration(id: string): number;
-    // setMessageListener(messageCallBack:Function);
-    getCurrentPosition(id: string): number;
-    getAudioSessionId(id: string): number;
-    setPropertyFloat(id: string, property: string, value: string): void;
-    getPropertyFloat(id: string, property: string, value: string): number;
-    setPropertyLong(id: string, property: string, value: string): void;
-    getPropertyLong(id: string, property: string, value: string): number;
-    setVolume(id: string, leftVolume: string, rightVolume: string): void;
-    setLoopCount(id: string, loopCount: string): void;
-    getLoopCount(id: string): number;
-    setStreamSelected(id: string, stream: string, select: string): void;
-    getVideoCodecInfo(id: string): string;
-    getAudioCodecInfo(id: string): string;
-    getMediaMeta(id: string): string;
-    native_setup(id: string): void;
-} = requireCJ("libijkplayer4cj_ijkplayer4cj.so", true)
+const cjLib = requireCJLib("libijkplayer4cj_ijkplayer4cj.so") as CJLib
 
 /*
  * Audio and video player
@@ -417,8 +420,11 @@ export class IjkMediaPlayer {
         onTimedTextListener.onTimedText(obj);
       }
     };
-    if (!!this.ijkplayer_napi)
-      this.ijkplayer_napi._setMessageListener(messageCallBack);
+    if (!!this.ijkplayer_napi) {
+      let ptr = this.ijkplayer_napi._setMessageListener(messageCallBack);
+      cjLib.setMessagePostEvent(this.xComponentId, ptr+"")
+    }
+
   }
 
   /** 
@@ -840,8 +846,11 @@ export class IjkMediaPlayer {
    * Initial configuration
    */
   native_setup() {
-    if (!!this.ijkplayer_napi)
+    if (!!this.ijkplayer_napi){
+      let ptr = this.ijkplayer_napi._get_ijkplayer_ptr();
+      cjLib.setIjkplayerPtr(this.xComponentId, ptr+"");
       cjLib.native_setup(this.xComponentId);
+    }
   }
 }
 

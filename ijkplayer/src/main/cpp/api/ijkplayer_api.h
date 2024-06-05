@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+#include <sys/stat.h>
 #ifndef ijkplayer_ijkplayer_api.h_H
 #define ijkplayer_ijkplayer_api.h_H
 #include <string>
@@ -28,6 +29,7 @@ class IJKPlayerApi {
   public:
     IJKPlayerApi(std::string &id);
     static IJKPlayerApi *getInstance(std::string &id);
+    static void setInstance(std::string &id, IJKPlayerApi * ptr);
     static napi_value setDataSource(napi_env env, napi_callback_info info);
     static napi_value setOption(napi_env env, napi_callback_info info);
     static napi_value setOptionLong(napi_env env, napi_callback_info info);
@@ -56,6 +58,8 @@ class IJKPlayerApi {
     static napi_value getMediaMeta(napi_env env, napi_callback_info info);
     static napi_value nativeOpenlog(napi_env env, napi_callback_info info);
     static napi_value native_setup(napi_env env, napi_callback_info info);
+    
+    static napi_value get_ijkplayer_ptr(napi_env env, napi_callback_info info);
 
     ////////////////////////XComponent////////////////////////////
     static OH_NativeXComponent_Callback *getNXComponentCallback();

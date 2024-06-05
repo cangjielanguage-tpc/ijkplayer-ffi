@@ -14,6 +14,7 @@
  */
 
 #include "ijkplayer_api.h"
+#include "third_party/yuv/include/libyuv/basic_types.h"
 
 const int32_t STR_DEFAULT_SIZE = 2048;
 const int32_t INDEX_0 = 0;
@@ -161,7 +162,8 @@ napi_value IJKPlayerApi::setMessageListener(napi_env env, napi_callback_info inf
     setEnvMessage(env);
     std::string xcomponentId = IJKPlayerApi::getXComponentId(env, info);
     IJKPlayerApi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->message_loop_callback(post_event);
-    return nullptr;
+    void (*pe)(void *weak_this, int what, int arg1, int arg2, char *obj) = post_event;
+    return NapiUtil::SetNapiCallInt64(env, (int64_t)pe);
 }
 
 napi_value IJKPlayerApi::native_setup(napi_env env, napi_callback_info info) {
@@ -173,6 +175,11 @@ napi_value IJKPlayerApi::native_setup(napi_env env, napi_callback_info info) {
     void *nativeWindow = IJKPlayerApi::getInstance(xcomponentId)->getNativeWindow(xcomponentId);
     IJKPlayerApi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_native_setup(xcomponent, nativeWindow);
     return nullptr;
+}
+
+napi_value IJKPlayerApi::get_ijkplayer_ptr(napi_env env, napi_callback_info info) {
+    std::string xcomponentId = IJKPlayerApi::getXComponentId(env, info);
+    return NapiUtil::SetNapiCallInt64(env, (int64_t)IJKPlayerApi::getInstance(xcomponentId));
 }
 
 napi_value IJKPlayerApi::setDataSource(napi_env env, napi_callback_info info) {
@@ -611,6 +618,10 @@ IJKPlayerApi *IJKPlayerApi::getInstance(std::string &id) {
     }
 }
 
+void IJKPlayerApi::setInstance(std::string &id, IJKPlayerApi *ptr){
+    ijkPlayerNapi_[id] = ptr;
+}
+
 OH_NativeXComponent_Callback *IJKPlayerApi::getNXComponentCallback() {
     LOGI("IJKPlayerApi::getNXComponentCallback");
     return &IJKPlayerApi::callback_;
@@ -653,6 +664,7 @@ napi_value IJKPlayerApi::Export(napi_env env, napi_value exports) {
         DECLARE_NAPI_FUNCTION("_getMediaMeta", IJKPlayerApi::getMediaMeta),
         DECLARE_NAPI_FUNCTION("_nativeOpenlog", IJKPlayerApi::nativeOpenlog),
         DECLARE_NAPI_FUNCTION("_native_setup", IJKPlayerApi::native_setup),
+        DECLARE_NAPI_FUNCTION("_get_ijkplayer_ptr", IJKPlayerApi::get_ijkplayer_ptr),
     };
     NAPI_CALL(env, napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc));
     return exports;

@@ -2,19 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "ijkplayer"
+      "value": "模块描述"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "ijkplayer"
+      "value": "description"
     },
     {
       "name": "EntryAbility_label",
-      "value": "ijkplayer"
-    },
-    {
-      "name": "NET_REQUEST_PERMISSION",
-      "value": "api apply net request permission."
+      "value": "label"
     }
   ]
 }
