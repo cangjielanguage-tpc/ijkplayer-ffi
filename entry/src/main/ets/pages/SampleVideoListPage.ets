@@ -19,7 +19,14 @@ import VideoNewsView from '../ListView/VideoNewsView';
 @Entry
 @Component
 struct SampleVideoListPage {
-  private items: Array<string> = ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'];
+  private performanceFuncs: Array<string> = [
+    'reset',
+    'setDebug',
+    'native_setup',
+    'setDataSource',
+    'setDataSourceHeader'
+  ]
+
   build() {
 
     Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Start, justifyContent: FlexAlign.Start }) {
@@ -44,14 +51,35 @@ struct SampleVideoListPage {
               } });
             })
         }
-      }.height('30%')
-      List({space: 20}) {
-        ForEach(this.items, (title: string) => {
-          ListItem() {
-            VideoNewsView()
+      }
+      Column() {
+        ForEach(this.performanceFuncs, (func: string) => {
+          Row() {
+            Text("性能测试-"+func)
+              .fontSize(20)
+              .fontWeight(FontWeight.Bolder)
+              .onClick(() => {
+                router.pushUrl({
+                  url: "pages/Performance",
+                  params: {
+                    videoUrl: "http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/bipbop_4x3_variant.m3u8",
+                    funcName: func,
+                    titleName: "性能测试-"+func
+                  }
+                });
+              })
+              .width('80%')
+              .height(60)
+              .backgroundColor('#3366a0')
+              .borderRadius(15)
+              .fontSize(16)
+              .padding(20)
+              .textAlign(TextAlign.Start)
+              .margin({ top: 10 })
           }
         })
-      }.margin({top: 30})
+      }
     }
+
   }
 }
