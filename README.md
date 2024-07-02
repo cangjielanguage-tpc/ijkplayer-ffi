@@ -269,9 +269,15 @@ mIjkMediaPlayer.setVolume(0, 1);
 
 ## 约束与限制
 
+支持视频格式:
+- .mp4
+
 在下述版本验证通过：
 
-- DevEco Studio版本: DevEco Studio NEXT Developer Beta1 API12(5.0.3.3)
+- DevEco Studio: 5.0.3.400
+- cangjie SDK: 0.5.5
+- Cangjie support Plugin: 0.5.5
+
 
 ## 开源协议
 GPL-2.0
