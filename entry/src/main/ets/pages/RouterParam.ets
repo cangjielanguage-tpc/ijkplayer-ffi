@@ -15,4 +15,6 @@
 
 export class RouterParam {
   videoUrl: string = "";
+  funcName: string = "";
+  titleName: string = "";
 }

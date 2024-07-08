@@ -1,6 +1,7 @@
 {
   "src": [
     "pages/SampleVideoListPage",
-    "pages/IjkVideoPlayerPage"
+    "pages/IjkVideoPlayerPage",
+    "pages/Performance"
   ]
 }

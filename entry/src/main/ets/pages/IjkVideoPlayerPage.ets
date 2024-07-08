@@ -173,6 +173,13 @@ struct IjkVideoPlayerPage {
           .width('400px')
           .height('80px')
           .margin('15px')
+        Button('播放暂停性能测试')
+          .onClick(() => {
+            this.xn();
+          })
+          .width('400px')
+          .height('80px')
+          .margin('15px')
       }
 
       Flex({ direction: FlexDirection.Row, alignItems: ItemAlign.Center, justifyContent: FlexAlign.Start }) {
@@ -451,13 +458,53 @@ struct IjkVideoPlayerPage {
     mIjkMediaPlayer.start();
   }
 
-  private pause() {
+  public pause() {
     if (mIjkMediaPlayer.isPlaying()) {
       mIjkMediaPlayer.pause();
       this.setProgress();
       this.mDestroyPage = true;
       CONTROL_PlayStatus = PlayStatus.PAUSE;
     }
+  }
+
+  public xn() {
+    this.pause();
+    let start: number = Date.now() * 1e6;
+    let times = 10;
+    let funcName = 'play';
+    for (let index = 0; index < times; index++) {
+      mIjkMediaPlayer.start();
+      this.pause();
+    }
+    let end: number = Date.now() * 1e6;
+    console.warn("[ PASSED ] CASE: TestSuite_" + funcName + "_" + /*"次数"*/times + " (" + (end - start) + "ns, "/*"总时间"*/ + /*"平均时间"*/((end - start) / times) + "ns/op)")
+
+    times = 100;
+    funcName = 'play';
+    for (let index = 0; index < times; index++) {
+      mIjkMediaPlayer.start();
+      this.pause();
+    }
+    end = Date.now() * 1e6;
+    console.warn("[ PASSED ] CASE: TestSuite_" + funcName + "_" + /*"次数"*/times + " (" + (end - start) + "ns, "/*"总时间"*/ + /*"平均时间"*/((end - start) / times) + "ns/op)")
+
+    times = 1000;
+    funcName = 'play';
+    for (let index = 0; index < times; index++) {
+      mIjkMediaPlayer.start();
+      this.pause();
+    }
+    end = Date.now() * 1e6;
+    console.warn("[ PASSED ] CASE: TestSuite_" + funcName + "_" + /*"次数"*/times + " (" + (end - start) + "ns, "/*"总时间"*/ + /*"平均时间"*/((end - start) / times) + "ns/op)")
+
+    times = 10000;
+    funcName = 'play';
+    for (let index = 0; index < times; index++) {
+      mIjkMediaPlayer.start();
+      this.pause();
+    }
+    end = Date.now() * 1e6;
+    console.warn("[ PASSED ] CASE: TestSuite_" + funcName + "_" + /*"次数"*/times + " (" + (end - start) + "ns, "/*"总时间"*/ + /*"平均时间"*/((end - start) / times) + "ns/op)")
   }
 
   private stop() {
