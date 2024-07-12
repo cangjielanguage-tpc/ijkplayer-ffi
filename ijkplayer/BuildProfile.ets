@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ */
 /**
  * Use these variables when you tailor your ArkTS code. They must be of the const type.
  */
