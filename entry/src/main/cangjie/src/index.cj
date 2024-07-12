@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ */
+
 from ohos import ark_interop.JSModule
 from ohos import ark_interop.JSContext
 from ohos import ark_interop.JSCallInfo
