@@ -40,7 +40,7 @@
         "Name": "ijkplayer",
         "License": "ijkplayer is licensed under LGPLv2.1 or later, so itself is free for commercial use under LGPLv2.1 or later",
         "License File": "README.md",
-        "Version Number": "master",
+        "Version Number": "1.0.1",
         "Owner" : "HarmonyOS-TPC"
         "Upstream URL": "https://gitee.com/HarmonyOS-tpc/ijkplayer",
         "Description": "基于FFmpeg的ohos视频播放器"
@@ -49,7 +49,7 @@
         "Name": "hashmap",
         "License": "MIT License",
         "License File": "LICENSE",
-        "Version Number": "master",
+        "Version Number": "2d1350a99d9c64e29ed6dae5d11ab2f7049492b7",
         "Owner" : "qilutong"
         "Upstream URL": "https://github.com/qilutong/hashmap",
         "Description": "C语言实现简单hashmap"
@@ -58,7 +58,7 @@
         "Name": "ijkplayer",
         "License": "ijkplayer is licensed under LGPLv2.1 or later, so itself is free for commercial use under LGPLv2.1 or later",
         "License File": "README.md",
-        "Version Number": "master",
+        "Version Number": "2.0.4",
         "Owner" : "OpenHarmony-SIG"
         "Upstream URL": "https://gitee.com/openharmony-sig/ohos_ijkplayer",
         "Description": "OpenHarmony环境下可用的一款基于FFmpeg的视频播放器"
