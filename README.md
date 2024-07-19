@@ -283,37 +283,6 @@ mIjkMediaPlayer.setVolume(0, 1);
 
 本项目基于 [LGPLv2.1 or later](LICENSE)，请自由地享受和参与开源。
 
-```
-Copyright (c) 2017 Bilibili
-Licensed under LGPLv2.1 or later
-```
-
-ijkplayer required features are based on or derives from projects below:
-- LGPL
-    - [FFmpeg](http://git.videolan.org/?p=ffmpeg.git)
-    - [libVLC](http://git.videolan.org/?p=vlc.git)
-    - [kxmovie](https://github.com/kolyvan/kxmovie)
-    - [soundtouch](http://www.surina.net/soundtouch/sourcecode.html)
-- zlib license
-    - [SDL](http://www.libsdl.org)
-- BSD-style license
-    - [libyuv](https://code.google.com/p/libyuv/)
-- ISC license
-    - [libyuv/source/x86inc.asm](https://code.google.com/p/libyuv/source/browse/trunk/source/x86inc.asm)
-
-ijkplayer's build scripts are based on or derives from projects below:
-- [gas-preprocessor](http://git.libav.org/?p=gas-preprocessor.git)
-- [VideoLAN](http://git.videolan.org)
-- [yixia/FFmpeg-Android](https://github.com/yixia/FFmpeg-Android)
-- [kewlbear/FFmpeg-iOS-build-script](https://github.com/kewlbear/FFmpeg-iOS-build-script)
-
-## Commercial Use
-ijkplayer is licensed under LGPLv2.1 or later, so itself is free for commercial use under LGPLv2.1 or later
-
-But ijkplayer is also based on other different projects under various licenses, which I have no idea whether they are compatible to each other or to your product.
-
-[IANAL](https://en.wikipedia.org/wiki/IANAL), you should always ask your lawyer for these stuffs before use it in your product.
-
 ## 参与贡献
 
 欢迎给我们提交PR，欢迎给我们提交Issue，欢迎参与任何形式的贡献。
