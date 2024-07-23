@@ -1,5 +1,5 @@
 <div align="center">
-<h1>ijkplayer4cj</h1>
+<h1>ijkplayer-ffi</h1>
 </div>
 
 <p align="center">
@@ -12,7 +12,7 @@
 
 ## 介绍
 
-ijkplayer4cj 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器。
+ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器。
 
 ### 特性
 
