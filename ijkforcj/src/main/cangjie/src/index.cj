@@ -3,12 +3,12 @@
  */
 package ijkplayer4cj
 
-from ohos import ark_interop.JSNull
-from ohos import ark_interop.JSModule
-from ohos import ark_interop.JSContext
-from ohos import ark_interop.JSCallInfo
-from ohos import ark_interop.JSValue
-from cj_res_ijkforcj import cj_res_ijkforcj.app
+protected import ohos.ark_interop.JSNull
+protected import ohos.ark_interop.JSModule
+protected import ohos.ark_interop.JSContext
+protected import ohos.ark_interop.JSCallInfo
+protected import ohos.ark_interop.JSValue
+protected import cj_res_ijkforcj.app
 
 let EXPORT_MODULE = JSModule.registerModule {
     runtime, exports =>

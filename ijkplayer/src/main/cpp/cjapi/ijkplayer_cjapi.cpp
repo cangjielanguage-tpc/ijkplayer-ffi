@@ -212,7 +212,7 @@ void ijk_native_setup(char *xcomponentId)
         ->ijkPlayerNapiProxy_->IjkMediaPlayer_native_setup(xcomponent, nativeWindow);
 }
 
-void ijk_setIjkplayerPtr(char *xcomponentId, char *ids)
+void ijk_setIjkplayerPtr(char *xcomponentId, char *ids) 
 {
     std::string str = xcomponentId;
     LOGI("napi-->ijk_setIjkplayerPtr %s %s", xcomponentId, ids);
@@ -223,6 +223,6 @@ void ijk_setMessagePostEventPtr(char *xcomponentId, char *ids)
 {
     std::string str = xcomponentId;
     IJKPlayerApi::getInstance(str)->ijkPlayerNapiProxy_->message_loop_callback(
-        (void (*)(void *, int, int, int, char *))NapiUtil::StringToLongLong(ids)
+        (void (*)(void *, int , int , int ,char *))NapiUtil::StringToLongLong(ids)
     );
 }

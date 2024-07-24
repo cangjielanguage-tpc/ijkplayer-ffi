@@ -488,8 +488,8 @@ mIjkMediaPlayer.native_setup();
 mIjkMediaPlayer.setDataSource(url); 
 // 设置视频源http请求头
 let headers =  new Map([
-    ["user_agent", "Mozilla/5.0 BiliDroid/7.30.0 (bbcallen@gmail.com)"],
-    ["referer", "https://www.bilibili.com"]
+    ["user_agent", "Mozilla/5.0 BiliDroid/7.30.0 (xxxxxxx@xxxxxxx.com)"],
+    ["referer", "https://xxxxxx.com"]
 ]);
 mIjkMediaPlayer.setDataSourceHeader(headers);
 // 使用精确寻帧 例如，拖动播放后，会寻找最近的关键帧进行播放，很有可能关键帧的位置不是拖动后的位置，而是较前的位置.可以设置这个参数来解决问题
