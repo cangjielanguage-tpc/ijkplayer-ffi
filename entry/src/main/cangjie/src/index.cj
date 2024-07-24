@@ -2,11 +2,13 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
  */
 
-from ohos import ark_interop.JSModule
-from ohos import ark_interop.JSContext
-from ohos import ark_interop.JSCallInfo
-from ohos import ark_interop.JSValue
-from cj_res_entry import cj_res_entry.app
+package entry
+
+import ohos.ark_interop.JSModule
+import ohos.ark_interop.JSContext
+import ohos.ark_interop.JSCallInfo
+import ohos.ark_interop.JSValue
+import cj_res_entry.app
 
 func testCJ(runtime: JSContext, callInfo: JSCallInfo): JSValue {
     let value = callInfo[0].toString(runtime)

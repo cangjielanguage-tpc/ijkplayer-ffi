@@ -49,8 +49,7 @@ interface CJLib {
   setIjkplayerPtr(a1: string,a2: string): void;
   setMessagePostEvent(a1: string,a2: string): void;
 }
-
-const cjLib = requireCJLib("libijkplayer4cj_ijkplayer4cj.so") as CJLib
+const cjLib = requireCJLib("libijkplayer4cj.so") as CJLib
 
 /*
  * Audio and video player
