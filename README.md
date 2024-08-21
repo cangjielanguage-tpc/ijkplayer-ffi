@@ -5,7 +5,7 @@
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.51.4-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.53.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-50%25-red" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
@@ -77,7 +77,7 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 
 1、通过IDE工具下载依赖SDK，Tools->SDK Manager->OpenHarmony SDK 把native选项勾上下载，API版本>=9
 
-2、端测请使用镜像 CangjieUIB052版本的mate60手机
+2、端测请使用镜像 OHCangjie 0.10.0 版本的mate60手机
 
 cangjie 编译方式
 
@@ -274,9 +274,9 @@ mIjkMediaPlayer.setVolume(0, 1);
 
 在下述版本验证通过：
 
-- DevEco Studio: 5.0.3.400
-- cangjie SDK: 0.5.5
-- Cangjie support Plugin: 0.5.5
+- DevEco Studio: 5.0.3.500
+- cangjie SDK:  OHCangjie 0.10.0
+- Cangjie support Plugin: 5.0.3.500
 
 
 ## 开源协议 License
