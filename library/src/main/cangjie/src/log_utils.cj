@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
+ */
+
 package ijkplayer4cj
 
 public class LogUtils {
@@ -26,4 +30,3 @@ public class LogUtils {
         }
     }
 }
-

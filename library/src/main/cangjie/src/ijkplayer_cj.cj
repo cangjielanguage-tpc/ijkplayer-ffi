@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
+ */
+
 package ijkplayer4cj
 
 /** 
@@ -6,12 +10,12 @@ package ijkplayer4cj
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjNativeOpenlog(xcomponentId: String): Unit {
+func cjNativeOpenlog(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_nativeOpenlog(id)
         LibC.free(id)
-    }  
+    }
 }
 
 /** 
@@ -21,7 +25,7 @@ public func cjNativeOpenlog(xcomponentId: String): Unit {
  * params url - Video address
  * return Unit
  */
-public func cjSetDataSource(xcomponentId: String,  url: String): Unit {
+func cjSetDataSource(xcomponentId: String, url: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let path: CString = LibC.mallocCString(url)
@@ -40,7 +44,7 @@ public func cjSetDataSource(xcomponentId: String,  url: String): Unit {
  * params value - See example
  * return Unit
  */
-public func cjSetOption(xcomponentId: String, category: String, name: String, value: String): Unit {
+func cjSetOption(xcomponentId: String, category: String, name: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let ccategory: CString = LibC.mallocCString(category)
@@ -63,7 +67,7 @@ public func cjSetOption(xcomponentId: String, category: String, name: String, va
  * params value - See example
  * return Unit
  */
-public func cjSetOptionLong(xcomponentId: String, category: String, name: String, value: String): Unit {
+func cjSetOptionLong(xcomponentId: String, category: String, name: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let ccategory: CString = LibC.mallocCString(category)
@@ -83,12 +87,12 @@ public func cjSetOptionLong(xcomponentId: String, category: String, name: String
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjPrepareAsync(xcomponentId: String): Unit {
+func cjPrepareAsync(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_prepareAsync(id)
         LibC.free(id)
-    }  
+    }
 }
 
 /** 
@@ -97,7 +101,7 @@ public func cjPrepareAsync(xcomponentId: String): Unit {
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjStart(xcomponentId: String): Unit {
+func cjStart(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_start(id)
@@ -111,7 +115,7 @@ public func cjStart(xcomponentId: String): Unit {
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjStop(xcomponentId: String): Unit {
+func cjStop(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_stop(id)
@@ -125,7 +129,7 @@ public func cjStop(xcomponentId: String): Unit {
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjPause(xcomponentId: String): Unit {
+func cjPause(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_pause(id)
@@ -139,7 +143,7 @@ public func cjPause(xcomponentId: String): Unit {
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjReset(xcomponentId: String): Unit {
+func cjReset(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_reset(id)
@@ -153,7 +157,7 @@ public func cjReset(xcomponentId: String): Unit {
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjRelease(xcomponentId: String): Unit {
+func cjRelease(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_release(id)
@@ -168,7 +172,7 @@ public func cjRelease(xcomponentId: String): Unit {
  * params msec - "(0 - getDuration)"
  * return Unit
  */
-public func cjSeekTo(xcomponentId: String, msec: String): Unit {
+func cjSeekTo(xcomponentId: String, msec: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let cmsec: CString = LibC.mallocCString(msec)
@@ -184,7 +188,7 @@ public func cjSeekTo(xcomponentId: String, msec: String): Unit {
  * params xcomponentId - Component ID value
  * return Bool - true/false
  */
-public func cjIsPlaying(xcomponentId: String): Bool {
+func cjIsPlaying(xcomponentId: String): Bool {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let ret: Bool = ijk_isPlaying(id)
@@ -199,7 +203,7 @@ public func cjIsPlaying(xcomponentId: String): Bool {
  * params xcomponentId - Component ID value
  * return Int32
  */
-public func cjGetDuration(xcomponentId: String): Int32 {
+func cjGetDuration(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let ret: Int32 = ijk_getDuration(id)
@@ -214,7 +218,7 @@ public func cjGetDuration(xcomponentId: String): Int32 {
  * params xcomponentId - Component ID value
  * return Int32
  */
-public func cjGetCurrentPosition(xcomponentId: String): Int32 {
+func cjGetCurrentPosition(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let ret: Int32 = ijk_getCurrentPosition(id)
@@ -229,7 +233,7 @@ public func cjGetCurrentPosition(xcomponentId: String): Int32 {
  * params xcomponentId - Component ID value
  * return Int32
  */
-public func cjGetAudioSessionId(xcomponentId: String): Int32 {
+func cjGetAudioSessionId(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let ret: Int32 = ijk_getAudioSessionId(id)
@@ -246,7 +250,7 @@ public func cjGetAudioSessionId(xcomponentId: String): Int32 {
  * params value - Attribute value
  * return Unit
  */
-public func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String): Unit {
+func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let cids: CString = LibC.mallocCString(ids)
@@ -266,7 +270,7 @@ public func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String)
  * params defaultValue - Default attribute values
  * return Float32
  */
-public func cjGetPropertyFloat(xcomponentId: String, ids: String, defaultValue: String): Float32 {
+func cjGetPropertyFloat(xcomponentId: String, ids: String, defaultValue: String): Float32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let cids: CString = LibC.mallocCString(ids)
@@ -287,7 +291,7 @@ public func cjGetPropertyFloat(xcomponentId: String, ids: String, defaultValue: 
  * params value - Attribute value
  * return Unit
  */
-public func cjSetPropertyLong(xcomponentId: String, property: String, value: String): Unit {
+func cjSetPropertyLong(xcomponentId: String, property: String, value: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let cproperty: CString = LibC.mallocCString(property)
@@ -307,7 +311,7 @@ public func cjSetPropertyLong(xcomponentId: String, property: String, value: Str
  * params value - Default attribute values
  * return Int64
  */
-public func cjGetPropertyLong(xcomponentId: String, property: String, value: String): Int64 {
+func cjGetPropertyLong(xcomponentId: String, property: String, value: String): Int64 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let cproperty: CString = LibC.mallocCString(property)
@@ -328,7 +332,7 @@ public func cjGetPropertyLong(xcomponentId: String, property: String, value: Str
  * params rightVolume - Right vocal tract
  * return Unit
  */
-public func cjSetVolume(xcomponentId: String, leftVolume: String, rightVolume: String): Unit {
+func cjSetVolume(xcomponentId: String, leftVolume: String, rightVolume: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let left: CString = LibC.mallocCString(leftVolume)
@@ -347,7 +351,7 @@ public func cjSetVolume(xcomponentId: String, leftVolume: String, rightVolume: S
  * params loopCount - Number of cycles
  * return Unit
  */
-public func cjSetLoopCount(xcomponentId: String, loopCount: String): Unit {
+func cjSetLoopCount(xcomponentId: String, loopCount: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let count: CString = LibC.mallocCString(loopCount)
@@ -363,7 +367,7 @@ public func cjSetLoopCount(xcomponentId: String, loopCount: String): Unit {
  * params xcomponentId - Component ID value
  * return Int32
  */
-public func cjGetLoopCount(xcomponentId: String): Int32 {
+func cjGetLoopCount(xcomponentId: String): Int32 {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let ret: Int32 = ijk_getLoopCount(id)
@@ -382,7 +386,7 @@ public func cjGetLoopCount(xcomponentId: String): Int32 {
  * params select - "true" or "false"
  * return Int32
  */
-public func cjSetStreamSelected(xcomponentId: String, stream: String, select: String): Unit {
+func cjSetStreamSelected(xcomponentId: String, stream: String, select: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let cstream: CString = LibC.mallocCString(stream)
@@ -400,7 +404,7 @@ public func cjSetStreamSelected(xcomponentId: String, stream: String, select: St
  * params xcomponentId - Component ID value
  * return String
  */
-public func cjGetVideoCodecInfo(xcomponentId: String): String {
+func cjGetVideoCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let retC: CString = ijk_getVideoCodecInfo(id)
@@ -417,7 +421,7 @@ public func cjGetVideoCodecInfo(xcomponentId: String): String {
  * params xcomponentId - Component ID value
  * return String
  */
-public func cjGetAudioCodecInfo(xcomponentId: String): String {
+func cjGetAudioCodecInfo(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let retC: CString = ijk_getAudioCodecInfo(id)
@@ -434,13 +438,11 @@ public func cjGetAudioCodecInfo(xcomponentId: String): String {
  * params xcomponentId - Component ID value
  * return String
  */
-public func cjGetMediaMeta(xcomponentId: String): String {
+func cjGetMediaMeta(xcomponentId: String): String {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         let retC: CString = ijk_getMediaMeta(id)
         let ret = retC.toString()
-//        LibC.free(id)
-//        LibC.free(retC)
         return ret
     }
 }
@@ -451,41 +453,10 @@ public func cjGetMediaMeta(xcomponentId: String): String {
  * params xcomponentId - Component ID value
  * return Unit
  */
-public func cjNativeSetup(xcomponentId: String): Unit {
+func cjNativeSetup(xcomponentId: String): Unit {
     unsafe {
         let id: CString = LibC.mallocCString(xcomponentId)
         ijk_native_setup(id)
         LibC.free(id)
     }
 }
-
-
-public func cjGetIjkplayerPtr(xcomponentId: String): Unit {
-    unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_getIjkplayerPtr(id)
-        LibC.free(id)
-    }
-}
-
-
-//public func cjSetIjkplayerPtr(a1: String, a2: String): Unit {
-//    unsafe {
-//        let xnw: CString = LibC.mallocCString(a1)
-//        let ptr: CString = LibC.mallocCString(a2)
-//        ijk_setIjkplayerPtr(xnw, ptr)
-//        LibC.free(xnw)
-//        LibC.free(ptr)
-//    }
-//}
-
-
-//public func cjSetMessagePostEventPtr(a1: String, a2: String): Unit {
-//    unsafe {
-//        let xnw: CString = LibC.mallocCString(a1)
-//        let ptr: CString = LibC.mallocCString(a2)
-//        ijk_setMessagePostEventPtr(xnw, ptr)
-//        LibC.free(xnw)
-//        LibC.free(ptr)
-//    }
-//}

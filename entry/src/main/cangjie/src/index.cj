@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights resvered.
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
  */
 
 package ohos_app_cangjie_entry
@@ -19,7 +19,6 @@ class EntryView {
 
     var playSpeed: String = "1f"
 
-    //-------------------------------------------
     @State
     var mFirst: Bool = true
     @State
@@ -91,11 +90,8 @@ class EntryView {
                 Column {
                     XComponent("xcomponentId", "surface", "ijkplayer_napi").onLoad {
                         => initDelayPlay()
-                    }.width(100.percent).height(300)
-                        //                    .aspectRatio(this.initAspectRatio)
-                        .id("xcomponentId")
+                    }.width(100.percent).height(300).id("xcomponentId")
                 }
-
                 Image(@r(app.media.icon_replay)).objectFit(ImageFit.Auto).width(60).height(60).visibility(
                     this.replayVisible).borderStyle(BorderStyle.Dashed).onClick(
                     {
@@ -121,12 +117,9 @@ class EntryView {
                         case SliderChangeMode.End =>
                             this.isSeekTo = true
                             this.mDestroyPage = false
-                            //                            this.showLoadIng()
-                            //LogUtils.getInstance().LOGI("slider-->seekValue start:" + value)
                             let seekValue = value * Float64((this.mIjkMediaPlayer.getDuration() / 100))
                             this.seekTo(seekValue.toString());
                             this.setProgress()
-                            //LogUtils.getInstance().LOGI("slider-->seekValue end:" + seekValue)
                             this.isSeekTo = false
                         case _ => ()
                     }
@@ -340,7 +333,6 @@ class EntryView {
     }
 
     private func play(url: String): Unit {
-        //showLoadIng()
         //设置XComponent回调的context
         this.mIjkMediaPlayer.setContext("xcomponentId")
 
@@ -394,112 +386,7 @@ class EntryView {
         let Speed = this.mIjkMediaPlayer.getSpeed()
         AppLog.info("getSpeed--" + Speed.toString())
         //是否开启循环播放
-        this.mIjkMediaPlayer.setLoopCount(true);
-        //    let mOnVideoSizeChangedListener: OnVideoSizeChangedListener = {
-        //      onVideoSizeChanged: (width: number, height: number, sar_num: number, sar_den: number) => {
-        //        if (height === 0) {
-        //          return;
-        //        }
-        //        const va = width / height;
-        //        const vpa = that.videoParentAspectRatio;
-        //        if (vpa > va) {
-        //          that.videoWidth = (width / (height * vpa)) * 100 + '%';
-        //        } else {
-        //          that.videoWidth = '100%';
-        //        }
-        //        if (width && height) {
-        //          that.videoAspectRatio = width / height;
-        //        }
-        //        LogUtils.getInstance()
-        //          .LOGI("setOnVideoSizeChangedListener-->go:" + width + "," + height + "," + sar_num + "," + sar_den);
-        //        that.getVideoSize();
-        //        that.hideLoadIng();
-        //      }
-        //    }
-        //    this.mIjkMediaPlayer.setOnVideoSizeChangedListener(mOnVideoSizeChangedListener);
-        //    let mOnPreparedListener: OnPreparedListener = {
-        //      onPrepared: () => {
-        //        LogUtils.getInstance().LOGI("setOnPreparedListener-->go");
-        //      }
-        //    }
-        //    this.mIjkMediaPlayer.setOnPreparedListener(mOnPreparedListener);
-        //
-        //    let mOnTimedTextListener: OnTimedTextListener = {
-        //      onTimedText: () => {
-        //      }
-        //    }
-        //    this.mIjkMediaPlayer.setOnTimedTextListener(mOnTimedTextListener)
-        //
-        //    let mOnCompletionListener: OnCompletionListener = {
-        //      onCompletion: () => {
-        //        LogUtils.getInstance().LOGI("OnCompletionListener-->go")
-        //        that.showRePlay();
-        //        that.currentTime = that.stringForTime(this.mIjkMediaPlayer.getDuration());
-        //        that.progressValue = this.PROGRESS_MAX_VALUE;
-        //        that.slideEnable = false;
-        //        that.stop();
-        //      }
-        //    }
-        //    this.mIjkMediaPlayer.setOnCompletionListener(mOnCompletionListener);
-        //
-        //    let mOnBufferingUpdateListener: OnBufferingUpdateListener = {
-        //      onBufferingUpdate: (percent: number) => {
-        //        LogUtils.getInstance().LOGI("OnBufferingUpdateListener-->go:" + percent);
-        //        let MediaInfo = this.mIjkMediaPlayer.getMediaInfo()
-        //        LogUtils.getInstance().LOGI('getMediaInfo---' + MediaInfo);
-        //        let VideoWidth = this.mIjkMediaPlayer.getVideoWidth()
-        //        LogUtils.getInstance().LOGI('getVideoWidth---' + VideoWidth);
-        //
-        //        let VideoHeight = this.mIjkMediaPlayer.getVideoHeight()
-        //        LogUtils.getInstance().LOGI('getVideoHeight---' + VideoHeight);
-        //
-        //        let VideoSarNum = this.mIjkMediaPlayer.getVideoSarNum()
-        //        LogUtils.getInstance().LOGI('getVideoSarNum---' + VideoSarNum);
-        //
-        //        let VideoSarDen = this.mIjkMediaPlayer.getVideoSarDen()
-        //        LogUtils.getInstance().LOGI('getVideoSarDen---' + VideoSarDen);
-        //
-        //        let AudioSessionId = this.mIjkMediaPlayer.getAudioSessionId()
-        //        LogUtils.getInstance().LOGI('getAudioSessionId---' + AudioSessionId);
-        //
-        //        let Looping = this.mIjkMediaPlayer.isLooping()
-        //        LogUtils.getInstance().LOGI('isLooping---' + Looping);
-        //      }
-        //    }
-        //    this.mIjkMediaPlayer.setOnBufferingUpdateListener(mOnBufferingUpdateListener);
-        //
-        //    let mOnSeekCompleteListener: OnSeekCompleteListener = {
-        //      onSeekComplete: () => {
-        //        LogUtils.getInstance().LOGI("OnSeekCompleteListener-->go");
-        //        that.startPlayOrResumePlay();
-        //      }
-        //    }
-        //    this.mIjkMediaPlayer.setOnSeekCompleteListener(mOnSeekCompleteListener);
-        //
-        //    let mOnInfoListener: OnInfoListener = {
-        //      onInfo: (what: number, extra: number) => {
-        //        LogUtils.getInstance().LOGI("OnInfoListener-->go:" + what + "===" + extra);
-        //        that.hideLoadIng();
-        //      }
-        //    }
-        //    this.mIjkMediaPlayer.setOnInfoListener(mOnInfoListener);
-        //
-        //
-        //    let mOnErrorListener: OnErrorListener = {
-        //      onError: (what: number, extra: number) => {
-        //        this.stopProgressTask();
-        //        LogUtils.getInstance().LOGI("OnErrorListener-->go:" + what + "===" + extra)
-        //        that.hideLoadIng();
-        //        prompt.showToast({
-        //          message: getContext().resourceManager.getStringByNameSync("Honey_the_video_is_playing_errant_The_system_is_wandering")
-        //        });
-        //      }
-        //    }
-        //
-        //
-        //    this.mIjkMediaPlayer.setOnErrorListener(mOnErrorListener);
-
-        //    this.mIjkMediaPlayer.setMessageListener();
+        this.mIjkMediaPlayer.setLoopCount(true)
 
         this.mIjkMediaPlayer.prepareAsync()
 

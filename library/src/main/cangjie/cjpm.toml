@@ -17,6 +17,8 @@
   [dependencies.cj_res_library]
     path = "./cj_res"
     version = "1.0.0"
+  [dependencies.ohos_app_cangjie_clibrary]
+    path = "../../../../clibrary/src/main/cangjie"
 
 [ffi]
   [ffi.c]

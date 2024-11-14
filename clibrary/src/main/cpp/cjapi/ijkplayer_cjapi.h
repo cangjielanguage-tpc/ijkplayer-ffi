@@ -1,9 +1,5 @@
 /*
- * Copyright (c) Huawei Technologies Co., Ltd. 2023-2023. All rights reserved.
- * Description: Ijkplayer for Cangjie API
- * Author: lwx1039820
- * Create: 2023-10-1
- * Notes: 2023-10-1 Create
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
  */
 
 #ifndef ijkplayer_ijkplayer_cjapi_H

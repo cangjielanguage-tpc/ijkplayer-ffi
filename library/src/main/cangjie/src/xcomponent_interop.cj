@@ -1,6 +1,7 @@
-/**
- * Created on 2024/11/7
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
  */
+
 package ijkplayer4cj
 
 var g_global: ?JSObject = None
@@ -44,15 +45,13 @@ public class XComponent <: ViewBase {
                 AppLog.info("onLoad event null")
                 return ctx.undefined().toJSValue()
             }
-//            let ret = callinfo[0].asObject().callMethod("_get_ijkplayer_ptr")
-//            let ptr = ret.toNumber()
-//            AppLog.info("ret is ${ptr}")
-            //方法的空实现
-            let listenerCallbackFunc = {ctx:JSContext,callinfo:JSCallInfo =>
-                    AppLog.info("_setMessageListener callback")
-                    return ctx.undefined().toJSValue()
-                }
-            let ret2 = callinfo[0].asObject().callMethod("_setMessageListener",context.function(listenerCallbackFunc).toJSValue())
+            let listenerCallbackFunc = {
+                ctx: JSContext, callinfo: JSCallInfo =>
+                AppLog.info("_setMessageListener callback")
+                return ctx.undefined().toJSValue()
+            }
+            let ret2 = callinfo[0].asObject().callMethod("_setMessageListener",
+                context.function(listenerCallbackFunc).toJSValue())
             let ptr2 = ret2.toNumber()
             AppLog.info("ret2 is ${ptr2}")
             callbackFunc()

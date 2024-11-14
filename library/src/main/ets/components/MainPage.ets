@@ -1,5 +1,4 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import testNapi from 'liblibrary.so';
 import { requireCJLib } from "libark_interop_loader.so";
 
 interface CJLib {
@@ -19,7 +18,6 @@ export struct MainPage {
           .onClick(() => {
             const lib = requireCJLib("libijkplayer4cj.so") as CJLib
             this.message = lib.testCJ("Cangjie")
-            hilog.info(0x0000, 'testTag', 'Test NAPI 2 + 3 = %{public}d', testNapi.add(2, 3));
           })
       }
       .width('100%')

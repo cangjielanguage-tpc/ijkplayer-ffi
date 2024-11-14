@@ -1,8 +1,10 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
+ */
 
-package  ijkplayer4cj
+package ijkplayer4cj
 
-    public class PropertiesType {
-
+public class PropertiesType {
     public static let PROP_FLOAT_VIDEO_DECODE_FRAMES_PER_SECOND: String = "10001"
 
     public static let PROP_FLOAT_VIDEO_OUTPUT_FRAMES_PER_SECOND: String = "10002"
@@ -68,6 +70,4 @@ package  ijkplayer4cj
     public static let FFP_PROP_INT64_LATEST_SEEK_LOAD_DURATION: String = "20300"
 
     public static let FFP_PROP_INT64_IMMEDIATE_RECONNECT: String = "20211"
-
 }
-

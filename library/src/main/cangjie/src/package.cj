@@ -1,8 +1,8 @@
-/**
- * Created on 2024/11/7
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
  */
-package ijkplayer4cj
 
+package ijkplayer4cj
 
 internal import ohos.base.*
 internal import std.collection.*
@@ -12,4 +12,3 @@ internal import ohos.window.*
 internal import ohos.ability.*
 internal import ohos.component.*
 internal import ohos.ark_interop.*
-

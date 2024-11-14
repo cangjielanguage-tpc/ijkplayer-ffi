@@ -65,17 +65,15 @@ public class MediaInfoType {
 }
 
 class GlobalListener {
-
     public static let map: ConcurrentHashMap<Int32, IjkMediaPlayer> = ConcurrentHashMap<Int32, IjkMediaPlayer>()
-    public static var currentID: AtomicInt32= AtomicInt32(0)
+    public static var currentID: AtomicInt32 = AtomicInt32(0)
 
     public static func getCurrentId(): Int32 {
-       return  currentID.fetchAdd(1)
+        return currentID.fetchAdd(1)
     }
 }
 
 public class IjkMediaPlayer {
-
     let ID: Int32 = GlobalListener.getCurrentId()
     //单例
     private static var instance: Option<IjkMediaPlayer> = None
@@ -106,9 +104,6 @@ public class IjkMediaPlayer {
     private var mOnSeekCompleteListener: Option<OnSeekCompleteListener> = None
     //时间监听
     private var mOnTimedTextListener: Option<OnTimedTextListener> = None
-
-    //    private ijkplayer_napi: IjkPlayerNapi | null = null;
-    //    private ijkplayer_audio_napi: newIjkPlayerAudio | null = null;
 
     private var id: String = ''
     private var callback: Option<Callback<InterruptEvent>> = None;
@@ -190,7 +185,7 @@ public class IjkMediaPlayer {
         cjSeekTo(this.id, msec)
     }
 
-    public func setScreenOnWhilePlaying(on: Bool, context: AbilityContext): Unit {
+    func setScreenOnWhilePlaying(on: Bool, context: AbilityContext): Unit {
         let win: Window = getLastWindow(getStageContext(context))
         win.setWindowKeepScreenOn(on)
     }
@@ -207,11 +202,11 @@ public class IjkMediaPlayer {
         return cjIsPlaying(this.id)
     }
 
-    public func on(callback: Callback<InterruptEvent>): Unit {
+    func on(callback: Callback<InterruptEvent>): Unit {
         this.callback = callback
     }
 
-    public func off(): Unit {
+    func off(): Unit {
         this.callback = None
     }
 
@@ -252,8 +247,7 @@ public class IjkMediaPlayer {
         GlobalListener.map[ID] = this
         let messageCallBack: CFunc<(Int32, Int32, Int32, Int32) -> Unit> = {
             what, arg1, arg2, id =>
-            LogUtils.getInstance().LOGI(
-                "setMessageListener callback what:${what}, arg1:${arg1},arg2:${arg2},obj:${id}")
+            LogUtils.getInstance().LOGI("setMessageListener callback what:${what}, arg1:${arg1},arg2:${arg2},obj:${id}")
             let that: IjkMediaPlayer = GlobalListener.map[id]
             let onVideoSizeChangedListener = that.mOnVideoSizeChangedListener
             let onPreparedListener = that.mOnPreparedListener
@@ -320,7 +314,7 @@ public class IjkMediaPlayer {
             }
             if (what == MessageType.MEDIA_TIMED_TEXT) {
                 if (let Some(v) <- onTimedTextListener) {
-                   // v.onTimedText(that.toString())
+                    // v.onTimedText(that.toString())
                 }
             }
             if (what == MessageType.MEDIA_AUDIO_INTERRUPT) {
@@ -526,21 +520,4 @@ public class IjkMediaPlayer {
     public func native_setup(): Unit {
         cjNativeSetup(this.id)
     }
-
-    //    func startRecord(saveFilePath: String): Bool {
-    //        cjStartRecord(this.id, saveFilePath)
-    //    }
-    //
-    //    func stopRecord(): Bool {
-    //        cjStopRecord(this.id)
-    //    }
-    //
-    //    isRecord(): Bool {
-    //      cjIsRecord(this.id)
-    //    }
-    //
-    //
-    //    public func screenshot(saveFilePath: String): Bool  {
-    //      return cjGetCurrentFrame(this.id,saveFilePath)
-    //    }
 }

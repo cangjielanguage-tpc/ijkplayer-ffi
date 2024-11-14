@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
+ */
+
 package ijkplayer4cj
 
 public interface OnBufferingUpdateListener {
@@ -31,4 +35,3 @@ public interface OnTimedTextListener {
 public interface OnVideoSizeChangedListener {
     func onVideoSizeChanged(width: Int32, height: Int32, sar_num: Int32, sar_den: Int32): Unit
 }
-

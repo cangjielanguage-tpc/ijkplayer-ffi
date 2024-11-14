@@ -6,7 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "liblibrary.so": "file:./src/main/cpp/types/liblibrary",
+    "clibrary": "file:../clibrary",
     "libark_interop_loader.so": "file:./src/main/cangjie/loader"
   }
 }
