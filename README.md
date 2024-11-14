@@ -65,25 +65,14 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 
 用devecostudio打开项目,然后点击run按钮直接运行app即可自动编译成功
 
-
 ### 把ijkplayer作为三方库引入
-当前仓颉语言三方库还不支持中心仓库，可以把依赖库克隆到本地引入，具体步骤如下：
-a. 目标工程把依赖库作为git submodule引入
-```shell
-> cd $工程根目录
->mkdir third-party
->cd  third-party
->git submodule add "ijkplayer的git地址"
-然后将ijkplayer编译通过
-```
-b. 在entry的oh-package.json5里面加上ijk的library的依赖 
-  "library": "file:../library", //具体路径以自己项目为准
-  然后同步文件，自动会在entry的cjpm.tmol中生成依赖
-
-```shell
-[dependencies.ijkplayer4cj]
-path = "../../../../library/src/main/cangjie" //路径以自己项目为准
-```
+当前仓颉语言三方库还不支持中心仓库，可以把ijkplayer4cj库克隆到本地进行二进制引入，具体步骤如下：
+1. 克隆ijkplayer4cj仓库按照上述编译成功。
+2. 在自己主module(默认是entry)的libs目录下新建两个arm64-v8a, ijkplayer4cj目录.
+3. 在ijkplayer4cj项目的clibrary/build/default/intermediates/libs/default/arm64-v8a目录下获取libc++_shared.so、libijkplayer.so、libijkplayer_cjapi.so、libijkplayer_napi.so、libijksdl.so，将这些so放在arm64-v8a目录下。
+4. 在ijkplayer4cj项目的entry/build/default/intermediates/cj/cj_build/default/aarch64-linux-ohos/release/ijkplayer4cj目录的ijkplayer4cj.cjo、libijkplayer4cj.so, 将这些so放在新建的ijkplayer4cj目录下。
+5. 在自己的主module(默认是entry)的entry/src/main/cangjie/cjpm.toml文件中 <img src="./doc/assets/update_before.png" width="80%" > 修改为 <img src="./doc/assets/udpate_after.png" width="80%" >
+6. 运行即可（改库涉及到网络权限，要在module.json中加入网络权限）。
 
 ### 功能示例
 
@@ -169,36 +158,36 @@ mIjkMediaPlayer.stop();
 
 重置
 
-```ets
+```cj
 mIjkMediaPlayer.reset();
 ```
 
 释放
 
-```ets
+```cj
 mIjkMediaPlayer.release();
 ```
 跳到指定时间节点的视频处
 
-```ets
+```cj
 mIjkMediaPlayer.seekTo(10);
 ```
 倍数播放
 
-```ets
+```cj
 mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "soundtouch", "1");
 mIjkMediaPlayer.setSpeed("2");
 ```
 
 循环播放
 
-```ets
+```cj
 mIjkMediaPlayer.setLoopCount(true);
 ```
 
 设置音量
 
-```ets
+```cj
 mIjkMediaPlayer.setVolume(0, 1);
 ```
 
