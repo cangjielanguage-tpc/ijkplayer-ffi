@@ -460,3 +460,13 @@ func cjNativeSetup(xcomponentId: String): Unit {
         LibC.free(id)
     }
 }
+
+func cjSetMessageListener(xcomponentId: String, ijkplayerId: Int32, ptr: CFunc<(Int32, Int32, Int32, CString, Int32) -> Unit>): Unit {
+    unsafe {
+        let xnw: CString = LibC.mallocCString(xcomponentId)
+        ijk_setMessageListener(xnw, ijkplayerId, ptr)
+        LibC.free(xnw)
+    }
+}
+
+

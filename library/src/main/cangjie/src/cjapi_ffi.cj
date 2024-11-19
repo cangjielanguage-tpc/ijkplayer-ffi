@@ -62,5 +62,5 @@ foreign {
 
     func ijk_native_setup(xcomponentId: CString): Unit
 
-    func ijk_setMessageListener(xcomponentId: CString, ptr: CFunc<(Int32, Int32, Int32, Int32) -> Unit>): Unit
+    func ijk_setMessageListener(xcomponentId: CString, id: Int32, ptr: CFunc<(Int32, Int32, Int32, CString, Int32) -> Unit>): Unit
 }

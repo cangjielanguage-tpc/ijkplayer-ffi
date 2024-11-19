@@ -59,14 +59,24 @@ struct GetCurrentFrameCallBackInfo {
     int code;
 };
 
+struct CallbackContext4cj {
+    napi_env env = nullptr;
+    void (*callbackRef)(int what, int arg1, int arg2, char *obj, int ijkplayer_id) = nullptr;
+    int what = 0;
+    int arg1 = 0;
+    int arg2 = 0;
+    char *obj;
+    int ijk_id = 0;
+};
+
 void messageCallBack(int what, int arg1, int arg2, char *obj, std::string id)
 {
     LOGI("napi-->messageCallBack");
-    struct CallbackContext *context = new CallbackContext();
+    struct CallbackContext4cj *context = new CallbackContext4cj();
     IJKPlayerNapi *instance = IJKPlayerNapi::getInstance(id);
     context->env = instance->envMessage_;
     uv_loop_s *loopMessage = nullptr;
-    napi_get_uv_event_loop(context->env, &loopMessage);
+    napi_get_uv_event_loop(instance->envMessage_, &loopMessage);
     if (loopMessage == nullptr) {
         LOGI("napi-->loopMessage null");
         return;
@@ -80,31 +90,17 @@ void messageCallBack(int what, int arg1, int arg2, char *obj, std::string id)
     context->arg1 = arg1;
     context->arg2 = arg2;
     context->obj = obj;
+    context->ijk_id = instance->ijkplayer_id;
     context->callbackRef = instance->callBackRefMessage_;
     work->data = (void *)context;
     uv_queue_work(
-        loopMessage, work, [](uv_work_t *work) {},
+        loopMessage, work, 
+        [](uv_work_t *work) {},
         [](uv_work_t *work, int status) {
             LOGI("napi-->uv_queue_work");
-            CallbackContext *context = static_cast<CallbackContext *>(work->data);
-            napi_value callback = nullptr;
-            napi_get_reference_value(context->env, context->callbackRef, &callback);
-            napi_value what_;
-            napi_value arg1_;
-            napi_value arg2_;
-            napi_value obj_;
-            napi_create_int32(context->env, context->what, &what_);
-            napi_create_int32(context->env, context->arg1, &arg1_);
-            napi_create_int32(context->env, context->arg2, &arg2_);
-            napi_value ret = 0;
-            if (context->obj) {
-                napi_create_string_utf8(context->env, context->obj, NAPI_AUTO_LENGTH, &obj_);
-                napi_value argv_4[] = {what_, arg1_, arg2_, obj_};
-                napi_call_function(context->env, nullptr, callback, PARAM_COUNT_4, argv_4, &ret);
-            } else {
-                napi_value argv_3[] = {what_, arg1_, arg2_};
-                napi_call_function(context->env, nullptr, callback, PARAM_COUNT_3, argv_3, &ret);
-            }
+            CallbackContext4cj *context = static_cast<CallbackContext4cj *>(work->data);
+            void(* callback)(int what, int arg1, int arg2, char *obj, int ijkplayer_id) = context->callbackRef;
+            callback(context->what, context->arg1, context->arg2, context->obj, context->ijk_id);
             if (work != nullptr) {
                 delete work;
             }
@@ -124,10 +120,10 @@ void setEnvMessage(const napi_env &env, std::string id)
     IJKPlayerNapi::getInstance(id)->envMessage_ = env;
 }
 
-void setCallBackRefMessage(const napi_ref &callbackRef, std::string id)
-{
-    IJKPlayerNapi::getInstance(id)->callBackRefMessage_ = callbackRef;
-}
+// void setCallBackRefMessage(const napi_ref &callbackRef, std::string id)
+// {
+//     IJKPlayerNapi::getInstance(id)->callBackRefMessage_ = callbackRef;
+// }
 
 void setXComponentId(std::string &id) {
     xcomponentId_ = id;
@@ -172,6 +168,14 @@ std::string IJKPlayerNapi::getXComponentId(napi_env env, napi_callback_info info
     return id;
 }
 
+void IJKPlayerNapi::cjSetMessageListener(std::string &id, int ijkplayer_id, void (*pe)(int what, int arg1, int arg2, char *obj, int ijkplayer_id)) {
+    LOGI("napi-->msg----setMessageListener");
+    IJKPlayerNapi::getInstance(id)->callBackRefMessage_ = pe;
+    IJKPlayerNapi::getInstance(id)->ijkplayer_id = ijkplayer_id;
+    IJKPlayerNapi::getInstance(id)->ijkPlayerNapiProxy_->message_loop_callback(post_event);
+    return;
+}
+
 napi_value IJKPlayerNapi::setMessageListener(napi_env env, napi_callback_info info) {
     LOGI("napi-->msg----setMessageListener");
     size_t argc = PARAM_COUNT_2;
@@ -188,12 +192,8 @@ napi_value IJKPlayerNapi::setMessageListener(napi_env env, napi_callback_info in
     if (xcomponentId == "") {
         xcomponentId = IJKPlayerNapi::getXComponentId(env, info);
     }
-    setCallBackRefMessage(callBackRefMessage_, xcomponentId);
     setEnvMessage(env, xcomponentId);
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->message_loop_callback(post_event);
-    void (*pe)(int what, int arg1, int arg2, char *obj,std::string id) = post_event;
-    return NapiUtil::SetNapiCallInt64(env, (int64_t)pe);
-    //return nullptr;
+    return nullptr;
 }
 
 napi_value IJKPlayerNapi::native_setup(napi_env env, napi_callback_info info) {

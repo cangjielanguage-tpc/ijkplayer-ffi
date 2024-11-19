@@ -63,7 +63,16 @@ class EntryView {
     var progressValue: Int64 = 0
 
     @State
-    var initAspectRatio: Int64 = 1
+    var initAspectRatio: Float64 = 1.0
+
+    @State
+    var videoAspectRatio: Float64 = 1.0
+
+    @State
+    var videoParentAspectRatio: Int32 = 1;
+
+    @State
+    var videoWidth: Length = Length(100, unitType: percent)
 
     private var videoUrls: Array<String> = [
         "https://cdn-vod-playlet.wtzw.com/asset/c0127835e4ed22e0f763b2261311b998/fc74f32bb6b5b764c6d790ea30399f60.mov",
@@ -88,9 +97,12 @@ class EntryView {
             Divider().vertical(false).strokeWidth(8).color(Color.WHITE).lineCap(LineCapStyle.Round)
             Stack(Alignment.Center) {
                 Column {
-                    XComponent("xcomponentId", "surface", "ijkplayer_napi").onLoad {
-                        => initDelayPlay()
-                    }.width(100.percent).height(300).id("xcomponentId")
+                    XComponent("xcomponentId", "surface", "ijkplayer_napi").onLoad {=>
+                        initDelayPlay()
+                    }.width(100.percent)
+                    .width(this.videoWidth)
+                    .aspectRatio(this.videoAspectRatio)
+                    .id("xcomponentId")
                 }
                 Image(@r(app.media.icon_replay)).objectFit(ImageFit.Auto).width(60).height(60).visibility(
                     this.replayVisible).borderStyle(BorderStyle.Dashed).onClick(
@@ -386,7 +398,57 @@ class EntryView {
         let Speed = this.mIjkMediaPlayer.getSpeed()
         AppLog.info("getSpeed--" + Speed.toString())
         //是否开启循环播放
-        this.mIjkMediaPlayer.setLoopCount(true)
+        this.mIjkMediaPlayer.setLoopCount(false)
+
+        this.mIjkMediaPlayer.setOnVideoSizeChangedListener({width: Int32, height: Int32, sar_num: Int32, sar_den: Int32 =>
+            if (height == 0) {
+                return
+            }
+            let va = Float64(width) / Float64(height)
+            let vpa = Float64(this.videoParentAspectRatio)
+            if (vpa > va) {
+                this.videoWidth = Length((Float64(width) / (Float64(height) * vpa)) * 100.0, unitType: percent)
+            } else {
+                this.videoWidth = Length(100, unitType:  percent)
+            }
+            if (width > 0 && height > 0) {
+                this.videoAspectRatio = Float64(width) / Float64(height)
+            }
+            LogUtils.getInstance().LOGI("setOnVideoSizeChangedListener-->go:" + width.toString() + "," + height.toString() + "," + sar_num.toString() + "," + sar_den.toString())
+            this.getVideoSize()
+            //that.hideLoadIng()
+        })
+
+        this.mIjkMediaPlayer.setOnPreparedListener({=>
+            AppLog.error("进来了setOnPreparedListener")
+        })
+
+        this.mIjkMediaPlayer.setOnTimedTextListener({ str=>
+            AppLog.error("进来了setOnTimedTextListener"+ str)
+        })
+
+        this.mIjkMediaPlayer.setOnCompletionListener({=>
+            AppLog.error("进来了 结束")
+        })
+
+        this.mIjkMediaPlayer.setOnSeekCompleteListener({=>
+            AppLog.error("进来了 seek")
+        })
+
+        this.mIjkMediaPlayer.setOnErrorListener({ what, extra =>
+            AppLog.error("进来了 error ${what} ${extra}")
+        })
+
+        this.mIjkMediaPlayer.setOnInfoListener({what, extra=>
+            AppLog.error("进来了 info ${what} ${extra}")
+        })
+
+
+        this.mIjkMediaPlayer.setOnBufferingUpdateListener({percent =>
+            AppLog.error("进来了 BufferingUpdate ${percent}")
+        })
+
+        this.mIjkMediaPlayer.setMessageListener()
 
         this.mIjkMediaPlayer.prepareAsync()
 

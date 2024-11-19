@@ -63,7 +63,7 @@ class IJKPlayerNapi {
     static napi_value isRecord(napi_env env, napi_callback_info info);
     static napi_value getCurrentFrame(napi_env env, napi_callback_info info);
     static napi_value get_ijkplayer_ptr(napi_env env, napi_callback_info info);
-
+    static void cjSetMessageListener(std::string &id, int ijkplayer_id, void (*pe)(int what, int arg1, int arg2, char *obj, int ijkplayer_id));
 
     ////////////////////////XComponent////////////////////////////
     static OH_NativeXComponent_Callback *getNXComponentCallback();
@@ -91,7 +91,8 @@ class IJKPlayerNapi {
     OH_NativeXComponent_TouchEvent touchEvent_;
     static bool gIsVideo;
     napi_env envMessage_;
-    napi_ref callBackRefMessage_;
+    int ijkplayer_id;
+    void (*callBackRefMessage_)(int, int, int, char *, int);
 };
 
 #endif //ijkplayer_ijkplayer_napi.h_H

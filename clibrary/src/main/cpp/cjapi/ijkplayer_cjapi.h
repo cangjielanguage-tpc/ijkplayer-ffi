@@ -40,6 +40,7 @@ void ijk_native_setup(char *xcomponentId);
 long long ijk_getIjkplayerPtr(char *xcomponentId);
 //void ijk_setIjkplayerPtr(char *xcomponentId, char *ids);
 //void ijk_setMessagePostEventPtr(char *xcomponentId, char *ids);
+void ijk_setMessageListener(char *xcomponentId, int ijkplayer_id, void (*pe)(int what, int arg1, int arg2, char *obj, int ijkplayer_id));
 
 #ifdef __cplusplus
 } /* extern "C" */

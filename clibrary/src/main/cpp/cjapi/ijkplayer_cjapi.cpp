@@ -209,6 +209,10 @@ void ijk_native_setup(char *xcomponentId)
         ->ijkPlayerNapiProxy_->IjkMediaPlayer_native_setup(xcomponent, nativeWindow);
 }
 
+void ijk_setMessageListener(char *xcomponentId, int ijkplayer_id, void (*pe)(int what, int arg1, int arg2, char *obj, int ijkplayer_id)) {
+    std::string str = xcomponentId;
+    IJKPlayerNapi::getInstance(str)->cjSetMessageListener(str, ijkplayer_id, pe);
+} 
 
 long long ijk_getIjkplayerPtr(char *xcomponentId) 
 {

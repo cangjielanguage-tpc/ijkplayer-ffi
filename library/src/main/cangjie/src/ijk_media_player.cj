@@ -89,24 +89,24 @@ public class IjkMediaPlayer {
     private var mVideoSarDen: Int32 = 0
 
     //视频尺寸发生变化监听
-    private var mOnVideoSizeChangedListener: Option<OnVideoSizeChangedListener> = None
+    private var mOnVideoSizeChangedListener: Option<(width: Int32, height: Int32, sar_num: Int32, sar_den: Int32)-> Unit> = None
     //视频准备播放监听
-    private var mOnPreparedListener: Option<OnPreparedListener> = None
+    private var mOnPreparedListener: Option<()-> Unit> = None
     //视频播放结束监听
-    private var mOnCompletionListener: Option<OnCompletionListener> = None
+    private var mOnCompletionListener: Option<()-> Unit> = None
     //缓冲update监听
-    private var mOnBufferingUpdateListener: Option<OnBufferingUpdateListener> = None
+    private var mOnBufferingUpdateListener: Option<(percent: Int32) -> Unit> = None
     //发生错误监听
-    private var mOnErrorListener: Option<OnErrorListener> = None
+    private var mOnErrorListener: Option<(what: Int64, extra: Int64) -> Unit> = None
     //信息监听
-    private var mOnInfoListener: Option<OnInfoListener> = None
+    private var mOnInfoListener: Option<(what: Int64, extra: Int64) -> Unit> = None
     //进度条滑动监听
-    private var mOnSeekCompleteListener: Option<OnSeekCompleteListener> = None
+    private var mOnSeekCompleteListener: Option<() -> Unit> = None
     //时间监听
-    private var mOnTimedTextListener: Option<OnTimedTextListener> = None
+    private var mOnTimedTextListener: Option<(text: String) -> Unit> = None
 
     private var id: String = ''
-    private var callback: Option<Callback<InterruptEvent>> = None;
+    private var callback: Option<Callback<InterruptEvent>> = None
 
     //构造函数
     public init(id: String) {
@@ -153,7 +153,7 @@ public class IjkMediaPlayer {
         cjSetOption(this.id, category, key, value)
     }
 
-    func setOptionLong(category: String, key: String, value: String): Unit {
+    public func setOptionLong(category: String, key: String, value: String): Unit {
         cjSetOptionLong(this.id, category, key, value)
     }
 
@@ -179,6 +179,7 @@ public class IjkMediaPlayer {
 
     public func release(): Unit {
         cjRelease(this.id)
+        GlobalListener.map.remove(this.ID)
     }
 
     public func seekTo(msec: String): Unit {
@@ -210,43 +211,43 @@ public class IjkMediaPlayer {
         this.callback = None
     }
 
-    func setOnVideoSizeChangedListener(listener: OnVideoSizeChangedListener): Unit {
+    public func setOnVideoSizeChangedListener(listener: (width: Int32, height: Int32, sar_num: Int32, sar_den: Int32)-> Unit): Unit {
         this.mOnVideoSizeChangedListener = listener
     }
 
-    func setOnPreparedListener(listener: OnPreparedListener): Unit {
+    public func setOnPreparedListener(listener: ()-> Unit): Unit {
         this.mOnPreparedListener = listener
     }
 
-    func setOnCompletionListener(listener: OnCompletionListener): Unit {
+    public func setOnCompletionListener(listener: ()-> Unit): Unit {
         this.mOnCompletionListener = listener
     }
 
-    func setOnInfoListener(listener: OnInfoListener): Unit {
+    public func setOnInfoListener(listener: (what: Int64, extra: Int64) -> Unit): Unit {
         this.mOnInfoListener = listener
     }
 
-    func setOnErrorListener(listener: OnErrorListener): Unit {
+    public func setOnErrorListener(listener: (what: Int64, extra: Int64) -> Unit): Unit {
         this.mOnErrorListener = listener
     }
 
-    func setOnBufferingUpdateListener(listener: OnBufferingUpdateListener): Unit {
+    public func setOnBufferingUpdateListener(listener: (percent: Int32) -> Unit): Unit {
         this.mOnBufferingUpdateListener = listener
     }
 
-    func setOnSeekCompleteListener(listener: OnSeekCompleteListener): Unit {
+    public func setOnSeekCompleteListener(listener: () -> Unit): Unit {
         this.mOnSeekCompleteListener = listener
     }
 
-    func setOnTimedTextListener(listener: OnTimedTextListener): Unit {
+    public func setOnTimedTextListener(listener: (text: String) -> Unit): Unit {
         this.mOnTimedTextListener = listener
     }
 
-    func setMessageListener(): Unit {
+    public func setMessageListener(): Unit {
         LogUtils.getInstance().LOGI("setMessageListener start")
         GlobalListener.map[ID] = this
-        let messageCallBack: CFunc<(Int32, Int32, Int32, Int32) -> Unit> = {
-            what, arg1, arg2, id =>
+        let messageCallBack: CFunc<(Int32, Int32, Int32, CString, Int32) -> Unit> = {
+            what, arg1, arg2, obj, id =>
             LogUtils.getInstance().LOGI("setMessageListener callback what:${what}, arg1:${arg1},arg2:${arg2},obj:${id}")
             let that: IjkMediaPlayer = GlobalListener.map[id]
             let onVideoSizeChangedListener = that.mOnVideoSizeChangedListener
@@ -259,7 +260,7 @@ public class IjkMediaPlayer {
             let onTimedTextListener = that.mOnTimedTextListener
             if (what == MessageType.MEDIA_PREPARED) {
                 if (let Some(v) <- onPreparedListener) {
-                    v.onPrepared()
+                    v()
                 }
             }
             if (what == MessageType.MEDIA_SET_VIDEO_SAR) {
@@ -268,7 +269,7 @@ public class IjkMediaPlayer {
             }
             if (what == MessageType.MEDIA_SET_VIDEO_SIZE) {
                 if (let Some(v) <- onVideoSizeChangedListener) {
-                    v.onVideoSizeChanged(arg1, arg2, that.mVideoSarNum, that.mVideoSarDen)
+                    v(arg1, arg2, that.mVideoSarNum, that.mVideoSarDen)
                     if (arg1 != 0 && arg2 != 0) {
                         that.mVideoWidth = arg1
                         that.mVideoHeight = arg2
@@ -277,7 +278,7 @@ public class IjkMediaPlayer {
             }
             if (what == MessageType.MEDIA_PLAYBACK_COMPLETE) {
                 if (let Some(v) <- onCompletionListener) {
-                    v.onCompletion()
+                    v()
                 }
             }
             if (let Some(v) <- onBufferingUpdateListener) {
@@ -294,27 +295,27 @@ public class IjkMediaPlayer {
                     if (percent >= 100) {
                         percent = 100
                     }
-                    v.onBufferingUpdate(percent)
+                    v(percent)
                 }
             }
             if (what == MessageType.MEDIA_ERROR) {
                 if (let Some(v) <- onErrorListener) {
-                    v.onError(Int64(arg1), Int64(arg2))
+                    v(Int64(arg1), Int64(arg2))
                 }
             }
             if (what == MessageType.MEDIA_INFO) {
                 if (let Some(v) <- onInfoListener) {
-                    v.onInfo(Int64(arg1), Int64(arg2))
+                    v(Int64(arg1), Int64(arg2))
                 }
             }
             if (what == MessageType.MEDIA_SEEK_COMPLETE) {
                 if (let Some(v) <- onSeekCompleteListener) {
-                    v.onSeekComplete()
+                    v()
                 }
             }
             if (what == MessageType.MEDIA_TIMED_TEXT) {
                 if (let Some(v) <- onTimedTextListener) {
-                    // v.onTimedText(that.toString())
+                     v(obj.toString())
                 }
             }
             if (what == MessageType.MEDIA_AUDIO_INTERRUPT) {
@@ -327,7 +328,7 @@ public class IjkMediaPlayer {
                 }
             }
         }
-        // _setMessageListener(messageCallBack)  // TODO 函数未实现
+        cjSetMessageListener(this.id, ID, messageCallBack)
     }
 
     public func getVideoWidth(): Int64 {
@@ -338,11 +339,11 @@ public class IjkMediaPlayer {
         return Int64(this.mVideoHeight)
     }
 
-    func getVideoSarNum(): Int64 {
+    public func getVideoSarNum(): Int64 {
         return Int64(this.mVideoSarNum)
     }
 
-    func getVideoSarDen(): Int64 {
+    public func getVideoSarDen(): Int64 {
         return Int64(this.mVideoSarDen)
     }
 
@@ -354,7 +355,7 @@ public class IjkMediaPlayer {
         return cjGetCurrentPosition(this.id)
     }
 
-    func getAudioSessionId(): Int32 {
+    public func getAudioSessionId(): Int32 {
         return cjGetAudioSessionId(this.id)
     }
 

@@ -41,8 +41,8 @@ static void message_loop_n(IjkMediaPlayer *mp) {
         }
         std::string idStr(id);
 
+        LOGI("napi_proxy-->message_loop_n-->go-->msg:%d", msg.what);
         switch (msg.what) {
-            LOGI("napi_proxy-->message_loop_n-->go-->msg:%d", msg.what);
             case FFP_MSG_FLUSH:
                 MPTRACE("FFP_MSG_FLUSH:\n");
                 post_event(MEDIA_NOP, 0, 0, nullptr, idStr);

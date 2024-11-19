@@ -45,15 +45,7 @@ public class XComponent <: ViewBase {
                 AppLog.info("onLoad event null")
                 return ctx.undefined().toJSValue()
             }
-            let listenerCallbackFunc = {
-                ctx: JSContext, callinfo: JSCallInfo =>
-                AppLog.info("_setMessageListener callback")
-                return ctx.undefined().toJSValue()
-            }
-            let ret2 = callinfo[0].asObject().callMethod("_setMessageListener",
-                context.function(listenerCallbackFunc).toJSValue())
-            let ptr2 = ret2.toNumber()
-            AppLog.info("ret2 is ${ptr2}")
+            callinfo[0].asObject().callMethod("_setMessageListener")
             callbackFunc()
             return ctx.undefined().toJSValue()
         }
