@@ -89,6 +89,10 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 
 ```cj
 //设置XComponent回调的context
+        //单例
+        let mIjkMediaPlayer: IjkMediaPlayer = IjkMediaPlayer.getInstance()
+        //多实例
+        //let mIjkMediaPlayer: IjkMediaPlayer = IjkMediaPlayer("xcomponentId")
         this.mIjkMediaPlayer.setContext("xcomponentId")
         if (this.playStatus == PlayStatus.INIT) {
             this.mIjkMediaPlayer.reset()
