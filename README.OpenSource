@@ -58,7 +58,7 @@
         "Name": "ijkplayer",
         "License": "ijkplayer is licensed under LGPLv2.1 or later, so itself is free for commercial use under LGPLv2.1 or later",
         "License File": "README.md",
-        "Version Number": "2.0.4",
+        "Version Number": "2.0.6-rc.1",
         "Owner" : "OpenHarmony-SIG"
         "Upstream URL": "https://gitee.com/openharmony-sig/ohos_ijkplayer",
         "Description": "OpenHarmony环境下可用的一款基于FFmpeg的视频播放器"
