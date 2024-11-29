@@ -186,8 +186,8 @@ public class IjkMediaPlayer {
         cjSeekTo(this.id, msec)
     }
 
-    func setScreenOnWhilePlaying(on: Bool, context: AbilityContext): Unit {
-        let win: Window = getLastWindow(getStageContext(context))
+    public func setScreenOnWhilePlaying(on: Bool, context: StageContext): Unit {
+        let win: Window = getLastWindow(context)
         win.setWindowKeepScreenOn(on)
     }
 

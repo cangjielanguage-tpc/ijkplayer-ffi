@@ -12,3 +12,4 @@ internal import ohos.window.*
 internal import ohos.ability.*
 internal import ohos.component.*
 internal import ohos.ark_interop.*
+internal import ohos.ark_interop_helper.*

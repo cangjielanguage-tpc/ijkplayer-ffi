@@ -12,13 +12,14 @@ package ijkplayer4cj
  */
 func cjNativeOpenlog(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_nativeOpenlog(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_nativeOpenlog(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Set video source
  *
  * params xcomponentId - Component ID value
@@ -27,15 +28,16 @@ func cjNativeOpenlog(xcomponentId: String): Unit {
  */
 func cjSetDataSource(xcomponentId: String, url: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let path: CString = LibC.mallocCString(url)
-        ijk_setDataSource(id, path)
-        LibC.free(id)
+        ijk_setDataSource(handle.pointer, Int32(arr.size), path)
         LibC.free(path)
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Set video playback parameters
  *
  * params xcomponentId - Component ID value
@@ -46,19 +48,20 @@ func cjSetDataSource(xcomponentId: String, url: String): Unit {
  */
 func cjSetOption(xcomponentId: String, category: String, name: String, value: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let ccategory: CString = LibC.mallocCString(category)
         let cname: CString = LibC.mallocCString(name)
         let cvalue: CString = LibC.mallocCString(value)
-        ijk_setOption(id, ccategory, cname, cvalue)
-        LibC.free(id)
+        ijk_setOption(handle.pointer, Int32(arr.size), ccategory, cname, cvalue)
         LibC.free(ccategory)
         LibC.free(cname)
         LibC.free(cvalue)
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Set video playback parameters
  *
  * params xcomponentId - Component ID value
@@ -69,19 +72,20 @@ func cjSetOption(xcomponentId: String, category: String, name: String, value: St
  */
 func cjSetOptionLong(xcomponentId: String, category: String, name: String, value: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let ccategory: CString = LibC.mallocCString(category)
         let cname: CString = LibC.mallocCString(name)
         let cvalue: CString = LibC.mallocCString(value)
-        ijk_setOptionLong(id, ccategory, cname, cvalue)
-        LibC.free(id)
+        ijk_setOptionLong(handle.pointer, Int32(arr.size), ccategory, cname, cvalue)
         LibC.free(ccategory)
         LibC.free(cname)
         LibC.free(cvalue)
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Prepare to play
  *
  * params xcomponentId - Component ID value
@@ -89,13 +93,14 @@ func cjSetOptionLong(xcomponentId: String, category: String, name: String, value
  */
 func cjPrepareAsync(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_prepareAsync(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_prepareAsync(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Start playing
  *
  * params xcomponentId - Component ID value
@@ -103,13 +108,14 @@ func cjPrepareAsync(xcomponentId: String): Unit {
  */
 func cjStart(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_start(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_start(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Stop playing
  *
  * params xcomponentId - Component ID value
@@ -117,13 +123,14 @@ func cjStart(xcomponentId: String): Unit {
  */
 func cjStop(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_stop(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_stop(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Pause playing
  *
  * params xcomponentId - Component ID value
@@ -131,13 +138,14 @@ func cjStop(xcomponentId: String): Unit {
  */
 func cjPause(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_pause(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_pause(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Reset playing
  *
  * params xcomponentId - Component ID value
@@ -145,13 +153,14 @@ func cjPause(xcomponentId: String): Unit {
  */
 func cjReset(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_reset(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_reset(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Release
  *
  * params xcomponentId - Component ID value
@@ -159,13 +168,14 @@ func cjReset(xcomponentId: String): Unit {
  */
 func cjRelease(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_release(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_release(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Fast forward and backward
  *
  * params xcomponentId - Component ID value
@@ -174,15 +184,16 @@ func cjRelease(xcomponentId: String): Unit {
  */
 func cjSeekTo(xcomponentId: String, msec: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let cmsec: CString = LibC.mallocCString(msec)
-        ijk_seekTo(id, cmsec)
-        LibC.free(id)
+        ijk_seekTo(handle.pointer, Int32(arr.size), cmsec)
         LibC.free(cmsec)
+        releaseArrayRawData(handle)
     }
 }
 
-/** 
+/**
  * Determine if it is in playback status
  *
  * params xcomponentId - Component ID value
@@ -190,14 +201,15 @@ func cjSeekTo(xcomponentId: String, msec: String): Unit {
  */
 func cjIsPlaying(xcomponentId: String): Bool {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: Bool = ijk_isPlaying(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let ret: Bool = ijk_isPlaying(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
         return ret
     }
 }
 
-/** 
+/**
  * Obtain the total duration of the video
  *
  * params xcomponentId - Component ID value
@@ -205,14 +217,15 @@ func cjIsPlaying(xcomponentId: String): Bool {
  */
 func cjGetDuration(xcomponentId: String): Int32 {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: Int32 = ijk_getDuration(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let ret: Int32 = ijk_getDuration(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
         return ret
     }
 }
 
-/** 
+/**
  * Get the current location for video playback
  *
  * params xcomponentId - Component ID value
@@ -220,14 +233,15 @@ func cjGetDuration(xcomponentId: String): Int32 {
  */
 func cjGetCurrentPosition(xcomponentId: String): Int32 {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: Int32 = ijk_getCurrentPosition(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let ret: Int32 = ijk_getCurrentPosition(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
         return ret
     }
 }
 
-/** 
+/**
  * Get audio session ID
  *
  * params xcomponentId - Component ID value
@@ -235,14 +249,15 @@ func cjGetCurrentPosition(xcomponentId: String): Int32 {
  */
 func cjGetAudioSessionId(xcomponentId: String): Int32 {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: Int32 = ijk_getAudioSessionId(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let ret: Int32 = ijk_getAudioSessionId(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
         return ret
     }
 }
 
-/** 
+/**
  * Set video properties
  *
  * params xcomponentId - Component ID value
@@ -252,17 +267,18 @@ func cjGetAudioSessionId(xcomponentId: String): Int32 {
  */
 func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let cids: CString = LibC.mallocCString(ids)
         let cvalue: CString = LibC.mallocCString(value)
-        ijk_setPropertyFloat(id, cids, cvalue)
-        LibC.free(id)
+        ijk_setPropertyFloat(handle.pointer, Int32(arr.size), cids, cvalue)
+        releaseArrayRawData(handle)
         LibC.free(cids)
         LibC.free(cvalue)
     }
 }
 
-/** 
+/**
  * Get video properties
  *
  * params xcomponentId - Component ID value
@@ -272,18 +288,19 @@ func cjSetPropertyFloat(xcomponentId: String, ids: String, value: String): Unit 
  */
 func cjGetPropertyFloat(xcomponentId: String, ids: String, defaultValue: String): Float32 {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let cids: CString = LibC.mallocCString(ids)
         let cvalue: CString = LibC.mallocCString(defaultValue)
-        let ret: Float32 = ijk_getPropertyFloat(id, cids, cvalue)
-        LibC.free(id)
+        let ret: Float32 = ijk_getPropertyFloat(handle.pointer, Int32(arr.size), cids, cvalue)
+        releaseArrayRawData(handle)
         LibC.free(cids)
         LibC.free(cvalue)
         return ret
     }
 }
 
-/** 
+/**
  * Set video properties
  *
  * params xcomponentId - Component ID value
@@ -293,17 +310,18 @@ func cjGetPropertyFloat(xcomponentId: String, ids: String, defaultValue: String)
  */
 func cjSetPropertyLong(xcomponentId: String, property: String, value: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let cproperty: CString = LibC.mallocCString(property)
         let cvalue: CString = LibC.mallocCString(value)
-        ijk_setPropertyLong(id, cproperty, cvalue)
-        LibC.free(id)
+        ijk_setPropertyLong(handle.pointer, Int32(arr.size), cproperty, cvalue)
+        releaseArrayRawData(handle)
         LibC.free(cproperty)
         LibC.free(cvalue)
     }
 }
 
-/** 
+/**
  * Get video properties
  *
  * params xcomponentId - Component ID value
@@ -313,18 +331,19 @@ func cjSetPropertyLong(xcomponentId: String, property: String, value: String): U
  */
 func cjGetPropertyLong(xcomponentId: String, property: String, value: String): Int64 {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let cproperty: CString = LibC.mallocCString(property)
         let cvalue: CString = LibC.mallocCString(value)
-        let ret: Int64 = ijk_getPropertyLong(id, cproperty, cvalue)
-        LibC.free(id)
+        let ret: Int64 = ijk_getPropertyLong(handle.pointer, Int32(arr.size), cproperty, cvalue)
+        releaseArrayRawData(handle)
         LibC.free(cproperty)
         LibC.free(cvalue)
         return ret
     }
 }
 
-/** 
+/**
  * Set up sound channels
  *
  * params xcomponentId - Component ID value
@@ -334,17 +353,18 @@ func cjGetPropertyLong(xcomponentId: String, property: String, value: String): I
  */
 func cjSetVolume(xcomponentId: String, leftVolume: String, rightVolume: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let left: CString = LibC.mallocCString(leftVolume)
         let right: CString = LibC.mallocCString(rightVolume)
-        ijk_setVolume(id, left, right)
-        LibC.free(id)
+        ijk_setVolume(handle.pointer, Int32(arr.size), left, right)
+        releaseArrayRawData(handle)
         LibC.free(left)
         LibC.free(right)
     }
 }
 
-/** 
+/**
  * Set video loop
  *
  * params xcomponentId - Component ID value
@@ -353,15 +373,16 @@ func cjSetVolume(xcomponentId: String, leftVolume: String, rightVolume: String):
  */
 func cjSetLoopCount(xcomponentId: String, loopCount: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let count: CString = LibC.mallocCString(loopCount)
-        ijk_setLoopCount(id, count)
-        LibC.free(id)
+        ijk_setLoopCount(handle.pointer, Int32(arr.size), count)
+        releaseArrayRawData(handle)
         LibC.free(count)
     }
 }
 
-/** 
+/**
  * Get video loop count
  *
  * params xcomponentId - Component ID value
@@ -369,14 +390,15 @@ func cjSetLoopCount(xcomponentId: String, loopCount: String): Unit {
  */
 func cjGetLoopCount(xcomponentId: String): Int32 {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let ret: Int32 = ijk_getLoopCount(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let ret: Int32 = ijk_getLoopCount(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
         return ret
     }
 }
 
-/** 
+/**
  * Select media stream
  *
  * params xcomponentId - Component ID value
@@ -388,17 +410,18 @@ func cjGetLoopCount(xcomponentId: String): Int32 {
  */
 func cjSetStreamSelected(xcomponentId: String, stream: String, select: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
         let cstream: CString = LibC.mallocCString(stream)
         let cselect: CString = LibC.mallocCString(select)
-        ijk_setStreamSelected(id, cstream, cselect)
-        LibC.free(id)
+        ijk_setStreamSelected(handle.pointer, Int32(arr.size), cstream, cselect)
+        releaseArrayRawData(handle)
         LibC.free(cstream)
         LibC.free(cselect)
     }
 }
 
-/** 
+/**
  * Obtain video decoding
  *
  * params xcomponentId - Component ID value
@@ -406,16 +429,17 @@ func cjSetStreamSelected(xcomponentId: String, stream: String, select: String): 
  */
 func cjGetVideoCodecInfo(xcomponentId: String): String {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let retC: CString = ijk_getVideoCodecInfo(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let retC: CString = ijk_getVideoCodecInfo(handle.pointer, Int32(arr.size))
         let ret = retC.toString()
-        LibC.free(id)
+        releaseArrayRawData(handle)
         LibC.free(retC)
         return ret
     }
 }
 
-/** 
+/**
  * Obtain audio decoding
  *
  * params xcomponentId - Component ID value
@@ -423,16 +447,17 @@ func cjGetVideoCodecInfo(xcomponentId: String): String {
  */
 func cjGetAudioCodecInfo(xcomponentId: String): String {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let retC: CString = ijk_getAudioCodecInfo(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let retC: CString = ijk_getAudioCodecInfo(handle.pointer, Int32(arr.size))
         let ret = retC.toString()
-        LibC.free(id)
+        releaseArrayRawData(handle)
         LibC.free(retC)
         return ret
     }
 }
 
-/** 
+/**
  * Obtaining media information
  *
  * params xcomponentId - Component ID value
@@ -440,14 +465,15 @@ func cjGetAudioCodecInfo(xcomponentId: String): String {
  */
 func cjGetMediaMeta(xcomponentId: String): String {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        let retC: CString = ijk_getMediaMeta(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        let retC: CString = ijk_getMediaMeta(handle.pointer, Int32(arr.size))
         let ret = retC.toString()
         return ret
     }
 }
 
-/** 
+/**
  * initial configuration
  *
  * params xcomponentId - Component ID value
@@ -455,18 +481,19 @@ func cjGetMediaMeta(xcomponentId: String): String {
  */
 func cjNativeSetup(xcomponentId: String): Unit {
     unsafe {
-        let id: CString = LibC.mallocCString(xcomponentId)
-        ijk_native_setup(id)
-        LibC.free(id)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_native_setup(handle.pointer, Int32(arr.size))
+        releaseArrayRawData(handle)
     }
 }
 
-func cjSetMessageListener(xcomponentId: String, ijkplayerId: Int32, ptr: CFunc<(Int32, Int32, Int32, CString, Int32) -> Unit>): Unit {
+func cjSetMessageListener(xcomponentId: String, ijkplayerId: Int32,
+    ptr: CFunc<(Int32, Int32, Int32, CString, Int32) -> Unit>): Unit {
     unsafe {
-        let xnw: CString = LibC.mallocCString(xcomponentId)
-        ijk_setMessageListener(xnw, ijkplayerId, ptr)
-        LibC.free(xnw)
+        let arr = xcomponentId.rawData()
+        let handle = acquireArrayRawData(arr)
+        ijk_setMessageListener(handle.pointer, Int32(arr.size), ijkplayerId, ptr)
+        releaseArrayRawData(handle)
     }
 }
-
-
