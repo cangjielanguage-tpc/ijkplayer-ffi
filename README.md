@@ -66,13 +66,27 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 用devecostudio打开项目,然后点击run按钮直接运行app即可自动编译成功
 
 ### 把ijkplayer作为三方库引入
-当前仓颉语言三方库还不支持中心仓库，可以把ijkplayer4cj库克隆到本地进行二进制引入，具体步骤如下：
-1. 克隆ijkplayer4cj仓库按照上述编译成功。
-2. 在自己主module(默认是entry)的libs目录下新建两个arm64-v8a, ijkplayer4cj目录.
-3. 在ijkplayer4cj项目的clibrary/build/default/intermediates/libs/default/arm64-v8a目录下获取libc++_shared.so、libijkplayer.so、libijkplayer_cjapi.so、libijkplayer_napi.so、libijksdl.so，将这些so放在arm64-v8a目录下。
-4. 在ijkplayer4cj项目的entry/build/default/intermediates/cj/cj_build/default/aarch64-linux-ohos/release/ijkplayer4cj目录的ijkplayer4cj.cjo、libijkplayer4cj.so, 将这些so放在新建的ijkplayer4cj目录下。
-5. 在自己的主module(默认是entry)的entry/src/main/cangjie/cjpm.toml文件中 <img src="./doc/assets/update_before.png" width="80%" > 修改为 <img src="./doc/assets/udpate_after.png" width="80%" >
-6. 运行即可（改库涉及到网络权限，要在module.json中加入网络权限）。
+用户如何在自己项目里引入ijk，具体步骤如下：
+1. 在自己项目的根目录下,建一个thirdparty目录,然后通过git命令,把自己需要的ijk分支拉下来,比如
+   git clone -b 分支名  https://gitcode.com/Cangjie-TPC/ijkplayer-ffi.git
+2. 把 thirdparty文件下的ijk项目用deveco编译通过，方法如上面的编译构建
+3. 在自己项目的根目录的build-profile.json5文件里的modules节点下添加
+   {
+   "name":"ijkplayer",
+   "srcPath": "./thirdparty/ijkplayer-ffi/ijkplayer"
+   },
+   {
+   "name":"clibrary",
+   "srcPath": "./thirdparty/ijkplayer-ffi/clibrary"
+   }
+   把ijkplayer库的两个依赖变为modeule依赖形式.然后同步项目
+4. 在自己项目的enrty里的oh-package.json5里的dependencies里加上 "ijkplayer": "file:../thirdparty/ijkplayer-ffi/ijkplayer",然后同步项目
+   "dependencies": {
+     "ijkplayer": "file:../thirdparty/ijkplayer-ffi/ijkplayer",
+     "libark_interop_loader.so": "file:./src/main/cangjie/loader"
+   }
+   项目即依赖成功
+   另外注意该项目需要网络权限
 
 ### 功能示例
 
