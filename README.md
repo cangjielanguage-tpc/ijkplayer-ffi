@@ -16,7 +16,7 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 
 ### 特性
 
-- 🚀 支持视频播放、暂停、停止、指定到某个点播放、倍数播放、设置音量
+- 🚀 支持视频播放、暂停、停止、指定到某个点播放、倍数播放、设置音量、设置屏幕常亮、各种视频播放时候的监听
 
 ## 软件架构
 
@@ -131,7 +131,7 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
         // this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "infbuf", "1");
         // this.mIjkMediaPlayer.setOptionLong(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "infbuf", "1")
         // 屏幕常亮
-        //this.mIjkMediaPlayer.setScreenOnWhilePlaying(true);
+        this.mIjkMediaPlayer.setScreenOnWhilePlaying(true,GlobalContext.getContext().getOrThrow());
         // 设置超时
         this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", "10000000");
         this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "connect_timeout", "10000000");
@@ -144,6 +144,46 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
         AppLog.info("getSpeed--" + Speed.toString())
         //是否开启循环播放
         this.mIjkMediaPlayer.setLoopCount(true)
+        this.mIjkMediaPlayer.setOnVideoSizeChangedListener({width: Int32, height: Int32, sar_num: Int32, sar_den: Int32 =>
+            if (height == 0) {
+                return
+            }
+            let va = Float64(width) / Float64(height)
+            let vpa = Float64(this.videoParentAspectRatio)
+            if (vpa > va) {
+                this.videoWidth = Length((Float64(width) / (Float64(height) * vpa)) * 100.0, unitType: percent)
+            } else {
+                this.videoWidth = Length(100, unitType:  percent)
+            }
+            if (width > 0 && height > 0) {
+                this.videoAspectRatio = Float64(width) / Float64(height)
+            }
+            LogUtils.getInstance().LOGI("setOnVideoSizeChangedListener-->go:" + width.toString() + "," + height.toString() + "," + sar_num.toString() + "," + sar_den.toString())
+            this.getVideoSize()
+            //that.hideLoadIng()
+        })
+        this.mIjkMediaPlayer.setOnPreparedListener({=>
+            AppLog.error("进来了setOnPreparedListener")
+        })
+        this.mIjkMediaPlayer.setOnTimedTextListener({ str=>
+            AppLog.error("进来了setOnTimedTextListener"+ str)
+        })
+        this.mIjkMediaPlayer.setOnCompletionListener({=>
+            AppLog.error("进来了 结束")
+        })
+        this.mIjkMediaPlayer.setOnSeekCompleteListener({=>
+            AppLog.error("进来了 seek")
+        })
+        this.mIjkMediaPlayer.setOnErrorListener({ what, extra =>
+            AppLog.error("进来了 error ${what} ${extra}")
+        })
+        this.mIjkMediaPlayer.setOnInfoListener({what, extra=>
+            AppLog.error("进来了 info ${what} ${extra}")
+        })
+        this.mIjkMediaPlayer.setOnBufferingUpdateListener({percent =>
+            AppLog.error("进来了 BufferingUpdate ${percent}")
+        })
+        this.mIjkMediaPlayer.setMessageListener()
         this.mIjkMediaPlayer.prepareAsync()
         this.mIjkMediaPlayer.start()
 ```

@@ -390,7 +390,7 @@ public class IjkMediaPlayer {
         cjSetLoopCount(this.id, loopCount)
     }
 
-    func isLooping(): Bool {
+    public func isLooping(): Bool {
         return cjGetLoopCount(this.id) != 1
     }
 
