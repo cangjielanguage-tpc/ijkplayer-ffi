@@ -386,7 +386,7 @@ class EntryView {
         // this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "infbuf", "1");
         // this.mIjkMediaPlayer.setOptionLong(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "infbuf", "1")
         // 屏幕常亮
-        //this.mIjkMediaPlayer.setScreenOnWhilePlaying(true);
+        this.mIjkMediaPlayer.setScreenOnWhilePlaying(true,GlobalContext.getContext().getOrThrow());
         // 设置超时
         this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", "10000000");
         this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "connect_timeout", "10000000");
@@ -508,6 +508,18 @@ public class PageTest <: SharedObject {
     static init() {
         JSModule.registerFunc("test_getloadCJPage", {context => context.function(test_getloadCJPage)})
         JSModule.registerFunc("test_getArkTSCallback", {context => context.function(test_getArkTSCallback)})
+        JSModule.registerFunc("setContext", {context => context.function(setContext)})
+    }
+
+    public static func setContext(context: JSContext, callInfo: JSCallInfo): JSValue {
+        let jsEnv = context.getNapiEnv()
+        let jsValue = arkTsValuetoNapiValue(jsEnv, callInfo[0])
+        if(isStageMode(jsEnv,jsValue)){
+            GlobalContext.setContext(getContextStageMode(jsEnv,jsValue))
+        }else{
+            AppLog.error("setContext failed: not in stage mode")
+        }
+        return context.undefined().toJSValue()
     }
 
     public static func test_getloadCJPage(context: JSContext, callInfo: JSCallInfo): JSValue {

@@ -11,6 +11,19 @@ internal import cj_res_entry.app
 
 var globalAbilityContext: Option<AbilityContext> = Option<AbilityContext>.None
 
+
+public class GlobalContext{
+    static var _context:Option<StageContext> = None
+
+    public static func setContext(context:StageContext){
+        _context = context
+    }
+
+    public static func getContext():Option<StageContext>{
+        return _context
+    }
+}
+
 class MainAbility <: Ability {
     public init() {
         super()

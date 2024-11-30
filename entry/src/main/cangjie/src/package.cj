@@ -17,3 +17,4 @@ internal import ijkplayer4cj.*
 internal import ohos.ark_interop.*
 internal import std.sync.*
 internal import std.math.floor
+internal import ohos.ark_interop_helper.*

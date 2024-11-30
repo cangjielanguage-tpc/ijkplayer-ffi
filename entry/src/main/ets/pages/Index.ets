@@ -5,6 +5,24 @@ import {requireCJLib} from "libark_interop_loader.so"
 interface a{
     test_getloadCJPage():string,
     test_getArkTSCallback(cb:Function):string
+    setContext(context:Context):string
+}
+
+export class CangjieLib{
+
+  private constructor(){
+
+  }
+
+  private static instance:a
+
+  public static getInstance():a{
+    if(!CangjieLib.instance){
+      CangjieLib.instance = requireCJLib("libohos_app_cangjie_entry.so") as a
+    }
+    return CangjieLib.instance
+  }
+
 }
 
 
