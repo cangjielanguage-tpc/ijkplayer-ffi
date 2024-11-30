@@ -56,8 +56,8 @@
       "srcPath": "./clibrary",
     },
     {
-      "name": "library",
-      "srcPath": "./library",
+      "name": "ijkplayer",
+      "srcPath": "./ijkplayer"
     }
   ]
 }

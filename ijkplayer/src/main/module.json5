@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "library",
+    "name": "ijkplayer",
     "type": "har",
     "deviceTypes": [
       "default"

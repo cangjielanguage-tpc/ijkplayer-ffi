@@ -18,7 +18,7 @@
     path = "./cj_res"
     version = "1.0.0"
   [dependencies.ijkplayer4cj]
-    path = "../../../../library/src/main/cangjie"
+    path = "../../../../ijkplayer/src/main/cangjie"
 
 [package]
   cjc-version = "0.48.2"

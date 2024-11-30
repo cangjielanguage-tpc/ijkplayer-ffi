@@ -43,7 +43,7 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
                                |----- proxy     # 代理提供给NAPI调用处理ijkplayer内部业务
                                |----- third_party #三方库依赖 
                                |----- utils     #工具
-|     |---- library  # library库文件夹
+|     |---- ijkplayer  # library库文件夹
 |           |---- src  
 |                 |---- main  
 |                       |----- cangjie       #仓颉模块

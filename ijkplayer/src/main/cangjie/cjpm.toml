@@ -14,7 +14,7 @@
       [target.x86_64-unknown-windows-gnu.bin-dependencies.package-option]
 
 [dependencies]
-  [dependencies.cj_res_library]
+  [dependencies.cj_res_ijkplayer]
     path = "./cj_res"
     version = "1.0.0"
   [dependencies.ohos_app_cangjie_clibrary]

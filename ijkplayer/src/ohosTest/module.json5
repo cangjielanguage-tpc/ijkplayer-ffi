@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "library_test",
+    "name": "ijkplayer_test",
     "type": "feature",
     "deviceTypes": [
       "default"
