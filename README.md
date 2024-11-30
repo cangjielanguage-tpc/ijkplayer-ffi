@@ -66,6 +66,7 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
 用devecostudio打开项目,然后点击run按钮直接运行app即可自动编译成功
 
 ### 把ijkplayer作为三方库引入
+```cj
 用户如何在自己项目里引入ijk，具体步骤如下：
 1. 在自己项目的根目录下,建一个thirdparty目录,然后通过git命令,把自己需要的ijk分支拉下来,比如
    git clone -b 分支名  https://gitcode.com/Cangjie-TPC/ijkplayer-ffi.git
@@ -87,6 +88,7 @@ ijkplayer-ffi 是仓颉环境下可用的一款基于 FFmpeg 的视频播放器�
    }
    项目即依赖成功
    另外注意该项目需要网络权限
+```
 
 ### 功能示例
 
