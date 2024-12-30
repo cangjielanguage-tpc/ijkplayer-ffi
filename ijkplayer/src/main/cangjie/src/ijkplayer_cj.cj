@@ -4,6 +4,90 @@
 
 package ijkplayer4cj
 
+
+ let messageCallBack: CFunc<(Int32, Int32, Int32, CString, Int32) -> Unit> = {
+            what, arg1, arg2, obj, id =>
+            LogUtils.getInstance().LOGI("setMessageListener callback what:${what}, arg1:${arg1},arg2:${arg2},obj:${id}")
+            let that: IjkMediaPlayer = GlobalListener.map[id]
+            let onVideoSizeChangedListener = that.mOnVideoSizeChangedListener
+            let onPreparedListener = that.mOnPreparedListener
+            let onCompletionListener = that.mOnCompletionListener
+            let onBufferingUpdateListener = that.mOnBufferingUpdateListener
+            let onErrorListener = that.mOnErrorListener
+            let onInfoListener = that.mOnInfoListener
+            let onSeekCompleteListener = that.mOnSeekCompleteListener
+            let onTimedTextListener = that.mOnTimedTextListener
+            if (what == MessageType.MEDIA_PREPARED) {
+                if (let Some(v) <- onPreparedListener) {
+                    v()
+                }
+            }
+            if (what == MessageType.MEDIA_SET_VIDEO_SAR) {
+                that.mVideoSarNum = arg1
+                that.mVideoSarDen = arg2
+            }
+            if (what == MessageType.MEDIA_SET_VIDEO_SIZE) {
+                if (let Some(v) <- onVideoSizeChangedListener) {
+                    v(arg1, arg2, that.mVideoSarNum, that.mVideoSarDen)
+                    if (arg1 != 0 && arg2 != 0) {
+                        that.mVideoWidth = arg1
+                        that.mVideoHeight = arg2
+                    }
+                }
+            }
+            if (what == MessageType.MEDIA_PLAYBACK_COMPLETE) {
+                if (let Some(v) <- onCompletionListener) {
+                    v()
+                }
+            }
+            if (let Some(v) <- onBufferingUpdateListener) {
+                if ((what == MessageType.MEDIA_BUFFERING_UPDATE) || (what == MessageType.MEDIA_BUFFERING_UPDATE)) {
+                    var bufferPosition = arg1
+                    if (bufferPosition < 0) {
+                        bufferPosition = 0
+                    }
+                    var percent: Int32 = 0
+                    var duration = cjGetDuration(that.id)
+                    if (duration > 0) {
+                        percent = bufferPosition * 100 / duration
+                    }
+                    if (percent >= 100) {
+                        percent = 100
+                    }
+                    v(percent)
+                }
+            }
+            if (what == MessageType.MEDIA_ERROR) {
+                if (let Some(v) <- onErrorListener) {
+                    v(Int64(arg1), Int64(arg2))
+                }
+            }
+            if (what == MessageType.MEDIA_INFO) {
+                if (let Some(v) <- onInfoListener) {
+                    v(Int64(arg1), Int64(arg2))
+                }
+            }
+            if (what == MessageType.MEDIA_SEEK_COMPLETE) {
+                if (let Some(v) <- onSeekCompleteListener) {
+                    v()
+                }
+            }
+            if (what == MessageType.MEDIA_TIMED_TEXT) {
+                if (let Some(v) <- onTimedTextListener) {
+                     v(obj.toString())
+                }
+            }
+            if (what == MessageType.MEDIA_AUDIO_INTERRUPT) {
+                if (let Some(v) <- onCompletionListener) {
+                    if (that.callback.isSome()) {
+                        let event: InterruptEvent = InterruptEvent(InterruptForceType.GetType(arg1),
+                            InterruptHintType.GetType(arg2))
+                        that.callback?.callback(event)
+                    }
+                }
+            }
+        }
+
 /** 
  * Open log
  *

@@ -73,6 +73,7 @@ class GlobalListener {
     }
 }
 
+
 public class IjkMediaPlayer {
     let ID: Int32 = GlobalListener.getCurrentId()
     //单例
@@ -83,30 +84,30 @@ public class IjkMediaPlayer {
     public static let OPT_CATEGORY_SWS: String = "3"
     public static let OPT_CATEGORY_PLAYER: String = "4"
     //视频宽高
-    private var mVideoWidth: Int32 = 0
-    private var mVideoHeight: Int32 = 0
-    private var mVideoSarNum: Int32 = 0
-    private var mVideoSarDen: Int32 = 0
+     var mVideoWidth: Int32 = 0
+     var mVideoHeight: Int32 = 0
+     var mVideoSarNum: Int32 = 0
+     var mVideoSarDen: Int32 = 0
 
     //视频尺寸发生变化监听
-    private var mOnVideoSizeChangedListener: Option<(width: Int32, height: Int32, sar_num: Int32, sar_den: Int32)-> Unit> = None
+     var mOnVideoSizeChangedListener: Option<(width: Int32, height: Int32, sar_num: Int32, sar_den: Int32)-> Unit> = None
     //视频准备播放监听
-    private var mOnPreparedListener: Option<()-> Unit> = None
+     var mOnPreparedListener: Option<()-> Unit> = None
     //视频播放结束监听
-    private var mOnCompletionListener: Option<()-> Unit> = None
+     var mOnCompletionListener: Option<()-> Unit> = None
     //缓冲update监听
-    private var mOnBufferingUpdateListener: Option<(percent: Int32) -> Unit> = None
+     var mOnBufferingUpdateListener: Option<(percent: Int32) -> Unit> = None
     //发生错误监听
-    private var mOnErrorListener: Option<(what: Int64, extra: Int64) -> Unit> = None
+     var mOnErrorListener: Option<(what: Int64, extra: Int64) -> Unit> = None
     //信息监听
-    private var mOnInfoListener: Option<(what: Int64, extra: Int64) -> Unit> = None
+     var mOnInfoListener: Option<(what: Int64, extra: Int64) -> Unit> = None
     //进度条滑动监听
-    private var mOnSeekCompleteListener: Option<() -> Unit> = None
+     var mOnSeekCompleteListener: Option<() -> Unit> = None
     //时间监听
-    private var mOnTimedTextListener: Option<(text: String) -> Unit> = None
+     var mOnTimedTextListener: Option<(text: String) -> Unit> = None
 
-    private var id: String = ''
-    private var callback: Option<Callback<InterruptEvent>> = None
+    var id: String = ''
+    var callback: Option<Callback<InterruptEvent>> = None
 
     //构造函数
     public init(id: String) {
@@ -246,88 +247,6 @@ public class IjkMediaPlayer {
     public func setMessageListener(): Unit {
         LogUtils.getInstance().LOGI("setMessageListener start")
         GlobalListener.map[ID] = this
-        let messageCallBack: CFunc<(Int32, Int32, Int32, CString, Int32) -> Unit> = {
-            what, arg1, arg2, obj, id =>
-            LogUtils.getInstance().LOGI("setMessageListener callback what:${what}, arg1:${arg1},arg2:${arg2},obj:${id}")
-            let that: IjkMediaPlayer = GlobalListener.map[id]
-            let onVideoSizeChangedListener = that.mOnVideoSizeChangedListener
-            let onPreparedListener = that.mOnPreparedListener
-            let onCompletionListener = that.mOnCompletionListener
-            let onBufferingUpdateListener = that.mOnBufferingUpdateListener
-            let onErrorListener = that.mOnErrorListener
-            let onInfoListener = that.mOnInfoListener
-            let onSeekCompleteListener = that.mOnSeekCompleteListener
-            let onTimedTextListener = that.mOnTimedTextListener
-            if (what == MessageType.MEDIA_PREPARED) {
-                if (let Some(v) <- onPreparedListener) {
-                    v()
-                }
-            }
-            if (what == MessageType.MEDIA_SET_VIDEO_SAR) {
-                that.mVideoSarNum = arg1
-                that.mVideoSarDen = arg2
-            }
-            if (what == MessageType.MEDIA_SET_VIDEO_SIZE) {
-                if (let Some(v) <- onVideoSizeChangedListener) {
-                    v(arg1, arg2, that.mVideoSarNum, that.mVideoSarDen)
-                    if (arg1 != 0 && arg2 != 0) {
-                        that.mVideoWidth = arg1
-                        that.mVideoHeight = arg2
-                    }
-                }
-            }
-            if (what == MessageType.MEDIA_PLAYBACK_COMPLETE) {
-                if (let Some(v) <- onCompletionListener) {
-                    v()
-                }
-            }
-            if (let Some(v) <- onBufferingUpdateListener) {
-                if ((what == MessageType.MEDIA_BUFFERING_UPDATE) || (what == MessageType.MEDIA_BUFFERING_UPDATE)) {
-                    var bufferPosition = arg1
-                    if (bufferPosition < 0) {
-                        bufferPosition = 0
-                    }
-                    var percent: Int32 = 0
-                    var duration = cjGetDuration(that.id)
-                    if (duration > 0) {
-                        percent = bufferPosition * 100 / duration
-                    }
-                    if (percent >= 100) {
-                        percent = 100
-                    }
-                    v(percent)
-                }
-            }
-            if (what == MessageType.MEDIA_ERROR) {
-                if (let Some(v) <- onErrorListener) {
-                    v(Int64(arg1), Int64(arg2))
-                }
-            }
-            if (what == MessageType.MEDIA_INFO) {
-                if (let Some(v) <- onInfoListener) {
-                    v(Int64(arg1), Int64(arg2))
-                }
-            }
-            if (what == MessageType.MEDIA_SEEK_COMPLETE) {
-                if (let Some(v) <- onSeekCompleteListener) {
-                    v()
-                }
-            }
-            if (what == MessageType.MEDIA_TIMED_TEXT) {
-                if (let Some(v) <- onTimedTextListener) {
-                     v(obj.toString())
-                }
-            }
-            if (what == MessageType.MEDIA_AUDIO_INTERRUPT) {
-                if (let Some(v) <- onCompletionListener) {
-                    if (that.callback.isSome()) {
-                        let event: InterruptEvent = InterruptEvent(InterruptForceType.GetType(arg1),
-                            InterruptHintType.GetType(arg2))
-                        that.callback?.callback(event)
-                    }
-                }
-            }
-        }
         cjSetMessageListener(this.id, ID, messageCallBack)
     }
 

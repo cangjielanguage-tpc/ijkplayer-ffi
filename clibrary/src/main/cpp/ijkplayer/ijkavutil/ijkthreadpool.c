@@ -38,7 +38,10 @@ static void *ijk_threadpool_thread(void *pool_ctx)
     for(;;) {
         pthread_mutex_lock(&(ctx->lock));
 
-        while((ctx->pending_count == 0) && (!ctx->shutdown)) {
+        while((ctx!=NULL) && (ctx->pending_count == 0) && (!ctx->shutdown)) {
+            if((&(ctx->notify)==NULL) || (&(ctx->lock) == NULL)){
+                break;   
+            }
             pthread_cond_wait(&(ctx->notify), &(ctx->lock));
         }
 

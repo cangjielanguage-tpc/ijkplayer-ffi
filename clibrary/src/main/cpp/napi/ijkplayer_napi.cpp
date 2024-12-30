@@ -69,8 +69,7 @@ struct CallbackContext4cj {
     int ijk_id = 0;
 };
 
-void messageCallBack(int what, int arg1, int arg2, char *obj, std::string id)
-{
+void messageCallBack(int what, int arg1, int arg2, char *obj, std::string id) {
     LOGI("napi-->messageCallBack");
     struct CallbackContext4cj *context = new CallbackContext4cj();
     IJKPlayerNapi *instance = IJKPlayerNapi::getInstance(id);
@@ -94,12 +93,17 @@ void messageCallBack(int what, int arg1, int arg2, char *obj, std::string id)
     context->callbackRef = instance->callBackRefMessage_;
     work->data = (void *)context;
     uv_queue_work(
-        loopMessage, work, 
-        [](uv_work_t *work) {},
+        loopMessage, work, [](uv_work_t *work) {},
         [](uv_work_t *work, int status) {
             LOGI("napi-->uv_queue_work");
             CallbackContext4cj *context = static_cast<CallbackContext4cj *>(work->data);
-            void(* callback)(int what, int arg1, int arg2, char *obj, int ijkplayer_id) = context->callbackRef;
+            void (*callback)(int what, int arg1, int arg2, char *obj, int ijkplayer_id) = context->callbackRef;
+            if (callback == NULL || context == NULL) {
+                if (work != nullptr) {
+                    delete work;
+                }
+                return;
+            }
             callback(context->what, context->arg1, context->arg2, context->obj, context->ijk_id);
             if (work != nullptr) {
                 delete work;
@@ -109,28 +113,21 @@ void messageCallBack(int what, int arg1, int arg2, char *obj, std::string id)
         });
 }
 
-void post_event(int what, int arg1, int arg2, char *obj, std::string id)
-{
+void post_event(int what, int arg1, int arg2, char *obj, std::string id) {
     LOGI("napi-->post_event-->what:%d", what);
     messageCallBack(what, arg1, arg2, obj, id);
 }
 
-void setEnvMessage(const napi_env &env, std::string id)
-{
-    IJKPlayerNapi::getInstance(id)->envMessage_ = env;
-}
+void setEnvMessage(const napi_env &env, std::string id) { IJKPlayerNapi::getInstance(id)->envMessage_ = env; }
 
 // void setCallBackRefMessage(const napi_ref &callbackRef, std::string id)
 // {
 //     IJKPlayerNapi::getInstance(id)->callBackRefMessage_ = callbackRef;
 // }
 
-void setXComponentId(std::string &id) {
-    xcomponentId_ = id;
-}
+void setXComponentId(std::string &id) { xcomponentId_ = id; }
 
-std::string IJKPlayerNapi::getXComponentId(napi_env env, napi_callback_info info)
-{
+std::string IJKPlayerNapi::getXComponentId(napi_env env, napi_callback_info info) {
     LOGI("napi-->IJKPlayerNapi::getInstance_()->getXComponentId");
     if (destroyResource && !xcomponentId_.empty()) {
         return xcomponentId_;
@@ -168,7 +165,8 @@ std::string IJKPlayerNapi::getXComponentId(napi_env env, napi_callback_info info
     return id;
 }
 
-void IJKPlayerNapi::cjSetMessageListener(std::string &id, int ijkplayer_id, void (*pe)(int what, int arg1, int arg2, char *obj, int ijkplayer_id)) {
+void IJKPlayerNapi::cjSetMessageListener(std::string &id, int ijkplayer_id,
+                                         void (*pe)(int what, int arg1, int arg2, char *obj, int ijkplayer_id)) {
     LOGI("napi-->msg----setMessageListener");
     IJKPlayerNapi::getInstance(id)->callBackRefMessage_ = pe;
     IJKPlayerNapi::getInstance(id)->ijkplayer_id = ijkplayer_id;
@@ -210,7 +208,8 @@ napi_value IJKPlayerNapi::native_setup(napi_env env, napi_callback_info info) {
     setXComponentId(xcomponentId);
     OH_NativeXComponent *xcomponent = IJKPlayerNapi::getInstance(xcomponentId)->getXComponent(xcomponentId);
     void *nativeWindow = IJKPlayerNapi::getInstance(xcomponentId)->getNativeWindow(xcomponentId);
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_native_setup(xcomponent, nativeWindow);
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->IjkMediaPlayer_native_setup(xcomponent, nativeWindow);
     return nullptr;
 }
 
@@ -268,8 +267,11 @@ napi_value IJKPlayerNapi::setOption(napi_env env, napi_callback_info info) {
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, key);
     std::string value;
     NapiUtil::JsValueToString(env, args[INDEX_3], STR_DEFAULT_SIZE, value);
-    LOGI("napi-->setOption-->category:%d,key:%s,value:%s", NapiUtil::StringToInt(category), (char *)key.c_str(), (char *)value.c_str());
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_setOption(NapiUtil::StringToInt(category), (char *)key.c_str(), (char *)value.c_str());
+    LOGI("napi-->setOption-->category:%d,key:%s,value:%s", NapiUtil::StringToInt(category), (char *)key.c_str(),
+         (char *)value.c_str());
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->IjkMediaPlayer_setOption(NapiUtil::StringToInt(category), (char *)key.c_str(),
+                                                        (char *)value.c_str());
     return nullptr;
 }
 
@@ -289,8 +291,11 @@ napi_value IJKPlayerNapi::setOptionLong(napi_env env, napi_callback_info info) {
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, key);
     std::string value;
     NapiUtil::JsValueToString(env, args[INDEX_3], STR_DEFAULT_SIZE, value);
-    LOGI("napi-->setOptionLong-->category:%d,key:%s,value:%s", NapiUtil::StringToInt(category), (char *)key.c_str(), (char *)value.c_str());
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_setOptionLong(NapiUtil::StringToInt(category), (char *)key.c_str(), NapiUtil::StringToInt(value));
+    LOGI("napi-->setOptionLong-->category:%d,key:%s,value:%s", NapiUtil::StringToInt(category), (char *)key.c_str(),
+         (char *)value.c_str());
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->IjkMediaPlayer_setOptionLong(NapiUtil::StringToInt(category), (char *)key.c_str(),
+                                                            NapiUtil::StringToInt(value));
     return nullptr;
 }
 
@@ -309,7 +314,9 @@ napi_value IJKPlayerNapi::setVolume(napi_env env, napi_callback_info info) {
     std::string rightVolume;
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, rightVolume);
     LOGI("napi-->setVolume-->leftVolume:%s,rightVolume:%s", (char *)leftVolume.c_str(), (char *)rightVolume.c_str());
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_setVolume(NapiUtil::StringToFloat(leftVolume), NapiUtil::StringToFloat(rightVolume));
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->IjkMediaPlayer_setVolume(NapiUtil::StringToFloat(leftVolume),
+                                                        NapiUtil::StringToFloat(rightVolume));
     return nullptr;
 }
 
@@ -453,7 +460,8 @@ napi_value IJKPlayerNapi::isPlaying(napi_env env, napi_callback_info info) {
     if (xcomponentId == "") {
         xcomponentId = IJKPlayerNapi::getXComponentId(env, info);
     }
-    return NapiUtil::SetNapiCallBool(env, IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_isPlaying());
+    return NapiUtil::SetNapiCallBool(
+        env, IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_isPlaying());
 }
 
 napi_value IJKPlayerNapi::setPropertyFloat(napi_env env, napi_callback_info info) {
@@ -470,7 +478,9 @@ napi_value IJKPlayerNapi::setPropertyFloat(napi_env env, napi_callback_info info
     NapiUtil::JsValueToString(env, args[INDEX_1], STR_DEFAULT_SIZE, id);
     std::string value;
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, value);
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->ijkMediaPlayer_setPropertyFloat(NapiUtil::StringToInt(id), NapiUtil::StringToFloat(value));
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->ijkMediaPlayer_setPropertyFloat(NapiUtil::StringToInt(id),
+                                                               NapiUtil::StringToFloat(value));
     return nullptr;
 }
 
@@ -488,7 +498,9 @@ napi_value IJKPlayerNapi::getPropertyFloat(napi_env env, napi_callback_info info
     NapiUtil::JsValueToString(env, args[INDEX_1], STR_DEFAULT_SIZE, id);
     std::string value;
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, value);
-    float result = IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->ijkMediaPlayer_getPropertyFloat(NapiUtil::StringToInt(id), NapiUtil::StringToFloat(value));
+    float result = IJKPlayerNapi::getInstance(xcomponentId)
+                       ->ijkPlayerNapiProxy_->ijkMediaPlayer_getPropertyFloat(NapiUtil::StringToInt(id),
+                                                                              NapiUtil::StringToFloat(value));
     napi_value napi_result;
     napi_create_string_utf8(env, (char *)((std::to_string(result)).c_str()), NAPI_AUTO_LENGTH, &napi_result);
     return napi_result;
@@ -508,7 +520,8 @@ napi_value IJKPlayerNapi::setPropertyLong(napi_env env, napi_callback_info info)
     NapiUtil::JsValueToString(env, args[INDEX_1], STR_DEFAULT_SIZE, id);
     std::string value;
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, value);
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->ijkMediaPlayer_setPropertyLong(NapiUtil::StringToInt(id), NapiUtil::StringToLong(value));
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->ijkMediaPlayer_setPropertyLong(NapiUtil::StringToInt(id), NapiUtil::StringToLong(value));
     return nullptr;
 }
 
@@ -526,7 +539,9 @@ napi_value IJKPlayerNapi::getPropertyLong(napi_env env, napi_callback_info info)
     NapiUtil::JsValueToString(env, args[INDEX_1], STR_DEFAULT_SIZE, id);
     std::string value;
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, value);
-    long result = IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->ijkMediaPlayer_getPropertyLong(NapiUtil::StringToInt(id), NapiUtil::StringToLong(value));
+    long result = IJKPlayerNapi::getInstance(xcomponentId)
+                      ->ijkPlayerNapiProxy_->ijkMediaPlayer_getPropertyLong(NapiUtil::StringToInt(id),
+                                                                            NapiUtil::StringToLong(value));
     napi_value napi_result;
     napi_create_string_utf8(env, (char *)((std::to_string(result)).c_str()), NAPI_AUTO_LENGTH, &napi_result);
     return napi_result;
@@ -542,7 +557,8 @@ napi_value IJKPlayerNapi::getAudioSessionId(napi_env env, napi_callback_info inf
     if (xcomponentId == "") {
         xcomponentId = IJKPlayerNapi::getXComponentId(env, info);
     }
-    int getAudioSessionId = IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_getAudioSessionId();
+    int getAudioSessionId =
+        IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_getAudioSessionId();
     return NapiUtil::SetNapiCallInt32(env, getAudioSessionId);
 }
 
@@ -558,7 +574,8 @@ napi_value IJKPlayerNapi::setLoopCount(napi_env env, napi_callback_info info) {
     }
     std::string loop_count;
     NapiUtil::JsValueToString(env, args[INDEX_1], STR_DEFAULT_SIZE, loop_count);
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_setLoopCount(NapiUtil::StringToInt(loop_count));
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->IjkMediaPlayer_setLoopCount(NapiUtil::StringToInt(loop_count));
     return nullptr;
 }
 
@@ -629,7 +646,9 @@ napi_value IJKPlayerNapi::setStreamSelected(napi_env env, napi_callback_info inf
     NapiUtil::JsValueToString(env, args[INDEX_1], STR_DEFAULT_SIZE, stream);
     std::string select;
     NapiUtil::JsValueToString(env, args[INDEX_2], STR_DEFAULT_SIZE, select);
-    IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->ijkMediaPlayer_setStreamSelected(NapiUtil::StringToInt(stream), NapiUtil::StringToBool(select));
+    IJKPlayerNapi::getInstance(xcomponentId)
+        ->ijkPlayerNapiProxy_->ijkMediaPlayer_setStreamSelected(NapiUtil::StringToInt(stream),
+                                                                NapiUtil::StringToBool(select));
     return nullptr;
 }
 
@@ -648,8 +667,8 @@ napi_value IJKPlayerNapi::getMediaMeta(napi_env env, napi_callback_info info) {
     std::string result = "";
     while (hashmap_hasNext(iterator)) {
         iterator = hashmap_next(iterator);
-        LOGI("napi-->getMediaMeta { key: %s, value: %s, hashcode: %d }\n",
-             (STRING)iterator->entry->key, (STRING)iterator->entry->value, iterator->hashCode);
+        LOGI("napi-->getMediaMeta { key: %s, value: %s, hashcode: %d }\n", (STRING)iterator->entry->key,
+             (STRING)iterator->entry->value, iterator->hashCode);
         result.append("key:");
         result.append((STRING)iterator->entry->key);
         result.append(",");
@@ -700,8 +719,7 @@ napi_value IJKPlayerNapi::JsConstructor(napi_env env, napi_callback_info info) {
     return targetObj;
 }
 
-napi_value IJKPlayerNapi::startRecord(napi_env env, napi_callback_info info)
-{
+napi_value IJKPlayerNapi::startRecord(napi_env env, napi_callback_info info) {
     LOGI("napi-->startRecord");
     size_t argc = PARAM_COUNT_2;
     napi_value args[PARAM_COUNT_2] = {nullptr};
@@ -713,13 +731,12 @@ napi_value IJKPlayerNapi::startRecord(napi_env env, napi_callback_info info)
     if (xcomponentId == "") {
         xcomponentId = IJKPlayerNapi::getXComponentId(env, info);
     }
-    int result = IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_
-    ->IjkMediaPlayer_startRecord(filePath.c_str());
+    int result =
+        IJKPlayerNapi::getInstance(xcomponentId)->ijkPlayerNapiProxy_->IjkMediaPlayer_startRecord(filePath.c_str());
     return NapiUtil::SetNapiCallInt32(env, result);
 }
 
-napi_value IJKPlayerNapi::stopRecord(napi_env env, napi_callback_info info)
-{
+napi_value IJKPlayerNapi::stopRecord(napi_env env, napi_callback_info info) {
     LOGI("napi-->stopRecord");
     size_t argc = PARAM_COUNT_1;
     napi_value args[PARAM_COUNT_1] = {nullptr};
@@ -732,12 +749,8 @@ napi_value IJKPlayerNapi::stopRecord(napi_env env, napi_callback_info info)
     napi_deferred deferred;
     napi_value promise;
     NAPI_CALL(env, napi_create_promise(env, &deferred, &promise));
-    RecordCallBackInfo *recordCallBackInfo = new RecordCallBackInfo{
-        .env = env,
-        .asyncWork = nullptr,
-        .deferred = deferred,
-        .xcomponentId = xcomponentId
-    };
+    RecordCallBackInfo *recordCallBackInfo =
+        new RecordCallBackInfo{.env = env, .asyncWork = nullptr, .deferred = deferred, .xcomponentId = xcomponentId};
     napi_value resourceName;
     napi_create_string_latin1(env, "stopRecord", NAPI_AUTO_LENGTH, &resourceName);
     napi_create_async_work(
@@ -745,7 +758,7 @@ napi_value IJKPlayerNapi::stopRecord(napi_env env, napi_callback_info info)
         [](napi_env env, void *data) {
             RecordCallBackInfo *recordCallBackInfo = (RecordCallBackInfo *)data;
             recordCallBackInfo->code = IJKPlayerNapi::getInstance(recordCallBackInfo->xcomponentId)
-            ->ijkPlayerNapiProxy_->IjkMediaPlayer_stopRecord();
+                                           ->ijkPlayerNapiProxy_->IjkMediaPlayer_stopRecord();
         },
         [](napi_env env, napi_status status, void *data) {
             RecordCallBackInfo *recordCallBackInfo = (RecordCallBackInfo *)data;
@@ -760,8 +773,7 @@ napi_value IJKPlayerNapi::stopRecord(napi_env env, napi_callback_info info)
     return promise;
 }
 
-napi_value IJKPlayerNapi::isRecord(napi_env env, napi_callback_info info)
-{
+napi_value IJKPlayerNapi::isRecord(napi_env env, napi_callback_info info) {
     LOGI("napi-->isRecord");
     size_t argc = PARAM_COUNT_1;
     napi_value args[PARAM_COUNT_1] = {nullptr};
@@ -775,8 +787,7 @@ napi_value IJKPlayerNapi::isRecord(napi_env env, napi_callback_info info)
     return NapiUtil::SetNapiCallInt32(env, result);
 }
 
-napi_value IJKPlayerNapi::getCurrentFrame(napi_env env, napi_callback_info info)
-{
+napi_value IJKPlayerNapi::getCurrentFrame(napi_env env, napi_callback_info info) {
     LOGI("napi-->getCurrentFrame");
     size_t argc = PARAM_COUNT_2;
     napi_value args[PARAM_COUNT_2] = {nullptr};
@@ -792,12 +803,7 @@ napi_value IJKPlayerNapi::getCurrentFrame(napi_env env, napi_callback_info info)
     napi_value promise;
     NAPI_CALL(env, napi_create_promise(env, &deferred, &promise));
     GetCurrentFrameCallBackInfo *getCurrentFrameCallBackInfo = new GetCurrentFrameCallBackInfo{
-        .env = env,
-        .asyncWork = nullptr,
-        .deferred = deferred,
-        .xcomponentId = xcomponentId,
-        .filePath = filePath
-    };
+        .env = env, .asyncWork = nullptr, .deferred = deferred, .xcomponentId = xcomponentId, .filePath = filePath};
     napi_value resourceName;
     napi_create_string_latin1(env, "getCurrentFrame", NAPI_AUTO_LENGTH, &resourceName);
     napi_create_async_work(
@@ -805,7 +811,8 @@ napi_value IJKPlayerNapi::getCurrentFrame(napi_env env, napi_callback_info info)
         [](napi_env env, void *data) {
             GetCurrentFrameCallBackInfo *getCurrentFrameCallBackInfo = (GetCurrentFrameCallBackInfo *)data;
             getCurrentFrameCallBackInfo->code = IJKPlayerNapi::getInstance(getCurrentFrameCallBackInfo->xcomponentId)
-            ->ijkPlayerNapiProxy_->IjkMediaPlayer_getCurrentFrame(getCurrentFrameCallBackInfo->filePath.c_str());
+                                                    ->ijkPlayerNapiProxy_->IjkMediaPlayer_getCurrentFrame(
+                                                        getCurrentFrameCallBackInfo->filePath.c_str());
             sleep(1);
         },
         [](napi_env env, napi_status status, void *data) {
@@ -933,9 +940,7 @@ void IJKPlayerNapi::onSurfaceCreated(OH_NativeXComponent *component, void *windo
     }
 }
 
-void IJKPlayerNapi::onSurfaceChanged(OH_NativeXComponent *component, void *window) {
-    LOGI("napi-->OnSurfaceChanged");
-}
+void IJKPlayerNapi::onSurfaceChanged(OH_NativeXComponent *component, void *window) { LOGI("napi-->OnSurfaceChanged"); }
 
 void IJKPlayerNapi::onSurfaceDestroyed(OH_NativeXComponent *component, void *window) {
     LOGI("napi-->OnSurfaceDestroyed");
