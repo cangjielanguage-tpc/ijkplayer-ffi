@@ -1,12 +1,12 @@
 {
   "app": {
-    "signingConfigs": [
-    ],
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "compatibleSdkVersion": "5.0.0(12)",
+        "targetSdkVersion": "5.1.0(18)",
+        "compatibleSdkVersion": "5.1.0(18)",
         "runtimeOS": "HarmonyOS",
         "buildOption": {
           "strictMode": {
@@ -39,12 +39,12 @@
       ]
     },
     {
-      "name": "clibrary",
-      "srcPath": "./clibrary",
-    },
-    {
       "name": "ijkplayer",
       "srcPath": "./ijkplayer"
+    },
+    {
+      "name": "clibrary",
+      "srcPath": "./clibrary"
     }
   ]
 }
