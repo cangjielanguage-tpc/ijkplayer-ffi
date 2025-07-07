@@ -5,11 +5,9 @@
 package ohos_app_cangjie_entry
 
 internal import ohos.base.*
-internal import ohos.component.*
 internal import ohos.ability.*
 internal import ohos.state_manage.*
 internal import ohos.window.*
-internal import std.collection.*
 internal import ohos.hilog.*
 internal import ohos.router.*
 internal import ijkplayer4cj.*

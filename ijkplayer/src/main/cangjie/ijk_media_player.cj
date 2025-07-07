@@ -187,10 +187,10 @@ public class IjkMediaPlayer {
         cjSeekTo(this.id, msec)
     }
 
-//    public func setScreenOnWhilePlaying(on: Bool, context: StageContext): Unit {
-//        let win: Window = getLastWindow(context)
-//        win.setWindowKeepScreenOn(on)
-//    }
+    public func setScreenOnWhilePlaying(on: Bool, context: StageContext): Unit {
+        let win: Window = getLastWindow(context)
+        win.setWindowKeepScreenOn(on)
+    }
 
     public func setSpeed(speed: String): Unit {
         cjSetPropertyFloat(this.id, PropertiesType.FFP_PROP_FLOAT_PLAYBACK_RATE, speed)

@@ -17,20 +17,11 @@
   [dependencies.ohos_app_cangjie_clibrary]
     path = "${clibrary}"
 
-[ffi]
-  [ffi.c]
-    [ffi.c.ijkplayer_cjapi]
-      path = "../clibrary/build/default/intermediates/libs/default/${ABI}"
-    [ffi.c.ijkplayer_napi]
-      path = "../clibrary/build/default/intermediates/libs/default/${ABI}"
-    [ffi.c.ijkplayer]
-      path = "../clibrary/build/default/intermediates/libs/default/${ABI}"
-    [ffi.c.ijksdl]
-      path = "../clibrary/build/default/intermediates/libs/default/${ABI}"
+
 
 [package]
   cjc-version = "0.48.2"
-  compile-option = "--dy-std --cfg=\"${COMPILE_CONDITION}\""
+  compile-option = "--dy-std"
   description = "CangjieUI Application"
   link-option = ""
   name = "ijkplayer4cj"

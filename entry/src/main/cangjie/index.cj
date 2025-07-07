@@ -5,7 +5,34 @@
 package ohos_app_cangjie_entry
 
 import ohos.state_macro_manage.*
+internal import std.collection.Stack as StackCJ
+internal import std.collection.HashMap
+import ohos.resource_manager.__GenerateResource__
 import ijkplayer4cj.XComponent
+internal import ohos.component.XComponent as CJXComponent
+internal import ohos.component.CustomView
+internal import ohos.component.Flex
+internal import ohos.component.FlexParams
+internal import ohos.component.FlexDirection
+internal import ohos.component.Visibility
+internal import ohos.component.ItemAlign
+internal import ohos.component.FlexAlign
+internal import ohos.component.Text
+internal import ohos.component.Button
+internal import ohos.component.FontWeight
+internal import ohos.component.Divider
+internal import ohos.component.LineCapStyle
+internal import ohos.component.Stack
+internal import ohos.component.Alignment
+internal import ohos.component.Column
+internal import ohos.component.Image
+internal import ohos.component.ImageFit
+internal import ohos.component.BorderStyle
+internal import ohos.component.Slider
+internal import ohos.component.SliderStyle
+internal import ohos.component.SliderChangeMode
+internal import ohos.component.CJEntry
+internal import ohos.component.loadNativeView
 
 @Entry
 @Component
@@ -94,23 +121,23 @@ class EntryView {
             }.height(60).width(100.percent).backgroundColor(Color.BLACK)
 
             Divider().vertical(false).strokeWidth(8).color(Color.WHITE).lineCap(LineCapStyle.Round)
-//            Stack(Alignment.Center) {
-//                Column {
-//                    XComponent("xcomponentId", "surface", "ijkplayer_napi").onLoad {=>
-//                        initDelayPlay()
-//                    }.width(100.percent)
-//                    .width(this.videoWidth)
-//                    .aspectRatio(this.videoAspectRatio)
-//                    .id("xcomponentId")
-//                }
-//                Image(@r(app.media.icon_replay)).objectFit(ImageFit.Auto).width(60).height(60).visibility(
-//                    this.replayVisible).borderStyle(BorderStyle.Dashed).onClick(
-//                    {
-//                    event => this.startPlayOrResumePlay();
-//                })
-//                Image(@r(app.media.icon_load)).objectFit(ImageFit.Auto).width(60).height(60).visibility(
-//                    this.loadingVisible).borderStyle(BorderStyle.Dashed)
-//            }.width(100.percent).backgroundColor(0x000000).clip(true)
+            Stack(Alignment.Center) {
+                Column {
+                    XComponent("xcomponentId", "surface", "ijkplayer_napi").onLoad {=>
+                        initDelayPlay()
+                    }.width(100.percent)
+                    .width(this.videoWidth)
+                    .aspectRatio(this.videoAspectRatio)
+                    .id("xcomponentId")
+                }
+                Image(@r(app.media.icon_replay)).objectFit(ImageFit.Auto).width(60).height(60).visibility(
+                    this.replayVisible).borderStyle(BorderStyle.Dashed).onClick(
+                    {
+                    event => this.startPlayOrResumePlay();
+                })
+                Image(@r(app.media.icon_load)).objectFit(ImageFit.Auto).width(60).height(60).visibility(
+                    this.loadingVisible).borderStyle(BorderStyle.Dashed)
+            }.width(100.percent).backgroundColor(0x000000).clip(true)
 
             Flex(FlexParams(direction: FlexDirection.Row, alignItems: ItemAlign.Center, justifyContent: FlexAlign.Start)
             ) {
@@ -387,7 +414,7 @@ class EntryView {
         // 屏幕常亮
 
         //API19
-        //this.mIjkMediaPlayer.setScreenOnWhilePlaying(true,GlobalContext.getContext().getOrThrow());
+        this.mIjkMediaPlayer.setScreenOnWhilePlaying(true,GlobalContext.getContext().getOrThrow());
         // 设置超时
         this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", "10000000");
         this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "connect_timeout", "10000000");
@@ -513,13 +540,13 @@ public class PageTest <: SharedObject {
     }
 
     public static func setContext(context: JSContext, callInfo: JSCallInfo): JSValue {
-//        let jsEnv = context.getNapiEnv()
-//        let jsValue = arkTsValuetoNapiValue(jsEnv, callInfo[0])
-//        if(isStageMode(jsEnv,jsValue)){
-//            GlobalContext.setContext(getContextStageMode(jsEnv,jsValue))
-//        }else{
-//            AppLog.error("setContext failed: not in stage mode")
-//        }
+        let jsEnv = context.getNapiEnv()
+        let jsValue = arkTsValuetoNapiValue(jsEnv, callInfo[0])
+        if(isStageMode(jsEnv,jsValue)){
+            GlobalContext.setContext(getContextStageMode(jsEnv,jsValue))
+        }else{
+            AppLog.error("setContext failed: not in stage mode")
+        }
         return context.undefined().toJSValue()
     }
 
