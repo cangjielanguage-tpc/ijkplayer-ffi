@@ -412,8 +412,6 @@ class EntryView {
         // this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "infbuf", "1");
         // this.mIjkMediaPlayer.setOptionLong(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "infbuf", "1")
         // 屏幕常亮
-
-        //API19
         this.mIjkMediaPlayer.setScreenOnWhilePlaying(true,GlobalContext.getContext().getOrThrow());
         // 设置超时
         this.mIjkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "timeout", "10000000");

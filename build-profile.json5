@@ -39,12 +39,12 @@
       ]
     },
     {
-      "name": "ijkplayer",
-      "srcPath": "./ijkplayer"
-    },
-    {
       "name": "clibrary",
       "srcPath": "./clibrary"
+    },
+    {
+      "name": "ijkplayer",
+      "srcPath": "./ijkplayer"
     }
   ]
 }
