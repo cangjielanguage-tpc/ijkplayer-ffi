@@ -5,7 +5,7 @@
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v1.0.0-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v1.0.5-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-50%25-red" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
 </p>
@@ -259,11 +259,9 @@ mIjkMediaPlayer.setVolume(0, 1);
 
 在下述版本验证通过：
 
-IDE : DevEco Studio 5.1.0 Release (5.1.0.828)
+IDE : DevEco Studio 5.1.1 Release (5.1.1.851)
 
-Plugins (SDK) : Cangjie Support Plugin(5.1.0.828)
-
-Cangjie Compiler: 1.0.0
+Cangjie Compiler: 1.0.5
 
 
 ## 开源协议 License
