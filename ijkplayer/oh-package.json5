@@ -1,24 +1,13 @@
 {
-  "types": "",
-  "keywords": [
-    "OpenHarmony",
-    "HarmonyOS",
-    "ijkplayer",
-    "视频播放器"
-  ],
-  "author": "ohos_tpc",
-  "description": "ijkplayer是OpenHarmony环境下可用的一款基于FFmpeg的视频播放器。",
-  "main": "index.ets",
-  "type": "module",
-  "repository": "https://gitcode.com/Cangjie-TPC/ijkplayer-ffi",
-  "version": "2.0.2",
+  "name": "ijkplayer",
+  "version": "2.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "types": "./Index.d.ets",
+  "license": "Apache-2.0",
   "dependencies": {
-    "libark_interop_loader.so": "file:./src/main/loader"
-  },
-  "tags": [
-    "Media"
-  ],
-  "license": "Apache License 2.0",
-  "devDependencies": {},
-  "name": "@ohos/ijkplayer"
+    "clibrary": "file:../clibrary",
+    "libark_interop_loader.so": "file:./src/main/cangjie/loader"
+  }
 }
