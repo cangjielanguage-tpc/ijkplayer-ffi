@@ -2,7 +2,12 @@
   "apiType": "stageMode",
   "buildOption": {
     "cangjieOptions": {
-      "path": "./src/main/cangjie/cjpm.toml"
+      "path": "./cjpm.toml"
+    },
+    "nativeLib": {
+      "filter": {
+        "enableOverride": true
+      }
     }
   },
   "buildOptionSet": [
@@ -11,7 +16,7 @@
       "arkOptions": {
         "obfuscation": {
           "ruleOptions": {
-            "enable": true,
+            "enable": false,
             "files": [
               "./obfuscation-rules.txt"
             ]
